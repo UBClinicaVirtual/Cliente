@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_searchturn"
+            android:title="Buscar Turno" />
+        <item
+            android:id="@+id/nav_myturns"
+            android:title="Mis Turnos" />
+    </group>
+
+    <item android:title="Otras Opciones">
+        <menu>
+            <item
+                android:id="@+id/nav_myprofile"
+
+                android:title="Mi Perfil" />
+            <item
+                android:id="@+id/nav_logout"
+                android:title="Cerrar Sesion" />
+        </menu>
+    </item>
+
+</menu>
