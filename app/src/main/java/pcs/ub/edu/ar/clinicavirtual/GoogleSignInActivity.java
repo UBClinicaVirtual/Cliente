@@ -1,12 +1,11 @@
 package pcs.ub.edu.ar.clinicavirtual;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class GoogleSignInActivity extends AppCompatActivity {
+public class GoogleSignInActivity extends BaseActivity {
     Button mBtnGoogleSignIn;
 
     @Override

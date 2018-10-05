@@ -1,9 +1,8 @@
 package pcs.ub.edu.ar.clinicavirtual;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SearchTurnActivity extends AppCompatActivity {
+public class SearchTurnActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
