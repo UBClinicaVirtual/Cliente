@@ -2,19 +2,21 @@ package pcs.ub.edu.ar.clinicavirtual.connection;
 
 import java.util.Collection;
 
-import pcs.ub.edu.ar.clinicavirtual.data.ClinicData;
+import pcs.ub.edu.ar.clinicavirtual.data.ClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
 
 public class ServerConnectorDevelopment implements IServerConnector {
     @Override
-    public IUserData register(String tokenGmail) {
+    public IUserProfileData register(String tokenGmail) {
         return null;
     }
 
     @Override
-    public IUserData login(String tokenGmail) {
+    public IUserProfileData login(String tokenGmail) {
         return null;
     }
 
@@ -25,14 +27,20 @@ public class ServerConnectorDevelopment implements IServerConnector {
 
     @Override
     public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
-        return null;
+        return patientData;
     }
 
-    public void getConector() {
-        // TODO Auto-generated method stub
-
+    @Override
+    public IClinicProfileData addClinicProfileToUserAccount(IClinicProfileData clinicData) {
+        return clinicData;
     }
-    public Collection<ClinicData> searchClinicByName(String nameFindClinic) {
+
+    @Override
+    public IHCPProfileData addHCPProfileToUserAccount(IHCPProfileData hcpData) {
+        return hcpData;
+    }
+
+    public Collection<ClinicProfileData> searchClinicByName(String nameFindClinic) {
 
 
 

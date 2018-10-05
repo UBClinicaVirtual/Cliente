@@ -5,18 +5,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import pcs.ub.edu.ar.clinicavirtual.factory.ProfileCreator;
 
 public class DataRegisterActivity extends BaseActivity {
 
     Spinner mSpnProfile;
     ArrayAdapter<CharSequence> mProfileAdapter;
 
-    LinearLayout mLLtab1;
-    LinearLayout mLLtab2;
-    LinearLayout mLLtab3;
+    List < LinearLayout > mRegisterLayouts;
+    List <EditText> mComponents; //PACIENTE
+
+    Button mBtnCancel;
+    Button mBtnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +34,41 @@ public class DataRegisterActivity extends BaseActivity {
 
         //The elements are initialized
         initElements();
+        createClickListeners();
+
+    }
+
+    private void createClickListeners() {
         createOnClickListenerSpinner();
+        createOnClickListenerButtons();
+    }
+
+    private void createOnClickListenerButtons() {
+        //we add behavior to the button mBtnNext
+        mBtnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DataRegisterActivity.this, "Boton Finalizar", Toast.LENGTH_SHORT).show();
+                initProfile();
+
+            }
+
+            private void initProfile() {
+
+                new ProfileCreator().generate(mSpnProfile,mComponents);
+                Toast.makeText(DataRegisterActivity.this, mComponents.get(2).getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //we add behavior to the button mBtnCancel
+        mBtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // onBackPressed();
+                Toast.makeText(DataRegisterActivity.this, "Boton Cancelar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void createOnClickListenerSpinner() {
@@ -33,44 +76,52 @@ public class DataRegisterActivity extends BaseActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String profile = (String) mSpnProfile.getItemAtPosition(position);
-                showProfileDataLayout(profile);
+                cleanLayouts();
+                showProfileDataLayout(position);
             }
 
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                cleanLayouts();
             }
         });
 
     }
 
-    private void showProfileDataLayout(String profile){
-        Toast.makeText(this, profile.toString(), Toast.LENGTH_SHORT).show();
-        /* if(profile.toString().equals("Doctor")){
+    private void showProfileDataLayout(int position){
+        mRegisterLayouts.get(position).setVisibility(View.VISIBLE);
+    }
 
-
-
-        }else if (profile.toString().equals("Paciente")){
-
-        }else if (profile.toString().equals("Clinica")){
-
-        }else if (profile.toString().equals("Adminsitrador")){
-
-        }*/
+    private void cleanLayouts(){
+        for(LinearLayout ll : mRegisterLayouts){
+            ll.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void initElements() {
 
+        //the spinner is initialized
         mSpnProfile =  (Spinner) findViewById(R.id.spn_profile);
         mProfileAdapter = ArrayAdapter.createFromResource(this, R.array.arrayProfiles, R.layout.data_register_spinner_text_style );
         mSpnProfile.setAdapter(mProfileAdapter);
 
+        //the layouts are initialized
+        mRegisterLayouts = new LinkedList<LinearLayout>();
+        mRegisterLayouts.add((LinearLayout) findViewById(R.id.linDoctor));
+        mRegisterLayouts.add((LinearLayout) findViewById(R.id.linPatient));
 
-        mLLtab1 = (LinearLayout) findViewById(R.id.tab1);
-        mLLtab2 = (LinearLayout) findViewById(R.id.tab2);
-        mLLtab3 = (LinearLayout) findViewById(R.id.tab3);
+            mComponents = new LinkedList<EditText>();
+            mComponents.add((EditText) findViewById(R.id.txtPatientName));
+            mComponents.add((EditText) findViewById(R.id.txtPatientSName));
+            mComponents.add((EditText) findViewById(R.id.numPatientDNI));
+
+        mRegisterLayouts.add((LinearLayout) findViewById(R.id.linClinic));
+        mRegisterLayouts.add((LinearLayout) findViewById(R.id.linAdmin));
+
+        //the buttons are initialized
+        mBtnCancel = (Button)findViewById(R.id.btnCancel);
+        mBtnNext = (Button)findViewById(R.id.btnNext);
 
     }
 }

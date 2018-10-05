@@ -10,4 +10,5 @@
     <string name="iniciar_sesion_con_google">Iniciar Sesion con Google</string>
     <string name="button">Button</string>
     <string name="checkbox">CheckBox</string>
+    <string name="name">Name</string>
 </resources>
