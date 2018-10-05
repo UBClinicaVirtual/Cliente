@@ -1,9 +1,8 @@
 package pcs.ub.edu.ar.clinicavirtual;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MyTurnsActivity extends AppCompatActivity {
+public class MyTurnsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
