@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
 
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "MainActivity";
     private static final int RC_SIGN_IN = 9001;
 
     Button mBtnLogIn;
@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
 
         //Listeners
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        //findViewById(R.id.sign_in_button).setOnClickListener(this);
 
 
         // Build a GoogleSignInClient with the options specified by gso.
