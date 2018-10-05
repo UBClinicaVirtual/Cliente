@@ -1,6 +1,8 @@
-package pcs.ub.edu.ar.clinicavirtual;
+package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.os.Bundle;
+
+import pcs.ub.edu.ar.clinicavirtual.R;
 
 public class MyTurnsActivity extends BaseActivity {
 

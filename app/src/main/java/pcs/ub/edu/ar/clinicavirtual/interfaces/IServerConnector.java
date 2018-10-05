@@ -1,5 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.interfaces;
 
+import android.widget.EditText;
+
 public interface IServerConnector{
 
 
@@ -20,4 +22,7 @@ public interface IServerConnector{
 
     //Add the HCP profile to the user's account
     public IHCPProfileData addHCPProfileToUserAccount( IHCPProfileData hcpData );
+
+    //return IPatientProfileData profile
+    public IPatientProfileData getUserPatientProfile();
 }

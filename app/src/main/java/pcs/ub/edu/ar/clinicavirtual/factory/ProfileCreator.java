@@ -3,14 +3,13 @@ package pcs.ub.edu.ar.clinicavirtual.factory;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import pcs.ub.edu.ar.clinicavirtual.*;
+import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
 
-public class ProfileCreator extends BaseActivity{
+public class ProfileCreator extends BaseActivity {
 
     List<EditText> mComponents;
 

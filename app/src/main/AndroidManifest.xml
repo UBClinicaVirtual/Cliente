@@ -9,21 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GoogleSignInActivity" />
-        <activity android:name=".DataRegisterActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".SearchTurnActivity" />
-        <activity android:name=".MyTurnsActivity" />
-        <activity android:name=".TurnDataActivity" />
+        <activity android:name=".activitys.GoogleSignInActivity" />
+        <activity android:name=".activitys.DataRegisterActivity" />
+        <activity android:name=".activitys.ProfileActivity" />
+        <activity android:name=".activitys.SearchTurnActivity" />
+        <activity android:name=".activitys.MyTurnsActivity" />
+        <activity android:name=".activitys.TurnDataActivity" />
         <activity
-            android:name=".MainScreenActivity"
+            android:name=".activitys.MainScreenActivity"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

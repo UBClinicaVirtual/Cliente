@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual;
+package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import java.util.LinkedList;
 import java.util.List;
 
+import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.factory.ProfileCreator;
 
 public class DataRegisterActivity extends BaseActivity {
@@ -50,13 +51,15 @@ public class DataRegisterActivity extends BaseActivity {
             public void onClick(View v) {
                 Toast.makeText(DataRegisterActivity.this, "Boton Finalizar", Toast.LENGTH_SHORT).show();
                 initProfile();
+                Intent mIntentMainScreen = new Intent(DataRegisterActivity.this, MainScreenActivity.class);
+                startActivity(mIntentMainScreen);
 
             }
 
             private void initProfile() {
 
                 new ProfileCreator().generate(mSpnProfile,mComponents);
-                Toast.makeText(DataRegisterActivity.this, mComponents.get(2).getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(DataRegisterActivity.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
             }
         });
 

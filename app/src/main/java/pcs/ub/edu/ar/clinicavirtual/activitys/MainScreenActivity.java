@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual;
+package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import pcs.ub.edu.ar.clinicavirtual.R;
 
 public class MainScreenActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,6 +61,7 @@ public class MainScreenActivity extends BaseActivity
             //DIRIGE AL ACTIVITY SEARCH TURN
             Intent mIntentSearchTurn = new Intent(MainScreenActivity.this, SearchTurnActivity.class);
             startActivity(mIntentSearchTurn);
+
         } else if (id == R.id.nav_myturns) {
             //DIRIGE AL ACTIVITY MY TURNS
             Intent mIntentMyTurns = new Intent(MainScreenActivity.this, MyTurnsActivity.class);
