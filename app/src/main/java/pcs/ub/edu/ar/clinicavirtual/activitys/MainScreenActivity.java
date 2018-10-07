@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual;
+package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import pcs.ub.edu.ar.clinicavirtual.R;
+
 public class MainScreenActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Override
+    @Override //Metodo ingresado automaticamente por el activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -31,7 +33,7 @@ public class MainScreenActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @Override
+    @Override //Metodo ingresado automaticamente por el activity
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -41,7 +43,7 @@ public class MainScreenActivity extends BaseActivity
         }
     }
 
-    @Override
+    @Override //Metodo ingresado automaticamente por el activity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_screen, menu);
@@ -50,7 +52,7 @@ public class MainScreenActivity extends BaseActivity
 
 
 
-    @Override
+    @Override //Metodo ingresado automaticamente por el activity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -59,6 +61,7 @@ public class MainScreenActivity extends BaseActivity
             //DIRIGE AL ACTIVITY SEARCH TURN
             Intent mIntentSearchTurn = new Intent(MainScreenActivity.this, SearchTurnActivity.class);
             startActivity(mIntentSearchTurn);
+
         } else if (id == R.id.nav_myturns) {
             //DIRIGE AL ACTIVITY MY TURNS
             Intent mIntentMyTurns = new Intent(MainScreenActivity.this, MyTurnsActivity.class);

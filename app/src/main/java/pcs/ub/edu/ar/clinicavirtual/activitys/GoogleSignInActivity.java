@@ -1,9 +1,13 @@
-package pcs.ub.edu.ar.clinicavirtual;
+package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
 
 public class GoogleSignInActivity extends BaseActivity {
     Button mBtnGoogleSignIn;
@@ -21,6 +25,10 @@ public class GoogleSignInActivity extends BaseActivity {
         mBtnGoogleSignIn.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                IUserProfileData mUserData =  getServerConnector().register("hola");
+                Toast.makeText(GoogleSignInActivity.this, mUserData.getmName(), Toast.LENGTH_SHORT).show();
+
                 Intent mIntentDataRegister = new Intent(GoogleSignInActivity.this, DataRegisterActivity.class);
                 startActivity(mIntentDataRegister);
             }

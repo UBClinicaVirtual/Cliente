@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual;
+package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.support.v7.app.AppCompatActivity;
 

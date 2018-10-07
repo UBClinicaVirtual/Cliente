@@ -1,56 +1,55 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
-import java.util.Collection;
-
-import pcs.ub.edu.ar.clinicavirtual.data.ClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
 
-public class ServerConnectorDevelopment implements IServerConnector {
+public class ServerConnectorProxy implements IServerConnector {
+
+    private  IServerConnector mLocalConnector = new ServerConnectorDevelopment();
+    private  IServerConnector mInternetConnector = new ServerConnectorInternet();
+
+    private IServerConnector getConnector(){
+        if(mLocalConnector!=null)
+            return mLocalConnector;
+        return mInternetConnector;
+    }
+
     @Override
     public IUserProfileData register(String tokenGmail) {
-        return null;
+        return mInternetConnector.register(tokenGmail);
     }
 
     @Override
     public IUserProfileData login(String tokenGmail) {
-        return null;
+        return getConnector().login(tokenGmail);
     }
 
     @Override
     public void logout() {
 
+
     }
 
     @Override
     public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
-        return patientData;
+        return getConnector().addPatientProfileToUserAccount(patientData);
     }
 
     @Override
     public IClinicProfileData addClinicProfileToUserAccount(IClinicProfileData clinicData) {
-        return clinicData;
+        return getConnector().addClinicProfileToUserAccount(clinicData);
     }
 
     @Override
     public IHCPProfileData addHCPProfileToUserAccount(IHCPProfileData hcpData) {
-        return hcpData;
+        return getConnector().addHCPProfileToUserAccount(hcpData);
     }
 
     @Override
     public IPatientProfileData getUserPatientProfile() {
-
-        return new PatientProfileData("Gabriel","Espina", "pepe@gmail.com",new Long(38579707));
-    }
-
-    public Collection<ClinicProfileData> searchClinicByName(String nameFindClinic) {
-
-
-
-        return null;
+        return getConnector().getUserPatientProfile();
     }
 }
