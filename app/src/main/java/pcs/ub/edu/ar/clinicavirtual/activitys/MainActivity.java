@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         // Configure sign-in to request the user's ID, email address, and basic
             // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // requestEmail method, algo get their email address
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
                 .build();
