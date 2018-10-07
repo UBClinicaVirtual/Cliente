@@ -2,6 +2,7 @@ package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +13,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
 import org.w3c.dom.Text;
 
@@ -24,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     SignInButton mBtnGoogleSignIn;
 
     private static final int RC_SIGN_IN = 9001;
+    private static final String TAG = "MainActivity";
 
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
@@ -73,7 +77,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
 */
     }
-    
+
     //the buttons are initialized
     private void initButtons() {
         findViewById(R.id.btnLogIn).setOnClickListener(this);
@@ -114,4 +118,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedtask) {
+        try{
+            GoogleSignInAccount account = completedtask.getResult(ApiException.class);
+
+            // signed in successfully, show auth. UI.
+            updateUI(account);
+    }catch (ApiException e){
+            //The ApiException status code indicates the detailed failure reason
+            Log.w(TAG, "signInResult:failed code= " + e.getStatusCode());
+            updateUI(null);
+        }
+
+}
 }
