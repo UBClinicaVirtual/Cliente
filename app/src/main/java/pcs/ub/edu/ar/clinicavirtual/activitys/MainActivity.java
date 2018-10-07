@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import pcs.ub.edu.ar.clinicavirtual.R;
 
 public class MainActivity extends BaseActivity {
@@ -20,6 +22,7 @@ public class MainActivity extends BaseActivity {
 
         initButtons();
         createOnClickListenerButtons();
+        
     }
 
     private void createOnClickListenerButtons() {
