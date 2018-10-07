@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     SignInButton mBtnGoogleSignIn;
 
     private static final int RC_SIGN_IN = 9001;
+    private static final int RC_GET_TOKEN = 9002;
     private static final String TAG = "MainActivity";
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -93,6 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.sign_in_button:
                 signIn();
+                getIdToken();
                 break;
 
             case R.id.btnLogIn:
@@ -119,6 +121,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    // IMPORTANTE ACA!!   pd:  se que esta en español, es momentaneo, para ti didier ^^
+    private void getIdToken(){
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_GET_TOKEN);
+    }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -130,7 +138,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-
+        }
+        if (requestCode == RC_GET_TOKEN){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
         }
     }
 
