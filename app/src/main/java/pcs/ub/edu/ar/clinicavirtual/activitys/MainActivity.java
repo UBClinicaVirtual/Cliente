@@ -101,8 +101,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.sign_in_button:
-                signIn();
-                getIdToken();
+
+                logIn();
+
+                //POR AHORA HASTA QUE SE TERMINE DE HACER LO DE ENVIAR Y RECIBIR ALGO CON EL TOKEN
+               // signIn();
+                //getIdToken();
                 break;
 
             case R.id.btnLogIn:
