@@ -30,8 +30,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private static final int RC_GET_TOKEN = 9002;
     private static final String TAG = "MainActivity";
 
+
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
+    private TextView mIdTokenTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +44,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         // Configure sign-in to request the user's ID, email address, and basic
             // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // requestEmail method, algo get their email address
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN )
+                //IMPORTANT!
+                // momentaneamente! Resolver el tema del server client id
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestEmail()
                 .build();
         // Build a GoogleSignInCliente with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
         initButtons();
+
     }
+
 
     @Override
     protected void onStart() {
@@ -149,6 +156,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private void handleSignInResult(Task<GoogleSignInAccount> completedtask) {
         try{
             GoogleSignInAccount account = completedtask.getResult(ApiException.class);
+            //GET ID TOKEN
+            String idToken = account.getIdToken();
+
+            // PENDIENTE PENDIENTE
+            // ENVIAR ID TOKENN AL SERVER Y VALIDAR
 
             // signed in successfully, show auth. UI.
             updateUI(account);
@@ -159,4 +171,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
 
 }
+
+/*
+// A TENER EN CUENTA ( momentaneamente español)
+// Ccon el silentSignIn me permite verificar si el usuario ya inicio sesion en la aplicacion
+// utilizando Google
+GoogleSignIn.silentSignIn()
+        .addOnCompleteListener(this, new OnCompleteListener<GoogleSignInAccount>() {
+            @Override
+            public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
+                handleSignInResult(task);
+            }
+        });
+ */
 }
