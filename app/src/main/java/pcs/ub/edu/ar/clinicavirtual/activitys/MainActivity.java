@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
         mBtnSignIn.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent mIntentSignIn = new Intent(MainActivity.this, testJasonActivity.class);
+                Intent mIntentSignIn = new Intent(MainActivity.this, GoogleSignInActivity.class);
                 startActivity(mIntentSignIn);
             }
         } );
