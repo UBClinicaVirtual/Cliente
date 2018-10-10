@@ -45,7 +45,7 @@ public class ServerConnectorDevelopment implements IServerConnector {
     @Override
     public IPatientProfileData getUserPatientProfile() {
 
-        return new PatientProfileData("Gabriel", "pepe@gmail.com",new Long(38579707));
+        return new PatientProfileData("gabriel","espina","gabyespina.ge@gmail.com",new Long(123));
     }
 
     public Collection<ClinicProfileData> searchClinicByName(String nameFindClinic) {

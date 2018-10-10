@@ -10,9 +10,8 @@ public class PatientProfileData implements IPatientProfileData {
     private Long    mDNI;
     private Integer mID;
 
-    public PatientProfileData(String mName,String mEmail, Long mDNI) {
+    public PatientProfileData(String mName,String mSName,String mEmail, Long mDNI) {
         this.mName = mName;
-        this.mSName = mSName;
         this.mEmail= mEmail;
         this.mDNI  = mDNI;
     }

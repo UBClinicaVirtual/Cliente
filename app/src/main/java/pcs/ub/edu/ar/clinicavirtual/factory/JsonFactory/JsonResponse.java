@@ -40,13 +40,13 @@ public class JsonResponse{
         try {
             jsonObject = new JSONObject(stringJson);
             jsonUserInfo = new JsonUserInfo( jsonObject  );
-            iPatientProfileData = new PatientProfileData(jsonUserInfo.getmName(),jsonUserInfo.getmEmail(),new Long(38579707));
+            iPatientProfileData = new PatientProfileData(jsonUserInfo.getmName(),jsonUserInfo.getmName(),jsonUserInfo.getmEmail(),new Long(38579707));
             return iPatientProfileData;
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new PatientProfileData("usrPrueba", "prueba@mail.com",new Long(11111111));
+        return new PatientProfileData("usrPrueba","espina" ,"prueba@mail.com",new Long(123));
     }
 
 
