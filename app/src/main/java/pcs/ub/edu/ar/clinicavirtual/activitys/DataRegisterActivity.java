@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.factory.ProfileCreator;
+import pcs.ub.edu.ar.clinicavirtual.factory.ProfileFactory;
 
 public class DataRegisterActivity extends BaseActivity {
 
@@ -58,7 +58,7 @@ public class DataRegisterActivity extends BaseActivity {
 
             private void initProfile() {
 
-                new ProfileCreator().generate(mSpnProfile,mComponents);
+                new ProfileFactory().generate(mSpnProfile,mComponents);
                 Toast.makeText(DataRegisterActivity.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
             }
         });

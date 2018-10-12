@@ -1,14 +1,17 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-public class Speciality {
-    private String mName;
-    private String mIdSpeciality;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.ISpeciality;
 
-    public Speciality(String mName ) {
-        setmName(mName);
+public class Speciality implements ISpeciality {
+    private String mName;
+    private Integer mIdSpeciality;
+
+    public Speciality(Integer idSpeciality, String name ) {
+        setmIdSpeciality(idSpeciality);
+        setmName(name);
     }
 
-
+    @Override
     public String getmName() {
         return mName;
     }
@@ -17,11 +20,12 @@ public class Speciality {
         this.mName = mName;
     }
 
-    public String getmIdSpeciality() {
+    @Override
+    public Integer getmIdSpeciality() {
         return mIdSpeciality;
     }
 
-    public void setmIdSpeciality(String mIdSpeciality) {
+    public void setmIdSpeciality(Integer mIdSpeciality) {
         this.mIdSpeciality = mIdSpeciality;
     }
 }
