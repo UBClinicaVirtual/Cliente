@@ -1,3 +1,5 @@
+//ESTA CLASE TENDRIA TODOS LOS TIPOS DE RESPUESTA QUE PUEDE DEVOLVER EL SERVIDOR COMO JSON
+
 package pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory;
 
 import org.json.JSONException;
@@ -8,21 +10,17 @@ import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
 
 public class JsonResponse{
 
-    public static IUserProfileData register(String tokenGmail) {
+    public static JSONObject register(String tokenGmail) {
         return null;
     }
 
 
-    public static IUserProfileData login(String tokenGmail) {
+    public static JSONObject login(String tokenGmail) {
         return null;
     }
 
 
-    public static IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
-
-        JsonUserInfo jsonUserInfo = null;
-        JSONObject jsonObject = null;
-        IPatientProfileData iPatientProfileData;
+    public static JSONObject addPatientProfileToUserAccount() {
 
         String stringJson =  "{\n" +
                 "    \"data\": {\n" +
@@ -38,29 +36,26 @@ public class JsonResponse{
                 "}";
 
         try {
-            jsonObject = new JSONObject(stringJson);
-            jsonUserInfo = new JsonUserInfo( jsonObject  );
-            iPatientProfileData = new PatientProfileData(jsonUserInfo.getmName(),jsonUserInfo.getmName(),jsonUserInfo.getmEmail(),new Long(38579707));
-            return iPatientProfileData;
-
+            return new JSONObject(stringJson);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new PatientProfileData("usrPrueba","espina" ,"prueba@mail.com",new Long(123));
-    }
 
-
-    public static IClinicProfileData addClinicProfileToUserAccount(IClinicProfileData clinicData) {
         return null;
     }
 
 
-    public static IHCPProfileData addHCPProfileToUserAccount(IHCPProfileData hcpData) {
+    public static JSONObject addClinicProfileToUserAccount() {
         return null;
     }
 
 
-    public static IPatientProfileData getUserPatientProfile() {
+    public static JSONObject addHCPProfileToUserAccount() {
+        return null;
+    }
+
+
+    public static JSONObject getUserPatientProfile() {
         return null;
     }
 }

@@ -29,7 +29,7 @@ public class ServerConnectorDevelopment implements IServerConnector {
 
     @Override
     public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
-        return JsonResponse.addPatientProfileToUserAccount(patientData);
+        return new PatientProfileData("gabriel","espina","gabyespina@gmail.com", new Long(38579707));
     }
 
     @Override
