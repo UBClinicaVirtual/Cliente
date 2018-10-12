@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import pcs.ub.edu.ar.clinicavirtual.data.ClinicProfileData;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory.JsonResponse;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
@@ -28,7 +29,7 @@ public class ServerConnectorDevelopment implements IServerConnector {
 
     @Override
     public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
-        return patientData;
+        return new PatientProfileData("gabriel","espina","gabyespina@gmail.com", new Long(38579707));
     }
 
     @Override
@@ -44,7 +45,7 @@ public class ServerConnectorDevelopment implements IServerConnector {
     @Override
     public IPatientProfileData getUserPatientProfile() {
 
-        return new PatientProfileData("Gabriel","Espina", "pepe@gmail.com",new Long(38579707));
+        return new PatientProfileData("gabriel","espina","gabyespina.ge@gmail.com",new Long(123));
     }
 
     public Collection<ClinicProfileData> searchClinicByName(String nameFindClinic) {

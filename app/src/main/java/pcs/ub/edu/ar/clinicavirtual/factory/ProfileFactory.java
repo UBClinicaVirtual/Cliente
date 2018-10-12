@@ -9,7 +9,7 @@ import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
 
-public class ProfileCreator extends BaseActivity {
+public class ProfileFactory extends BaseActivity {
 
     List<EditText> mComponents;
 

@@ -1,7 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
 import android.os.StrictMode;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -12,21 +11,31 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.*;
 import pcs.ub.edu.ar.clinicavirtual.data.UserData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
 
 public class ServerConnectorInternet implements IServerConnector {
+
+
+    private StrictMode.ThreadPolicy mPolicy;
+    private String mURL;
+    private URL obj;
+    private HttpURLConnection mHttpURLConnection;
+    private String mUrlParameters;
+    private String mHeaderURL = "http://www.ubclinicavirtual.tk/api";
+    private StringBuffer mResponse;
+
+
     @Override
     public IUserProfileData register(String tokenGmail) {
-        StringBuffer response = new StringBuffer();
+        mResponse = new StringBuffer();
         try {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
+            //applies the necessary permissions
+            setPolicies();
+            
+            //set the connection to the server
+            setConnection(URI.LOGIN_9);
 
             ///////////////////////////////////////////////////////////////////
             //Preparo el requerimiento
@@ -34,74 +43,53 @@ public class ServerConnectorInternet implements IServerConnector {
             //hosting real en https
 //			String url = "https://ubclinicavirtual.000webhostapp.com/api/v1/login";
 
-            //hosting http
-            String url = "http://www.ubclinicavirtual.tk/api/v1/login";
-            URL obj = new URL(url);
-
             //Hosting en https
-//			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-            //Hosting redireccionado en http
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//			HttpsURLConnection mHttpURLConnection = (HttpsURLConnection) obj.openConnection();
 
             ///////////////////////////////////////////////////////////////////
-            //add reuqest header
-
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Accept", "application/json");
-            con.setRequestProperty("Content-Type", "application/json");
+            //add request parameters
+            addRequestParameters(METHOD.POST ,HEADER.ACCEPT, HEADER.CONTENT_TYPE);
 
             ///////////////////////////////////////////////////////////////////
             //Envio un access_token(el access token varia según el tiempo, deben generar uno propio en cada intento de login)
             //TODO buscar como refactorizar la generacion del json para enviar como parametro
-            String urlParameters ="{\"access_token\": \"ya29.GlwkBnUjEebsQzRKx7um1tFc2IXXoViCbu5LM_oSjha4tPAinOL7fTIVOEPFAD4OUkg1jxzyi0QEi15cqLjj6c44sLsASBjtOH_0m1RzXmjTXLC4NWOlUtQSw3eP_A\"}";
+            mUrlParameters ="{\"access_token\": \"ya29.GlwkBnUjEebsQzRKx7um1tFc2IXXoViCbu5LM_oSjha4tPAinOL7fTIVOEPFAD4OUkg1jxzyi0QEi15cqLjj6c44sLsASBjtOH_0m1RzXmjTXLC4NWOlUtQSw3eP_A\"}";
 
             ///////////////////////////////////////////////////////////////////
             // Send post request
+            sendRequest();
 
-            con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
 
-            int responseCode = con.getResponseCode();
+            int responseCode = mHttpURLConnection.getResponseCode();
 
             ///////////////////////////////////////////////////////////////////
             //Analizo la respuesta
 
-            System.out.println("\nSending 'POST' request to URL : " + url);
-            System.out.println("Post parameters : " + urlParameters);
-            System.out.println("Response Code : " + responseCode);
+            /*System.out.println("\nSending 'POST' request to URL : " + mURL);
+            System.out.println("Post parameters : " + mUrlParameters);
+            System.out.println("Response Code : " + responseCode);*/
 
-            BufferedReader in = new BufferedReader( new InputStreamReader(con.getInputStream()));
-            String inputLine;
+            getResponse();
 
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            ///////////////////////////////////////////////////////////////////
-            //print result
-
-            System.out.println(response.toString());
-
+            return new UserData(0,mResponse.toString(),"ASD");
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
+            return new UserData(1,"ERROR 1","ASD");
         } catch (ProtocolException e) {
             e.printStackTrace();
+            return new UserData(2,"ERROR 2","ASD");
         } catch (IOException e) {
             e.printStackTrace();
+            return new UserData(3,e.getMessage(),"ASD");
         }
 
-        return new UserData(3,response.toString(),"");
+
     }
 
     @Override
     public IUserProfileData login(String tokenGmail) {
-        return null;
+
+        return new UserData(3,"asd","");
     }
 
     @Override
@@ -127,5 +115,49 @@ public class ServerConnectorInternet implements IServerConnector {
     @Override
     public IPatientProfileData getUserPatientProfile() {
         return null;
+    }
+
+    //------------------------------------------------------------------------
+    //methods of connection to the server
+    private void addRequestParameters(METHOD method, HEADER header) throws ProtocolException {
+        mHttpURLConnection.setRequestMethod( method.getKey() );
+        mHttpURLConnection.setRequestProperty( header.getKey(), header.getValue());
+    }
+
+    private void addRequestParameters(METHOD method, HEADER header, HEADER header2) throws ProtocolException {
+        addRequestParameters(method,header);
+        mHttpURLConnection.setRequestProperty(header2.getKey(), header2.getValue());
+    }
+
+    private void setConnection(URI uri) throws IOException {
+        //hosting http
+        mURL = mHeaderURL + uri;
+        obj = new URL( mURL );
+        mHttpURLConnection = (HttpURLConnection) obj.openConnection();
+
+    }
+
+    private void setPolicies() {
+        mPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(mPolicy);
+    }
+
+    private void sendRequest() throws IOException {
+        mHttpURLConnection.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(mHttpURLConnection.getOutputStream());
+        wr.writeBytes(mUrlParameters);
+        wr.flush();
+        wr.close();
+    }
+
+    private void getResponse() throws IOException {
+        BufferedReader in = new BufferedReader( new InputStreamReader(mHttpURLConnection.getInputStream()));
+        String mInputLine;
+
+
+        while ((mInputLine = in.readLine()) != null) {
+            mResponse.append(mInputLine);
+        }
+        in.close();
     }
 }
