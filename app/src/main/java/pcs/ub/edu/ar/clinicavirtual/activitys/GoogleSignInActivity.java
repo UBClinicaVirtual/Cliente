@@ -27,7 +27,7 @@ public class GoogleSignInActivity extends BaseActivity {
             public void onClick(View v) {
 
                 IUserProfileData mUserData =  getServerConnector().register("hola");
-                Toast.makeText(GoogleSignInActivity.this, "REQUEST OK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GoogleSignInActivity.this, mUserData.getmName(), Toast.LENGTH_SHORT).show();
 
                 Intent mIntentDataRegister = new Intent(GoogleSignInActivity.this, DataRegisterActivity.class);
                 startActivity(mIntentDataRegister);

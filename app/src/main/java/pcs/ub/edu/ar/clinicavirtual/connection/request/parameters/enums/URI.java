@@ -91,6 +91,11 @@ public enum URI {
         public String toString(){
             return "/user/clinic/hcpspecialities/search";
         }
+    },
+    LOGIN_9{
+        public String toString(){
+            return "/login9";
+        }
     }
 
 }

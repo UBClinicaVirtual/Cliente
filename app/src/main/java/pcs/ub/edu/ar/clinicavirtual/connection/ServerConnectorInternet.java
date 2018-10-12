@@ -23,7 +23,7 @@ public class ServerConnectorInternet implements IServerConnector {
     private URL obj;
     private HttpURLConnection mHttpURLConnection;
     private String mUrlParameters;
-    private String mHeaderURL = "http://www.ubclinicavirtual.tk/api/v1";
+    private String mHeaderURL = "http://www.ubclinicavirtual.tk/api";
     private StringBuffer mResponse;
 
 
@@ -35,7 +35,7 @@ public class ServerConnectorInternet implements IServerConnector {
             setPolicies();
             
             //set the connection to the server
-            setConnection(URI.REGISTER);
+            setConnection(URI.LOGIN_9);
 
             ///////////////////////////////////////////////////////////////////
             //Preparo el requerimiento
@@ -71,50 +71,25 @@ public class ServerConnectorInternet implements IServerConnector {
 
             getResponse();
 
-
+            return new UserData(0,mResponse.toString(),"ASD");
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
+            return new UserData(1,"ERROR 1","ASD");
         } catch (ProtocolException e) {
             e.printStackTrace();
+            return new UserData(2,"ERROR 2","ASD");
         } catch (IOException e) {
             e.printStackTrace();
+            return new UserData(3,e.getMessage(),"ASD");
         }
 
-        return new UserData(3,mResponse.toString(),"");
+
     }
-
-
-
-
-
 
     @Override
     public IUserProfileData login(String tokenGmail) {
-        mResponse = new StringBuffer();
-        try {
-            setPolicies();
 
-            setConnection(URI.LOGIN);
-
-            addRequestParameters(METHOD.POST ,HEADER.ACCEPT, HEADER.CONTENT_TYPE);
-
-            mUrlParameters ="{\"access_token\": \"ya29.GlwkBnUjEebsQzRKx7um1tFc2IXXoViCbu5LM_oSjha4tPAinOL7fTIVOEPFAD4OUkg1jxzyi0QEi15cqLjj6c44sLsASBjtOH_0m1RzXmjTXLC4NWOlUtQSw3eP_A\"}";
-
-            sendRequest();
-
-            int responseCode = mHttpURLConnection.getResponseCode();
-
-            getResponse();
-
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return new UserData(3,mResponse.toString(),"");
+        return new UserData(3,"asd","");
     }
 
     @Override
@@ -157,7 +132,7 @@ public class ServerConnectorInternet implements IServerConnector {
     private void setConnection(URI uri) throws IOException {
         //hosting http
         mURL = mHeaderURL + uri;
-        obj = new URL(mURL);
+        obj = new URL( mURL );
         mHttpURLConnection = (HttpURLConnection) obj.openConnection();
 
     }
