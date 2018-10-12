@@ -117,6 +117,11 @@ public class ServerConnectorInternet implements IServerConnector {
         return null;
     }
 
+
+
+
+
+    
     //------------------------------------------------------------------------
     //methods of connection to the server
     private void addRequestParameters(METHOD method, HEADER header) throws ProtocolException {
