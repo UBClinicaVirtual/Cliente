@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "434044579908",
+    "firebase_url": "https://login-1535155822169.firebaseio.com",
+    "project_id": "login-1535155822169",
+    "storage_bucket": "login-1535155822169.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:434044579908:android:12bf884ae9b7546c",
+        "android_client_info": {
+          "package_name": "pcs.ub.edu.ar.clinicavirtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "434044579908-8i5fkdbrdvhsi5eleqkrsje28qc9ousq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pcs.ub.edu.ar.clinicavirtual",
+            "certificate_hash": "bf74b696d1aa21f94dec7ea511d747f063cc10ab"
+          }
+        },
+        {
+          "client_id": "434044579908-ehq17fbr1utt08noe8u4kb2f66isdf4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtXnry5WeZJ3QyJZ0T3eOuxd8O90D8oZs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "434044579908-ehq17fbr1utt08noe8u4kb2f66isdf4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
