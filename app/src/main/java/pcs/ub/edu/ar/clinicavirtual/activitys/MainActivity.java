@@ -2,23 +2,30 @@ package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.w3c.dom.Text;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
@@ -29,8 +36,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private static final int RC_SIGN_IN = 9001;
     private static final int RC_GET_TOKEN = 9002;
     private static final String TAG = "MainActivity";
-
-
+    private FirebaseAuth mAuth;
+    GoogleSignInAccount account;
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mIdTokenTextView;
@@ -39,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAuth = FirebaseAuth.getInstance();
 
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -67,6 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(account);
     }
 
@@ -102,15 +111,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.sign_in_button:
 
-                logIn();
+              //  logIn();
 
                 //POR AHORA HASTA QUE SE TERMINE DE HACER LO DE ENVIAR Y RECIBIR ALGO CON EL TOKEN
-               // signIn();
-                //getIdToken();
+                //signIn();
+                getIdToken();
                 break;
 
             case R.id.btnLogIn:
-                logIn();
+                IUserProfileData mUserData =  getServerConnector().login(account.getIdToken());
+                Toast.makeText(this, mUserData.getmName(), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnSignIn:
                 signInWithouthGoogle();
@@ -159,18 +169,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedtask) {
         try{
-            GoogleSignInAccount account = completedtask.getResult(ApiException.class);
+            account = completedtask.getResult(ApiException.class);
             //GET ID TOKEN
             String idToken = account.getIdToken();
-
+            firebaseAuthWithGoogle(account);
+            Toast.makeText(this, account.getIdToken(), Toast.LENGTH_SHORT).show();
             // PENDIENTE PENDIENTE
             // ENVIAR ID TOKENN AL SERVER Y VALIDAR
 
             // signed in successfully, show auth. UI.
-            updateUI(account);
+            //updateUI(account);
     }catch (ApiException e){
             //The ApiException status code indicates the detailed failure reason
             Log.w(TAG, "signInResult:failed code= " + e.getStatusCode());
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             updateUI(null);
         }
 
@@ -188,4 +200,28 @@ GoogleSignIn.silentSignIn()
             }
         });
  */
+private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+    AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+    mAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithCredential:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    // ...
+                }
+            });
+}
 }

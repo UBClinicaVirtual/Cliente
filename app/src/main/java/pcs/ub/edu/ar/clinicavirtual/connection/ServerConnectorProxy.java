@@ -24,7 +24,7 @@ public class ServerConnectorProxy implements IServerConnector {
 
     @Override
     public IUserProfileData login(String tokenGmail) {
-        return getConnector().login(tokenGmail);
+        return mInternetConnector.login(tokenGmail);
     }
 
     @Override

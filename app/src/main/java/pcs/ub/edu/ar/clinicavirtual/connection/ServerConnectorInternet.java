@@ -23,7 +23,7 @@ public class ServerConnectorInternet implements IServerConnector {
     private URL obj;
     private HttpURLConnection mHttpURLConnection;
     private String mUrlParameters;
-    private String mHeaderURL = "http://www.ubclinicavirtual.tk/api";
+    private String mHeaderURL = "http://www.ubclinicavirtual.tk/api/v1";
     private StringBuffer mResponse;
 
 
@@ -35,7 +35,7 @@ public class ServerConnectorInternet implements IServerConnector {
             setPolicies();
             
             //set the connection to the server
-            setConnection(URI.LOGIN_9);
+            setConnection(URI.REGISTER);
 
             ///////////////////////////////////////////////////////////////////
             //Preparo el requerimiento
@@ -53,7 +53,7 @@ public class ServerConnectorInternet implements IServerConnector {
             ///////////////////////////////////////////////////////////////////
             //Envio un access_token(el access token varia según el tiempo, deben generar uno propio en cada intento de login)
             //TODO buscar como refactorizar la generacion del json para enviar como parametro
-            mUrlParameters ="{\"access_token\": \"ya29.GlwkBnUjEebsQzRKx7um1tFc2IXXoViCbu5LM_oSjha4tPAinOL7fTIVOEPFAD4OUkg1jxzyi0QEi15cqLjj6c44sLsASBjtOH_0m1RzXmjTXLC4NWOlUtQSw3eP_A\"}";
+            mUrlParameters ="{\"access_token\": \" "+ tokenGmail +"\"}";
 
             ///////////////////////////////////////////////////////////////////
             // Send post request
@@ -74,13 +74,13 @@ public class ServerConnectorInternet implements IServerConnector {
             return new UserData(0,mResponse.toString(),"ASD");
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
-            return new UserData(1,"ERROR 1","ASD");
+            return new UserData(1,"ERROR 2","ASD");
         } catch (ProtocolException e) {
             e.printStackTrace();
-            return new UserData(2,"ERROR 2","ASD");
+            return new UserData(2,"ERROR 3","ASD");
         } catch (IOException e) {
             e.printStackTrace();
-            return new UserData(3,e.getMessage(),"ASD");
+            return new UserData(3,"ERROR 4","ASD");
         }
 
 
@@ -89,7 +89,59 @@ public class ServerConnectorInternet implements IServerConnector {
     @Override
     public IUserProfileData login(String tokenGmail) {
 
-        return new UserData(3,"asd","");
+        mResponse = new StringBuffer();
+        try {
+            //applies the necessary permissions
+            setPolicies();
+
+            //set the connection to the server
+            setConnection(URI.LOGIN);
+
+            ///////////////////////////////////////////////////////////////////
+            //Preparo el requerimiento
+
+            //hosting real en https
+//			String url = "https://ubclinicavirtual.000webhostapp.com/api/v1/login";
+
+            //Hosting en https
+//			HttpsURLConnection mHttpURLConnection = (HttpsURLConnection) obj.openConnection();
+
+            ///////////////////////////////////////////////////////////////////
+            //add request parameters
+            addRequestParameters(METHOD.POST ,HEADER.ACCEPT, HEADER.CONTENT_TYPE);
+
+            ///////////////////////////////////////////////////////////////////
+            //Envio un access_token(el access token varia según el tiempo, deben generar uno propio en cada intento de login)
+            //TODO buscar como refactorizar la generacion del json para enviar como parametro
+            mUrlParameters ="{\"access_token\": \" "+ tokenGmail +"\"}";
+
+            ///////////////////////////////////////////////////////////////////
+            // Send post request
+            sendRequest();
+
+
+            int responseCode = mHttpURLConnection.getResponseCode();
+
+            ///////////////////////////////////////////////////////////////////
+            //Analizo la respuesta
+
+            /*System.out.println("\nSending 'POST' request to URL : " + mURL);
+            System.out.println("Post parameters : " + mUrlParameters);
+            System.out.println("Response Code : " + responseCode);*/
+
+            getResponse();
+
+            return new UserData(0,mResponse.toString(),"ASD");
+        } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+            return new UserData(1,"ERROR 2","ASD");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+            return new UserData(2,"ERROR 3","ASD");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new UserData(3,"ERROR 4","ASD");
+        }
     }
 
     @Override
