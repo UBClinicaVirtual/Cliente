@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,13 +22,19 @@ import pcs.ub.edu.ar.clinicavirtual.factory.ProfileFactory;
 public class DataRegisterActivity extends BaseActivity {
 
     Spinner mSpnProfile;
-    ArrayAdapter<CharSequence> mProfileAdapter;
+    Spinner mSpnCivilState;
+    Spinner mSpnGender;
+    Spinner mSpnAllergies;
+    ArrayAdapter<CharSequence> mAdapter;
 
     List < LinearLayout > mRegisterLayouts;
     List <EditText> mComponents; //PACIENTE
 
     Button mBtnCancel;
     Button mBtnNext;
+
+
+    EditText txtPatientAllergies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +65,8 @@ public class DataRegisterActivity extends BaseActivity {
             }
 
             private void initProfile() {
-
-                new ProfileFactory().generate(mSpnProfile,mComponents);
+                //no se crea el profile, se deberia mandar la informacion al server.
+                //new ProfileFactory().generate(mSpnProfile,mComponents);
                 Toast.makeText(DataRegisterActivity.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
             }
         });
@@ -90,6 +98,60 @@ public class DataRegisterActivity extends BaseActivity {
             }
         });
 
+        mSpnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 1){
+                    mSpnCivilState =  (Spinner) findViewById(R.id.spnPatientCivilState);
+                    mAdapter = ArrayAdapter.createFromResource(DataRegisterActivity.this, R.array.arrayFemaleCivilState, R.layout.data_register_spinner_text_style );
+                    mSpnCivilState.setAdapter(mAdapter);
+                }else{
+                    mSpnCivilState =  (Spinner) findViewById(R.id.spnPatientCivilState);
+                    mAdapter = ArrayAdapter.createFromResource(DataRegisterActivity.this, R.array.arrayMaleCivilState, R.layout.data_register_spinner_text_style );
+                    mSpnCivilState.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+
+
+        });
+
+        mSpnAllergies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String mAllergieSelected = ((String)mSpnAllergies.getItemAtPosition(position)).toString();
+                if (ItemSelectedOK( mAllergieSelected )){
+                    String mText = txtPatientAllergies.getText().toString() + "\n" + ((String)mSpnAllergies.getItemAtPosition(position)).toString();
+                    txtPatientAllergies.setText( mText );
+                }else{
+                    Toast.makeText(DataRegisterActivity.this, "Alergia erronea o ya elegida", Toast.LENGTH_SHORT).show();
+                }
+
+                
+
+            }
+
+            private boolean ItemSelectedOK(String allergieSelected) {
+                String[] arrayAllergies = txtPatientAllergies.getText().toString().split("\n");
+                ArrayList<String>arrayListAllergies = new ArrayList<>(Arrays.asList(arrayAllergies));
+                if(allergieSelected.toString().equals("INGRESAR ALERGIAS"))
+                    return false;
+
+                for (String mAllergie : arrayListAllergies)
+                    if(mAllergie.toString().equals(allergieSelected.toString()))
+                        return false;
+                return true;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                txtPatientAllergies.setText( "" );
+            }
+        });
+
     }
 
     private void showProfileDataLayout(int position){
@@ -104,23 +166,32 @@ public class DataRegisterActivity extends BaseActivity {
 
     private void initElements() {
 
-        //the spinner is initialized
+        //the spinners is initialized
         mSpnProfile =  (Spinner) findViewById(R.id.spn_profile);
-        mProfileAdapter = ArrayAdapter.createFromResource(this, R.array.arrayProfiles, R.layout.data_register_spinner_text_style );
-        mSpnProfile.setAdapter(mProfileAdapter);
+        mAdapter = ArrayAdapter.createFromResource(this, R.array.arrayProfiles, R.layout.data_register_spinner_text_style );
+        mSpnProfile.setAdapter(mAdapter);
 
         //the layouts are initialized
         mRegisterLayouts = new LinkedList<LinearLayout>();
         mRegisterLayouts.add((LinearLayout) findViewById(R.id.linDoctor));
         mRegisterLayouts.add((LinearLayout) findViewById(R.id.linPatient));
-
-            mComponents = new LinkedList<EditText>();
-            mComponents.add((EditText) findViewById(R.id.txtPatientName));
-            mComponents.add((EditText) findViewById(R.id.txtPatientSName));
-            mComponents.add((EditText) findViewById(R.id.numPatientDNI));
-
         mRegisterLayouts.add((LinearLayout) findViewById(R.id.linClinic));
         mRegisterLayouts.add((LinearLayout) findViewById(R.id.linAdmin));
+
+            //patient profile
+            mSpnGender = (Spinner) findViewById(R.id.spnPatientGender);
+            mAdapter = ArrayAdapter.createFromResource(this,R.array.arrayGender,R.layout.data_register_spinner_text_style);
+            mSpnGender.setAdapter(mAdapter);
+
+            //patient options allergies
+            mSpnAllergies = (Spinner) findViewById(R.id.spnPatientAllergies);
+            mAdapter = ArrayAdapter.createFromResource(this,R.array.arrayAllergies,R.layout.data_register_spinner_text_style);
+            mSpnAllergies.setAdapter(mAdapter);
+
+            //patient allergies choosed
+            txtPatientAllergies = (EditText) findViewById(R.id.txtPatientAllergies);
+            txtPatientAllergies.setEnabled(false);
+        txtPatientAllergies.setText( "" );
 
         //the buttons are initialized
         mBtnCancel = (Button)findViewById(R.id.btnCancel);
