@@ -1,5 +1,8 @@
+//<editor-fold desc="PACKAGE">
 package pcs.ub.edu.ar.clinicavirtual.activitys;
+//</editor-fold>
 
+//<editor-fold desc="IMPORTS">
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,21 +14,23 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-
 import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.activitys.register.config.*;
 import pcs.ub.edu.ar.clinicavirtual.factory.ProfileFactory;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IElementsConfiguration;
+//</editor-fold>
+
 
 public class DataRegisterActivity extends BaseActivity {
 
     Spinner mSpnProfile;
-    Spinner mSpnCivilState;
-    Spinner mSpnGender;
-    Spinner mSpnAllergies;
     ArrayAdapter<CharSequence> mAdapter;
+    Integer mSpnProfileSelected;
 
     List < LinearLayout > mRegisterLayouts;
     List <EditText> mComponents; //PACIENTE
@@ -33,17 +38,42 @@ public class DataRegisterActivity extends BaseActivity {
     Button mBtnCancel;
     Button mBtnNext;
 
+    IElementsConfiguration mPatientConfiguration;
+    IElementsConfiguration mHCPConfiguration;
+    IElementsConfiguration mClinicConfiguration;
+    IElementsConfiguration mAdminConfiguration;
 
-    EditText txtPatientAllergies;
+    ArrayList <IElementsConfiguration> mElementsConfigurations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_register);
 
+
         //The elements are initialized
         initElements();
         createClickListeners();
+        initElementsConfigurations();
+
+    }
+
+    private void initElementsConfigurations() {
+
+        mElementsConfigurations = new ArrayList<IElementsConfiguration>();
+
+        mPatientConfiguration = new DataRegisterPatientConfiguration(this);
+        mHCPConfiguration     = new DataRegisterHCPConfiguration (this);
+        mClinicConfiguration  = new DataRegisterClinicConfiguration(this);
+        mAdminConfiguration   = new DataRegisterAdminConfiguration(this);
+
+        mElementsConfigurations.add(mHCPConfiguration);
+        mElementsConfigurations.add(mPatientConfiguration);
+        mElementsConfigurations.add(mClinicConfiguration);
+        mElementsConfigurations.add(mAdminConfiguration);
+
+
+        mPatientConfiguration.initElements();
 
     }
 
@@ -65,7 +95,12 @@ public class DataRegisterActivity extends BaseActivity {
             }
 
             private void initProfile() {
-                //no se crea el profile, se deberia mandar la informacion al server.
+
+                JSONObject mProfileData = mElementsConfigurations.get( mSpnProfileSelected ).getInformationJsonFormat();
+                getServerConnector().addPatientProfileToUserAccount(mProfileData);
+
+                Toast.makeText(DataRegisterActivity.this, mProfileData.toString() , Toast.LENGTH_SHORT).show();
+
                 //new ProfileFactory().generate(mSpnProfile,mComponents);
                 Toast.makeText(DataRegisterActivity.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
             }
@@ -89,6 +124,7 @@ public class DataRegisterActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cleanLayouts();
                 showProfileDataLayout(position);
+                mSpnProfileSelected = position;
             }
 
 
@@ -97,61 +133,6 @@ public class DataRegisterActivity extends BaseActivity {
                 cleanLayouts();
             }
         });
-
-        mSpnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 1){
-                    mSpnCivilState =  (Spinner) findViewById(R.id.spnPatientCivilState);
-                    mAdapter = ArrayAdapter.createFromResource(DataRegisterActivity.this, R.array.arrayFemaleCivilState, R.layout.data_register_spinner_text_style );
-                    mSpnCivilState.setAdapter(mAdapter);
-                }else{
-                    mSpnCivilState =  (Spinner) findViewById(R.id.spnPatientCivilState);
-                    mAdapter = ArrayAdapter.createFromResource(DataRegisterActivity.this, R.array.arrayMaleCivilState, R.layout.data_register_spinner_text_style );
-                    mSpnCivilState.setAdapter(mAdapter);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-
-
-        });
-
-        mSpnAllergies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String mAllergieSelected = ((String)mSpnAllergies.getItemAtPosition(position)).toString();
-                if (ItemSelectedOK( mAllergieSelected )){
-                    String mText = txtPatientAllergies.getText().toString() + "\n" + ((String)mSpnAllergies.getItemAtPosition(position)).toString();
-                    txtPatientAllergies.setText( mText );
-                }else{
-                    Toast.makeText(DataRegisterActivity.this, "Alergia erronea o ya elegida", Toast.LENGTH_SHORT).show();
-                }
-
-                
-
-            }
-
-            private boolean ItemSelectedOK(String allergieSelected) {
-                String[] arrayAllergies = txtPatientAllergies.getText().toString().split("\n");
-                ArrayList<String>arrayListAllergies = new ArrayList<>(Arrays.asList(arrayAllergies));
-                if(allergieSelected.toString().equals("INGRESAR ALERGIAS"))
-                    return false;
-
-                for (String mAllergie : arrayListAllergies)
-                    if(mAllergie.toString().equals(allergieSelected.toString()))
-                        return false;
-                return true;
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                txtPatientAllergies.setText( "" );
-            }
-        });
-
     }
 
     private void showProfileDataLayout(int position){
@@ -165,7 +146,7 @@ public class DataRegisterActivity extends BaseActivity {
     }
 
     private void initElements() {
-
+        //<editor-fold desc="INITIALIZATION OF ELEMENTS">
         //the spinners is initialized
         mSpnProfile =  (Spinner) findViewById(R.id.spn_profile);
         mAdapter = ArrayAdapter.createFromResource(this, R.array.arrayProfiles, R.layout.data_register_spinner_text_style );
@@ -178,24 +159,9 @@ public class DataRegisterActivity extends BaseActivity {
         mRegisterLayouts.add((LinearLayout) findViewById(R.id.linClinic));
         mRegisterLayouts.add((LinearLayout) findViewById(R.id.linAdmin));
 
-            //patient profile
-            mSpnGender = (Spinner) findViewById(R.id.spnPatientGender);
-            mAdapter = ArrayAdapter.createFromResource(this,R.array.arrayGender,R.layout.data_register_spinner_text_style);
-            mSpnGender.setAdapter(mAdapter);
-
-            //patient options allergies
-            mSpnAllergies = (Spinner) findViewById(R.id.spnPatientAllergies);
-            mAdapter = ArrayAdapter.createFromResource(this,R.array.arrayAllergies,R.layout.data_register_spinner_text_style);
-            mSpnAllergies.setAdapter(mAdapter);
-
-            //patient allergies choosed
-            txtPatientAllergies = (EditText) findViewById(R.id.txtPatientAllergies);
-            txtPatientAllergies.setEnabled(false);
-        txtPatientAllergies.setText( "" );
-
         //the buttons are initialized
         mBtnCancel = (Button)findViewById(R.id.btnCancel);
         mBtnNext = (Button)findViewById(R.id.btnNext);
-
+        //</editor-fold>
     }
 }

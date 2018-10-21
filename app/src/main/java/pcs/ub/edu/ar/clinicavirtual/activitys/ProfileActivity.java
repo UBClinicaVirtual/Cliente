@@ -4,8 +4,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
 
 public class ProfileActivity extends BaseActivity {
 

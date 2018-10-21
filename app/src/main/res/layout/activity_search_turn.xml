@@ -9,29 +9,13 @@
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:gravity="center"
         android:stretchColumns="0,1,2"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="170dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF">
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_margin="1dp"
-                android:layout_weight="1"
-                android:background="#000000">
-
-
-            </TableRow>
-        </TableRow>
 
         <TableRow
             android:layout_width="654dp"
@@ -80,122 +64,45 @@
                 android:text="Fecha" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#000000">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </TableRow>
-
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#000000">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#000000">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_column="0"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_column="2"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text=" Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-        </TableRow>
-
 
     </TableLayout>
+
+    <pcs.ub.edu.ar.clinicavirtual.TurnTableRow
+        android:id="@+id/turnTableRow4"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+
+        android:background="#730300a9"
+        app:exampleColor="#ffffff"
+        app:exampleDimension="16sp"
+        app:exampleString="T1"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="386dp" />
+
+    <pcs.ub.edu.ar.clinicavirtual.TurnTableRow
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="278dp"
+
+        android:layout_marginEnd="234dp"
+        android:background="#730300a9"
+        app:exampleColor="#ffffff"
+        app:exampleDimension="16sp"
+        app:exampleString="T1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pcs.ub.edu.ar.clinicavirtual.TurnTableRow
+        android:id="@+id/turnTableRow13"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+
+        android:background="#730300a9"
+        app:exampleColor="#ffffff"
+        app:exampleDimension="16sp"
+        app:exampleString="T1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="334dp" />
 
 </android.support.constraint.ConstraintLayout>

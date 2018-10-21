@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
 
 public class GoogleSignInActivity extends BaseActivity {
     Button mBtnGoogleSignIn;

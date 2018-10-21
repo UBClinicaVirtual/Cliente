@@ -1,6 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IAdminProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IAdminProfileData;
 
 public class AdminProfileData implements IAdminProfileData {
     @Override

@@ -7,7 +7,10 @@ import java.util.List;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IAdminProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
 
 public class ProfileFactory extends BaseActivity {
 
@@ -24,7 +27,7 @@ public class ProfileFactory extends BaseActivity {
 
         }else if( spinnerPos == 1){
 
-            getServerConnector().addPatientProfileToUserAccount( createPatientProfile() );
+            //getServerConnector().addPatientProfileToUserAccount( createPatientProfile() );
 
         }else if( spinnerPos == 2){
 

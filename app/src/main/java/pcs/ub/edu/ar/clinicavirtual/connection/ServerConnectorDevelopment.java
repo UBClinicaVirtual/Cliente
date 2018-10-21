@@ -1,15 +1,16 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
+import org.json.JSONObject;
+
 import java.util.Collection;
 
 import pcs.ub.edu.ar.clinicavirtual.data.ClinicProfileData;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory.JsonResponse;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
 
 public class ServerConnectorDevelopment implements IServerConnector {
     @Override
@@ -28,9 +29,10 @@ public class ServerConnectorDevelopment implements IServerConnector {
     }
 
     @Override
-    public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
+    public IPatientProfileData addPatientProfileToUserAccount(JSONObject patientData) {
         return new PatientProfileData("gabriel","espina","gabyespina@gmail.com", new Long(38579707));
     }
+
 
     @Override
     public IClinicProfileData addClinicProfileToUserAccount(IClinicProfileData clinicData) {

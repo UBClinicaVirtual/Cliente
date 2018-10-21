@@ -1,6 +1,11 @@
 package pcs.ub.edu.ar.clinicavirtual.interfaces;
 
-import android.widget.EditText;
+import org.json.JSONObject;
+
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
 
 public interface IServerConnector{
 
@@ -15,13 +20,13 @@ public interface IServerConnector{
     public void logout ();
 
     //Add the patient profile to the user's account
-    public IPatientProfileData addPatientProfileToUserAccount( IPatientProfileData patientData );
+    public IPatientProfileData addPatientProfileToUserAccount(JSONObject patientData );
 
     //Add the clinic profile to the user's account
-    public IClinicProfileData addClinicProfileToUserAccount( IClinicProfileData clinicData );
+    public IClinicProfileData addClinicProfileToUserAccount(IClinicProfileData clinicData );
 
     //Add the HCP profile to the user's account
-    public IHCPProfileData addHCPProfileToUserAccount( IHCPProfileData hcpData );
+    public IHCPProfileData addHCPProfileToUserAccount(IHCPProfileData hcpData );
 
     //return IPatientProfileData profile
     public IPatientProfileData getUserPatientProfile();

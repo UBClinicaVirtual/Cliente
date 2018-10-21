@@ -1,13 +1,21 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys;
 
+import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -22,12 +30,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import org.w3c.dom.Text;
-
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     Button mBtnLogIn;
     Button mBtnSignIn;
@@ -50,9 +56,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 
         // Configure sign-in to request the user's ID, email address, and basic
-            // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         // requestEmail method, algo get their email address
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN )
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 //IMPORTANT!
                 // momentaneamente! Resolver el tema del server client id
                 .requestIdToken(getString(R.string.server_client_id))
@@ -104,14 +110,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
-
     //depending on the button to make
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.sign_in_button:
 
-              //  logIn();
+                //  logIn();
 
                 //POR AHORA HASTA QUE SE TERMINE DE HACER LO DE ENVIAR Y RECIBIR ALGO CON EL TOKEN
                 //signIn();
@@ -119,8 +124,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
 
             case R.id.btnLogIn:
-                IUserProfileData mUserData =  getServerConnector().login(account.getIdToken());
-                Toast.makeText(this, mUserData.getmName(), Toast.LENGTH_SHORT).show();
+                // IUserProfileData mUserData =  getServerConnector().login(account.getIdToken());
+                //Toast.makeText(this, mUserData.getmName(), Toast.LENGTH_SHORT).show();
+                Intent mMainScreen = new Intent(MainActivity.this, MainScreenActivity.class);
+                startActivity(mMainScreen);
+
                 break;
             case R.id.btnSignIn:
                 signInWithouthGoogle();

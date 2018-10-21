@@ -1,6 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
 
 public class UserData implements IUserProfileData {
 

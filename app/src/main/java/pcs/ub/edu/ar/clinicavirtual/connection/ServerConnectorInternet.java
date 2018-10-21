@@ -2,6 +2,9 @@ package pcs.ub.edu.ar.clinicavirtual.connection;
 
 import android.os.StrictMode;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,7 +16,12 @@ import java.net.URL;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.*;
 import pcs.ub.edu.ar.clinicavirtual.data.UserData;
+import pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory.JsonToObjectFactory;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
 
 public class ServerConnectorInternet implements IServerConnector {
 
@@ -25,7 +33,7 @@ public class ServerConnectorInternet implements IServerConnector {
     private String mUrlParameters;
     private String mHeaderURL = "http://www.ubclinicavirtual.tk/api/v1";
     private StringBuffer mResponse;
-
+    private JsonToObjectFactory mJsonToObjectFactory = new JsonToObjectFactory();
 
     @Override
     public IUserProfileData register(String tokenGmail) {
@@ -94,40 +102,15 @@ public class ServerConnectorInternet implements IServerConnector {
             //applies the necessary permissions
             setPolicies();
 
-            //set the connection to the server
             setConnection(URI.LOGIN);
 
-            ///////////////////////////////////////////////////////////////////
-            //Preparo el requerimiento
-
-            //hosting real en https
-//			String url = "https://ubclinicavirtual.000webhostapp.com/api/v1/login";
-
-            //Hosting en https
-//			HttpsURLConnection mHttpURLConnection = (HttpsURLConnection) obj.openConnection();
-
-            ///////////////////////////////////////////////////////////////////
-            //add request parameters
             addRequestParameters(METHOD.POST ,HEADER.ACCEPT, HEADER.CONTENT_TYPE);
 
-            ///////////////////////////////////////////////////////////////////
-            //Envio un access_token(el access token varia según el tiempo, deben generar uno propio en cada intento de login)
-            //TODO buscar como refactorizar la generacion del json para enviar como parametro
             mUrlParameters ="{\"access_token\": \" "+ tokenGmail +"\"}";
 
-            ///////////////////////////////////////////////////////////////////
-            // Send post request
             sendRequest();
 
-
             int responseCode = mHttpURLConnection.getResponseCode();
-
-            ///////////////////////////////////////////////////////////////////
-            //Analizo la respuesta
-
-            /*System.out.println("\nSending 'POST' request to URL : " + mURL);
-            System.out.println("Post parameters : " + mUrlParameters);
-            System.out.println("Response Code : " + responseCode);*/
 
             getResponse();
 
@@ -150,9 +133,42 @@ public class ServerConnectorInternet implements IServerConnector {
     }
 
     @Override
-    public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
+    public IPatientProfileData addPatientProfileToUserAccount(JSONObject patientData) {
+        mResponse = new StringBuffer();
+        try {
+
+            setPolicies();
+
+            setConnection(URI.USER_PATIENT);
+
+            addRequestParameters(METHOD.POST ,HEADER.ACCEPT, HEADER.CONTENT_TYPE, HEADER.AUTHORIZATION);
+
+            mUrlParameters = patientData.toString();
+
+            sendRequest();
+
+            int responseCode = mHttpURLConnection.getResponseCode();
+
+            getResponse();
+
+            JSONObject mJsonObject = new JSONObject(mResponse.toString());
+
+            return mJsonToObjectFactory.getPatientProfileData( mJsonObject );
+
+        } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
+
+
 
     @Override
     public IClinicProfileData addClinicProfileToUserAccount(IClinicProfileData clinicData) {
@@ -186,6 +202,11 @@ public class ServerConnectorInternet implements IServerConnector {
         mHttpURLConnection.setRequestProperty(header2.getKey(), header2.getValue());
     }
 
+    private void addRequestParameters(METHOD post, HEADER header, HEADER header2, HEADER header3) throws ProtocolException {
+        addRequestParameters(post, header, header2);
+        mHttpURLConnection.setRequestProperty(header3.getKey(),header3.getValue());
+    }
+
     private void setConnection(URI uri) throws IOException {
         //hosting http
         mURL = mHeaderURL + uri;
@@ -217,4 +238,6 @@ public class ServerConnectorInternet implements IServerConnector {
         }
         in.close();
     }
+
+  
 }

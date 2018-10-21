@@ -1,10 +1,12 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
+import org.json.JSONObject;
+
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
 
 public class ServerConnectorProxy implements IServerConnector {
 
@@ -34,7 +36,7 @@ public class ServerConnectorProxy implements IServerConnector {
     }
 
     @Override
-    public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
+    public IPatientProfileData addPatientProfileToUserAccount(JSONObject patientData) {
         return getConnector().addPatientProfileToUserAccount(patientData);
     }
 
