@@ -22,44 +22,39 @@ public enum URI {
             return "/logout";
         }
     },
-    USER_CLINIC{
+    DEACTIVATE{
         public String toString(){
-            return "/user/clinic";
+            return "/deactivate";
         }
     },
-    CLINIC_SEARCH{
+    CLINIC{
         public String toString(){
-            return "/clinic/search";
+            return "/clinic";
         }
     },
-    USER_HCP{
+    SEARCH{
         public String toString(){
-            return "/user/hcp";
+            return "/search";
         }
     },
-    HCP_SEARCH{
+    HCP{
         public String toString(){
-            return "/hcp/search";
+            return "/hcp";
         }
     },
-    USER_PATIENT{
+    PATIENT{
         public String toString(){
-            return "/user/patient";
+            return "/patient";
         }
-    },
-    PATIENT_SEARCH{
-        public String toString(){
-            return "/patient/search";
-        }
-    },
+    },,
     SPECIALITY{
         public String toString(){
             return "/speciality";
         }
-    },
-    SPECIALITY_ID_SPECIALITY{
+    },,
+    SPECIALITY_BY_ID {
         public String toString(){
-            return "/speciality/{id_speciality}";
+            return "/speciality/";
         }
     },
     SPECIALITIES{
@@ -67,29 +62,19 @@ public enum URI {
             return "/specialities";
         }
     },
-    USER_PATIENT_APPOINTMENTS{
+    APPOINTMENTS{
         public String toString(){
-            return "/user/patient/appointments";
+            return "/appointments";
         }
     },
-    USER_HCP_APPOINTMENTS{
+    HCPSPECIALITIES{
         public String toString(){
-            return "/user/hcp/appointments";
+            return "/hcpspecialities";
         }
     },
-    USER_CLINIC_APPOINTMENTS{
+    SCHEDULE{
         public String toString(){
-            return "/user/clinic/appointments";
-        }
-    },
-    USER_CLINIC_HCPSPECIALITIES{
-        public String toString(){
-            return "/user/clinic/hcpspecialities";
-        }
-    },
-    USER_CLINIC_HCPSPECIALITIES_SEARCH{
-        public String toString(){
-            return "/user/clinic/hcpspecialities/search";
+            return "/schedule";
         }
     },
     LOGIN_9{
