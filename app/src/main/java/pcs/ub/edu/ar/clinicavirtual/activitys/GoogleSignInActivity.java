@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class GoogleSignInActivity extends BaseActivity {
     Button mBtnGoogleSignIn;
@@ -36,5 +37,10 @@ public class GoogleSignInActivity extends BaseActivity {
     private void initButton() {
 
         mBtnGoogleSignIn =(Button) findViewById(R.id.btnGoogleSignIn);
+    }
+
+    @Override
+    public void success(IServerRequest request) {
+
     }
 }

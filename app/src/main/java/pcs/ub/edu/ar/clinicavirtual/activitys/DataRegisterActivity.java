@@ -23,6 +23,7 @@ import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.register.config.*;
 import pcs.ub.edu.ar.clinicavirtual.factory.ProfileFactory;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IElementsConfiguration;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 //</editor-fold>
 
 
@@ -97,7 +98,8 @@ public class DataRegisterActivity extends BaseActivity {
             private void initProfile() {
 
                 JSONObject mProfileData = mElementsConfigurations.get( mSpnProfileSelected ).getInformationJsonFormat();
-                getServerConnector().addPatientProfileToUserAccount(mProfileData);
+                /*getServerConnector().addPatientProfileToUserAccount(mProfileData);
+                connector().call();*/
 
                 Toast.makeText(DataRegisterActivity.this, mProfileData.toString() , Toast.LENGTH_SHORT).show();
 
@@ -163,5 +165,10 @@ public class DataRegisterActivity extends BaseActivity {
         mBtnCancel = (Button)findViewById(R.id.btnCancel);
         mBtnNext = (Button)findViewById(R.id.btnNext);
         //</editor-fold>
+    }
+
+    @Override
+    public void success(IServerRequest request) {
+
     }
 }

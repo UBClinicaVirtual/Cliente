@@ -20,7 +20,7 @@ public class JsonToObjectFactory implements IJsonToObjectFactory {
 
     public IUserProfileData getUserProfileData (JSONObject jsonObject){
 
-        try {
+        /*try {
             JSONObject dataJsonObject = jsonObject.getJSONObject("data");
 
             IUserProfileData mUserProfileData = new UserData(
@@ -33,7 +33,7 @@ public class JsonToObjectFactory implements IJsonToObjectFactory {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         return null;

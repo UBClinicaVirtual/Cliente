@@ -2,8 +2,7 @@ package pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interf
 
 public interface IResponseListener {
 
-    public String getResponse();
 
-    public void setResponse( String response );
+    public void notify( IServerRequest request );
 
 }

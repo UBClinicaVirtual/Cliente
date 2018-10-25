@@ -1,15 +1,8 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys;
 
-import android.Manifest;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,8 +23,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.json.JSONException;
+
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestRegisterUser;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -182,19 +180,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             String idToken = account.getIdToken();
             firebaseAuthWithGoogle(account);
             Toast.makeText(this, account.getIdToken(), Toast.LENGTH_SHORT).show();
+
+            connector().call(new ServerRequestRegisterUser(findViewById(R.id.sign_in_button),idToken),this);
+
+            //connector().call( new ServerRequestLoginUser(findViewById(R.id.sign_in_button),idToken),this);
+
             // PENDIENTE PENDIENTE
             // ENVIAR ID TOKENN AL SERVER Y VALIDAR
 
             // signed in successfully, show auth. UI.
             //updateUI(account);
-    }catch (ApiException e){
+        }catch (ApiException e){
             //The ApiException status code indicates the detailed failure reason
             Log.w(TAG, "signInResult:failed code= " + e.getStatusCode());
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             updateUI(null);
         }
 
-}
+    }
 
 /*
 // A TENER EN CUENTA ( momentaneamente español)
@@ -232,4 +235,18 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
                 }
             });
 }
+
+    @Override
+    public void success(IServerRequest request) {
+
+
+        //PREGUNTAS QUE BOTON FUE PRESIONADO
+        if(request.requesterId().equals(findViewById(R.id.sign_in_button))){
+            ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
+            String response = serverRequestLoginUser.getUserData();
+            Toast.makeText(this, response, Toast.LENGTH_SHORT).show();
+        }
+            //Toast.makeText(this, "Logeado correctamente como: " + account.getEmail(), Toast.LENGTH_SHORT).show();
+
+    }
 }

@@ -11,6 +11,7 @@ import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IAdminProfileData
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ProfileFactory extends BaseActivity {
 
@@ -66,4 +67,8 @@ public class ProfileFactory extends BaseActivity {
 
     }
 
+    @Override
+    public void success(IServerRequest request) {
+
+    }
 }

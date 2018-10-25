@@ -1,22 +1,78 @@
 package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.view.View;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
-public  abstract class ServerRequest implements IServerRequest, IResponseListener {
+public  abstract class ServerRequest implements IServerRequest {
 
-    private String mHeaderURL = "http://www.ubclinicavirtual.tk/api/v1";
+    // Eso podria ser un JSONObject en vez de String
+    // Depende de lo que le sea mas practico
+
+    private String 	mResponse;
+    private View		mRequesterId;
+    private Map<HEADER, String> mHeaders;
+
+    public ServerRequest(View requesterId) {
+        this.requesterId( requesterId );
+        this.initHeaders();
+    }
+
+    private void requesterId(View requesterId) {
+        this.mRequesterId = requesterId;
+    }
+
+    public String response() {
+        return mResponse;
+    }
+
+    public void response(String response) {
+        this.mResponse = response;
+    }
+
+    @Override
+    public View requesterId() {
+        return this.mRequesterId;
+    }
+    @Override
+    public String path() {
+        return "/api/v1/";
+    }
+
+    private void initHeaders() {
+        this.headers( new HashMap<HEADER,String>() );
+        this.headers().put(HEADER.ACCEPT, HEADER.ACCEPT.getValue());
+        this.headers().put(HEADER.CONTENT_TYPE, HEADER.CONTENT_TYPE.getValue());
+    }
+
+    @Override
+    public Map<HEADER, String>headers() {
+        return mHeaders;
+    }
+
+    private void headers(Map<HEADER, String> headers) {
+        this.mHeaders = headers;
+    }
+
+
+    /*private String mHeaderURL = "http://www.ubclinicavirtual.tk/api/v1";
     private ArrayList<HEADER> mHeaders = new ArrayList<>();
+
     private String mResponse;
+    private JSONObject jsonObject;
 
     public ServerRequest(){
         mHeaders.add(HEADER.ACCEPT);
         mHeaders.add(HEADER.CONTENT_TYPE);
         mHeaders.add(HEADER.AUTHORIZATION);
+    }
+
+    public void setJsonObject( JSONObject jsonObject ){
+        this.jsonObject = jsonObject;
     }
 
     @Override
@@ -37,5 +93,5 @@ public  abstract class ServerRequest implements IServerRequest, IResponseListene
     @Override
     public ArrayList<HEADER> headers() {
         return mHeaders;
-    }
+    }*/
 }

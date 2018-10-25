@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -22,10 +23,10 @@ public class ProfileActivity extends BaseActivity {
 
     private void loadProfile() {
 
-        IPatientProfileData mPatientProfileData =  getServerConnector().getUserPatientProfile();
+       /* IPatientProfileData mPatientProfileData =  getServerConnector().getUserPatientProfile();
 
         txtMyProfileName.setText(mPatientProfileData.getmName());
-        txtMyProfileDNI.setText(Long.toString(mPatientProfileData.getDNI()));
+        txtMyProfileDNI.setText(Long.toString(mPatientProfileData.getDNI()));*/
 
     }
 
@@ -33,6 +34,11 @@ public class ProfileActivity extends BaseActivity {
 
         txtMyProfileDNI = (EditText) findViewById(R.id.txtMyProfileDNI);
         txtMyProfileName= (EditText) findViewById(R.id.txtMyProfileName);
+
+    }
+
+    @Override
+    public void success(IServerRequest request) {
 
     }
 }

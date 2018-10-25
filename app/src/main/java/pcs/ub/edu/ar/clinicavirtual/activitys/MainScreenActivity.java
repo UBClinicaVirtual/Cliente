@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class MainScreenActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,5 +82,10 @@ public class MainScreenActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void success(IServerRequest request) {
+
     }
 }

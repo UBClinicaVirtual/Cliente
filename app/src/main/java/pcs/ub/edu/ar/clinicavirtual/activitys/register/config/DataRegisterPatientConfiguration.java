@@ -11,6 +11,7 @@ import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.DataRegisterActivity;
 import pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory.JsonFactory;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IElementsConfiguration;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.json.interfaces.IJsonFactory;
 //</editor-fold>
 
@@ -111,4 +112,8 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
     }
 
 
+    @Override
+    public void success(IServerRequest request) {
+
+    }
 }
