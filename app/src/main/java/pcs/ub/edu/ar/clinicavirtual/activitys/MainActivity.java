@@ -181,9 +181,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             firebaseAuthWithGoogle(account);
             Toast.makeText(this, account.getIdToken(), Toast.LENGTH_SHORT).show();
 
-            connector().call(new ServerRequestRegisterUser(findViewById(R.id.sign_in_button),idToken),this);
+            //connector().call(new ServerRequestRegisterUser(findViewById(R.id.sign_in_button),idToken),this);
 
-            //connector().call( new ServerRequestLoginUser(findViewById(R.id.sign_in_button),idToken),this);
+            connector().call( new ServerRequestLoginUser(findViewById(R.id.sign_in_button),idToken),this);
 
             // PENDIENTE PENDIENTE
             // ENVIAR ID TOKENN AL SERVER Y VALIDAR
