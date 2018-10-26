@@ -1,6 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseListener;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
@@ -21,6 +22,11 @@ public class ServerConnectorProxy implements IServerConnector {
     public void call(IServerRequest req, IResponseListener listener) {
         mInternetConnector.call(req, listener);
     }*/
+
+    @Override
+    public void call(ServerRequestAuthenticated request, IServerResponseListener listener) {
+
+    }
 
     @Override
     public void call(ServerRequest request, IServerResponseListener response) {

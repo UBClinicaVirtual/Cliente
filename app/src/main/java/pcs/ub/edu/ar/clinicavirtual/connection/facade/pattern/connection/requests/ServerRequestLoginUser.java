@@ -36,7 +36,10 @@ public class ServerRequestLoginUser extends ServerRequestLogin {
         // y evitar tener que sobrecargar el constructor de cada uno
         // pudiendolo dejar en la clase abstracta ServerRequest
         // quedando en esta clase solo el metodo path, method y getUserData
-        return String.format("{\"access_token:\":\"%s\"}", gmailToken());
+
+       // return String.format("{\"access_token:\":\"%s\"}", gmailToken());
+
+        return "{\"access_token\": \"" + gmailToken() + "\"}";
     }
 
     @Override

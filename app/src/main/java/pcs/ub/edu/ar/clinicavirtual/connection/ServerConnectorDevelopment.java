@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
 import pcs.ub.edu.ar.clinicavirtual.data.ClinicProfileData;
@@ -27,6 +28,11 @@ public class ServerConnectorDevelopment extends ServerConnector {
     public ServerConnectorDevelopment(String urlBase, Collection<String> emulatedResponses) {
         super(urlBase);
         colaDeRespuestas( new LinkedList<String>( emulatedResponses ) );
+    }
+
+    @Override
+    public void call(ServerRequestAuthenticated request, IServerResponseListener listener) {
+
     }
 
     @Override

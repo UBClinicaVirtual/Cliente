@@ -17,6 +17,6 @@ public abstract class ServerRequestLogout extends ServerRequest {
 
     @Override
     public String path() {
-        return super.path() + URI.LOGOUT;
+        return super.path() + "/" + URI.LOGOUT;
     }
 }

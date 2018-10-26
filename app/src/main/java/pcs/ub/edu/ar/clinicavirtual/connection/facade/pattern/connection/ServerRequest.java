@@ -40,7 +40,7 @@ public  abstract class ServerRequest implements IServerRequest {
     }
     @Override
     public String path() {
-        return "/api/v1/";
+        return "/api/v1";
     }
 
     private void initHeaders() {

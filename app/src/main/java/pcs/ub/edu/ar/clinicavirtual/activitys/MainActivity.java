@@ -24,11 +24,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestRegisterUser;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientProfile;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetProfile;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -179,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             //GET ID TOKEN
             String idToken = account.getIdToken();
             firebaseAuthWithGoogle(account);
-            Toast.makeText(this, account.getIdToken(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, account.getIdToken(), Toast.LENGTH_SHORT).show();
 
             //connector().call(new ServerRequestRegisterUser(findViewById(R.id.sign_in_button),idToken),this);
 
@@ -239,14 +240,38 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
     @Override
     public void success(IServerRequest request) {
 
+        if ( request.requesterId() == null )
+        {
+            ServerRequestUserGetPatientProfile responseGetProfile  = (ServerRequestUserGetPatientProfile) request;
 
+            //Esto es un ejemplo
+            //Toast.makeText(this, "GP : " + responseGetProfile.response() , Toast.LENGTH_SHORT).show();
+        }
         //PREGUNTAS QUE BOTON FUE PRESIONADO
-        if(request.requesterId().equals(findViewById(R.id.sign_in_button))){
+        else if(request.requesterId().equals(findViewById(R.id.sign_in_button))){
             ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
             String response = serverRequestLoginUser.getUserData();
-            Toast.makeText(this, response, Toast.LENGTH_SHORT).show();
-        }
-            //Toast.makeText(this, "Logeado correctamente como: " + account.getEmail(), Toast.LENGTH_SHORT).show();
 
+            //deberia quedar asi
+            // UserData response = serverRequestLoginUser.getUserData();
+            // connector().apiToken( response.apiToken() );
+
+            //Como obtener los datos con un JSON Object
+            JSONObject json = null;
+            try {
+                json = new JSONObject( response );
+
+                // Seteo el api token con el api token que me llega del server
+                connector().apiToken( json.getJSONObject("user").getString("api_token") );
+
+                // Llamado de prueba para obtener el perfil de usuario
+                //connector().call( new ServerRequestUserGetProfile( null ), this );
+
+                connector().call( new ServerRequestUserGetPatientProfile( null ), this );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

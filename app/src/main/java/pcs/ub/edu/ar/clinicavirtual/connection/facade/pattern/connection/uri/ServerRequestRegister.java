@@ -14,6 +14,6 @@ public abstract class ServerRequestRegister extends ServerRequest {
 
     @Override
     public String path() {
-        return super.path() + URI.REGISTER;
+        return super.path() + "/" + URI.REGISTER;
     }
 }
