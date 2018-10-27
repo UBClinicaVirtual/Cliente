@@ -14,15 +14,15 @@ public  abstract class ServerRequest implements IServerRequest {
     // Depende de lo que le sea mas practico
 
     private String 	mResponse;
-    private View		mRequesterId;
+    private Integer		mRequesterId;
     private Map<HEADER, String> mHeaders;
 
-    public ServerRequest(View requesterId) {
+    public ServerRequest(Integer requesterId) {
         this.requesterId( requesterId );
         this.initHeaders();
     }
 
-    private void requesterId(View requesterId) {
+    private void requesterId(Integer requesterId) {
         this.mRequesterId = requesterId;
     }
 
@@ -35,7 +35,7 @@ public  abstract class ServerRequest implements IServerRequest {
     }
 
     @Override
-    public View requesterId() {
+    public Integer requesterId() {
         return this.mRequesterId;
     }
     @Override

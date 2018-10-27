@@ -248,7 +248,7 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
             //Toast.makeText(this, "GP : " + responseGetProfile.response() , Toast.LENGTH_SHORT).show();
         }
         //PREGUNTAS QUE BOTON FUE PRESIONADO
-        else if(request.requesterId().equals(findViewById(R.id.sign_in_button))){
+        else if(request.requesterId().equals(R.id.sign_in_button)){
             ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
             String response = serverRequestLoginUser.getUserData();
 
@@ -268,6 +268,8 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
                 //connector().call( new ServerRequestUserGetProfile( null ), this );
 
                 connector().call( new ServerRequestUserGetPatientProfile( null ), this );
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -20,6 +20,6 @@ public interface IServerRequest {
     public Map<HEADER, String> headers();
 
     //Deberia ser un int
-    public View requesterId();
+    public Integer requesterId();
 
 }

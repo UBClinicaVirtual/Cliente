@@ -22,7 +22,7 @@ public class ServerRequestLoginUser extends ServerRequestLogin {
 
     private String gmailToken;
 
-    public ServerRequestLoginUser(View requesterId, String gmailToken) {
+    public ServerRequestLoginUser(Integer requesterId, String gmailToken) {
         super(requesterId);
         this.gmailToken(gmailToken);
     }

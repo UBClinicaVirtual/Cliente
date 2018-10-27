@@ -6,7 +6,7 @@ import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerR
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.URI;
 
 public abstract class ServerRequestLogin extends ServerRequest {
-    public ServerRequestLogin(View requesterId) {
+    public ServerRequestLogin(Integer requesterId) {
         super(requesterId);
     }
 
