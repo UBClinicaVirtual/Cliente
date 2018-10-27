@@ -12,7 +12,7 @@ import pcs.ub.edu.ar.clinicavirtual.data.UserData;
 
 public class ServerRequestLogoutUser extends ServerRequestLogout {
 
-    public ServerRequestLogoutUser(View requesterId) {
+    public ServerRequestLogoutUser(Integer requesterId) {
         super(requesterId);
     }
 

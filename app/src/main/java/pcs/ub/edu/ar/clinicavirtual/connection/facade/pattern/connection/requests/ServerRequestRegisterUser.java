@@ -16,7 +16,7 @@ import pcs.ub.edu.ar.clinicavirtual.data.UserData;
 public class ServerRequestRegisterUser extends ServerRequestRegister {
     private String gmailToken;
 
-    public ServerRequestRegisterUser(View requesterId, String gmailToken) {
+    public ServerRequestRegisterUser(Integer requesterId, String gmailToken) {
         super(requesterId);
         this.gmailToken(gmailToken);
     }

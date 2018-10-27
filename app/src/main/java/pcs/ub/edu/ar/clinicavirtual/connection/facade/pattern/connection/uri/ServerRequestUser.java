@@ -7,7 +7,7 @@ import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.URI;
 
 public abstract class ServerRequestUser extends ServerRequest {
 
-    public ServerRequestUser(View requesterId) {
+    public ServerRequestUser(Integer requesterId) {
         super(requesterId);
     }
 

@@ -6,7 +6,7 @@ import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
 
 public class ServerRequestUserGetPatientProfile extends ServerRequestUser {
 
-    public ServerRequestUserGetPatientProfile(View requesterId) {
+    public ServerRequestUserGetPatientProfile(Integer requesterId) {
         super(requesterId);
     }
 

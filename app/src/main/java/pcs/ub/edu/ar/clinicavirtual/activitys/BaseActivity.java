@@ -17,7 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IServerR
         // Creo un conector con una lista de respuestas que son emuladas
         // Esto deberia ser un singleton para no tener que salir a buscar el api token cada vez que hay un request
         // (Pero puede quedar para otro momento)
-        connector( new ServerConnectorInternet( "http://www.ubclinicavirtual.tk" ) );
+        connector( new ServerConnectorInternet( "http://www.ubclinicavirtual.000webhostapp.com" ) );
         //https://ubclinicavirtual.000webhostapp.com
         //http://www.ubclinicavirtual.tk
     }

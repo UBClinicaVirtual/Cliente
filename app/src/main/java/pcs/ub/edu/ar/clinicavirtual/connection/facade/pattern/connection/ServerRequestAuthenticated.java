@@ -5,7 +5,7 @@ import android.view.View;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
 
 public abstract class ServerRequestAuthenticated extends ServerRequest {
-    public ServerRequestAuthenticated(View requesterId) {
+    public ServerRequestAuthenticated(Integer requesterId) {
         super(requesterId);
     }
 

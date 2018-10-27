@@ -5,7 +5,7 @@ import android.view.View;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
 
 public class ServerRequestUserGetProfile extends ServerRequestUser {
-    public ServerRequestUserGetProfile(View requesterId) {
+    public ServerRequestUserGetProfile(Integer requesterId) {
         super(requesterId);
     }
 

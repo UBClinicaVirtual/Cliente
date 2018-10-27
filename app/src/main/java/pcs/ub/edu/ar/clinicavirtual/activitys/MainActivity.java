@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestRegisterUser;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientProfile;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetProfile;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
@@ -182,10 +183,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             firebaseAuthWithGoogle(account);
             //Toast.makeText(this, account.getIdToken(), Toast.LENGTH_SHORT).show();
 
-            //connector().call(new ServerRequestRegisterUser(findViewById(R.id.sign_in_button),idToken),this);
+           // connector().call(new ServerRequestRegisterUser(R.id.sign_in_button,idToken),this);
 
-            connector().call( new ServerRequestLoginUser(findViewById(R.id.sign_in_button),idToken),this);
+            connector().call( new ServerRequestLoginUser(R.id.sign_in_button,idToken),this);
 
+            
             // PENDIENTE PENDIENTE
             // ENVIAR ID TOKENN AL SERVER Y VALIDAR
 
@@ -252,6 +254,8 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
             ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
             String response = serverRequestLoginUser.getUserData();
 
+
+            //Toast.makeText(this,response, Toast.LENGTH_SHORT).show();
             //deberia quedar asi
             // UserData response = serverRequestLoginUser.getUserData();
             // connector().apiToken( response.apiToken() );
