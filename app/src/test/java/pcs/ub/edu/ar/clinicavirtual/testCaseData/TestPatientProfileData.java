@@ -97,22 +97,6 @@ public class TestPatientProfileData {
         }catch (PatientProfileDataDniIsZeroException e){
         }
     }
-/*
-
-
-    @Override
-    public String getmName() {
-        return mName;
-    }
-
-
-    @Override
-    public Long getDNI() {
-        return mDNI;
-    }
-*/
-
-
     @Test
     public void testGetPatientmName () {
         String mName = "Fernando";
