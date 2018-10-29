@@ -4,7 +4,6 @@ public class PatientProfileDataException extends RuntimeException {
 
 public PatientProfileDataException (String msg)
 {
-    super(msg);
-}
+    super(msg); }
 
 }
