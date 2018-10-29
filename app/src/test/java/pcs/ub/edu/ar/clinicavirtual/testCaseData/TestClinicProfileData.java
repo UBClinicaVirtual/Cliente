@@ -12,6 +12,7 @@ import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.Cl
 import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullIdException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullSpecialitiesException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class TestClinicProfileData {
@@ -26,12 +27,10 @@ public class TestClinicProfileData {
             String mNameSpeciality = "Speciality 1";
             String mNameSpeciality2 = "Speciality 2";
             Integer mIdSpeciality = 1;
-            Integer mIdSpeciality2 = 2;
             List<Speciality> mSpecialties = new ArrayList<Speciality>();
             Speciality speciality1 = new Speciality(mIdSpeciality,mNameSpeciality);
-            Speciality speciality2 = new Speciality(mIdSpeciality2,mNameSpeciality2);
             mSpecialties.add(speciality1);
-            mSpecialties.add(speciality2);
+
 
             assertNotNull(new ClinicProfileData(mId,mBusinessName,mSpecialties));
         }catch (ClinicProfileDataNullBusinessNameException e){
@@ -48,12 +47,9 @@ public class TestClinicProfileData {
             String mNameSpeciality = "Speciality 1";
             String mNameSpeciality2 = "Speciality 2";
             Integer mIdSpeciality = 1;
-            Integer mIdSpeciality2 = 2;
             List<Speciality> mSpecialties = new ArrayList<Speciality>();
             Speciality speciality1 = new Speciality(mIdSpeciality,mNameSpeciality);
-            Speciality speciality2 = new Speciality(mIdSpeciality2,mNameSpeciality2);
             mSpecialties.add(speciality1);
-            mSpecialties.add(speciality2);
 
             assertNotNull(new ClinicProfileData(mId,mBusinessName,mSpecialties));
         }catch (ClinicProfileDataNullBusinessNameException e){
@@ -70,12 +66,9 @@ public class TestClinicProfileData {
                 String mNameSpeciality = "Speciality 1";
                 String mNameSpeciality2 = "Speciality 2";
                 Integer mIdSpeciality = 1;
-                Integer mIdSpeciality2 = 2;
                 List<Speciality> mSpecialties = new ArrayList<Speciality>();
                 Speciality speciality1 = new Speciality(mIdSpeciality, mNameSpeciality);
-                Speciality speciality2 = new Speciality(mIdSpeciality2, mNameSpeciality2);
                 mSpecialties.add(speciality1);
-                mSpecialties.add(speciality2);
 
                 assertNotNull(new ClinicProfileData(mId, mBusinessName, mSpecialties));
             } catch (ClinicProfileDataNullIdException e) {
@@ -91,12 +84,9 @@ public class TestClinicProfileData {
             String mNameSpeciality = "Speciality 1";
             String mNameSpeciality2 = "Speciality 2";
             Integer mIdSpeciality = 1;
-            Integer mIdSpeciality2 = 2;
             List<Speciality> mSpecialties = new ArrayList<Speciality>();
             Speciality speciality1 = new Speciality(mIdSpeciality, mNameSpeciality);
-            Speciality speciality2 = new Speciality(mIdSpeciality2, mNameSpeciality2);
             mSpecialties.add(speciality1);
-            mSpecialties.add(speciality2);
 
             assertNotNull(new ClinicProfileData(mId, mBusinessName, mSpecialties));
         } catch (ClinicProfileDataIdIsZeroException e) {
@@ -135,7 +125,60 @@ public class TestClinicProfileData {
          }
      }
 
- 
+     @Test
+    public void testgetIdClinicProfileData () {
+         Integer mId = 1;
+         String mBusinessName = "Hospital de Clinicas";
+
+         String mNameSpeciality = "Speciality 1";
+         Integer mIdSpeciality = 1;
+         List<Speciality> mSpecialties = new ArrayList<Speciality>();
+         Speciality speciality1 = new Speciality(mIdSpeciality, mNameSpeciality);
+         mSpecialties.add(speciality1);
+
+         ClinicProfileData clinicProfileData = new ClinicProfileData(mId, mBusinessName, mSpecialties);
+
+         assertEquals(mId, clinicProfileData.getmID());
+     }
+
+     @Test
+    public void testGetBusinessNameClinicaProfileData(){
+         Integer mId = 1;
+         String mBusinessName = "Hospital de Clinicas";
+
+         String mNameSpeciality = "Speciality 1";
+         String mNameSpeciality2 = "Speciality 2";
+         Integer mIdSpeciality = 1;
+         List<Speciality> mSpecialties = new ArrayList<Speciality>();
+         Speciality speciality1 = new Speciality(mIdSpeciality, mNameSpeciality);
+         mSpecialties.add(speciality1);
+
+
+         ClinicProfileData clinicProfileData = new ClinicProfileData(mId, mBusinessName, mSpecialties);
+
+         assertEquals(mBusinessName, clinicProfileData.getmName());
+     }
+
+     @Test
+    public void testGetSpecialityOfClinicProfileData () {
+         Integer mId = 1;
+         String mBusinessName = "Hospital de Clinicas";
+
+         String mNameSpeciality = "Speciality 1";
+         String mNameSpeciality2 = "Speciality 2";
+         Integer mIdSpeciality = 1;
+         Integer mIdSpeciality2 = 2;
+         List<Speciality> mSpecialties = new ArrayList<Speciality>();
+         Speciality speciality1 = new Speciality(mIdSpeciality, mNameSpeciality);
+         Speciality speciality2 = new Speciality(mIdSpeciality2, mNameSpeciality2);
+         mSpecialties.add(speciality1);
+         mSpecialties.add(speciality2);
+
+         ClinicProfileData clinicProfileData = new ClinicProfileData(mId, mBusinessName, mSpecialties);
+
+         assertEquals(mSpecialties, clinicProfileData.getSpecialties());
+     }
+
 
 
 
