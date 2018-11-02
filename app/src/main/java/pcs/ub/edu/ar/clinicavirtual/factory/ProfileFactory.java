@@ -1,5 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.factory;
 
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -69,6 +70,16 @@ public class ProfileFactory extends BaseActivity {
 
     @Override
     public void success(IServerRequest request) {
+
+    }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
 
     }
 }
