@@ -1,6 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
@@ -39,6 +40,16 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     public void success(IServerRequest request) {
+
+    }
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
 
     }
 }

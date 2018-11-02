@@ -18,4 +18,5 @@ public class ServerRequestUserGetProfile extends ServerRequestUser {
     public String method() {
         return METHOD.GET.getKey();
     }
+
 }

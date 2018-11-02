@@ -2,18 +2,30 @@ package pcs.ub.edu.ar.clinicavirtual.connection;
 
 import android.os.StrictMode;
 
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+
+
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
+
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
@@ -23,13 +35,14 @@ import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
 
 public class ServerConnectorInternet extends ServerConnector {
     private StrictMode.ThreadPolicy mPolicy;
-    private String mURL;
-    private URL obj;
-    private HttpsURLConnection mHttpsURLConnection;
-    private String mUrlParameters;
-    private StringBuffer mResponse;
     private JsonToObjectFactory mJsonToObjectFactory = new JsonToObjectFactory();
-    private String ExceptionMensaje;
+
+    // always verify the host - dont check for certificate
+    final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    };
 
     public ServerConnectorInternet(String urlBase) {
         super(urlBase);
@@ -62,24 +75,27 @@ public class ServerConnectorInternet extends ServerConnector {
 
             //hosting http
            // String url = "http://www.ubclinicavirtual.tk/api/v1/login";
-            //String url = urlBase() + request.path();
-            //URL obj = new URL(url);
-            setUrl(request.path());
+            String url = urlBase() + request.path();
+            URL obj = new URL(url);
             //Hosting en https
-//			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+            //trustAllHosts();
+			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+            //con.setHostnameVerifier(DO_NOT_VERIFY);
+
 
             //Hosting redireccionado en http
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            //HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-            ///////////////////////////////////////////////////////////////////
-            //add reuqest header
 
-            /*con.setRequestMethod(METHOD.POST.getKey());
-            con.setRequestProperty(HEADER.ACCEPT.getKey(), HEADER.ACCEPT.getValue());
-            con.setRequestProperty(HEADER.CONTENT_TYPE.getKey(), HEADER.CONTENT_TYPE.getValue());*/
 
-            setMethod(con,request.method());
-            setHeaders(con,request.headers());
+            //SET METHOD
+            con.setRequestMethod(request.method());
+
+            //SET HEADERS
+            for (Map.Entry<HEADER, String> mHeader :request.headers().entrySet() ) {
+                con.setRequestProperty( mHeader.getKey().getKey(), mHeader.getValue());
+            }
+
             ///////////////////////////////////////////////////////////////////
             //Envio un access_token(el access token varia según el tiempo, deben generar uno propio en cada intento de login)
             //TODO buscar como refactorizar la generacion del json para enviar como parametro
@@ -101,9 +117,9 @@ public class ServerConnectorInternet extends ServerConnector {
             ///////////////////////////////////////////////////////////////////
             //Analizo la respuesta
 
-           /* System.out.println("\nSending 'POST' request to URL : " + url);
+            System.out.println("\nSending 'POST' request to URL : " + url);
             System.out.println("Post parameters : " + urlParameters);
-            System.out.println("Response Code : " + responseCode);*/
+            System.out.println("Response Code : " + responseCode);
 
             BufferedReader in = new BufferedReader( new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -112,6 +128,7 @@ public class ServerConnectorInternet extends ServerConnector {
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
+
             in.close();
 
             ///////////////////////////////////////////////////////////////////
@@ -130,43 +147,34 @@ public class ServerConnectorInternet extends ServerConnector {
         }
     }
 
-    /*@Override
-        public void call(ServerRequest request, IServerResponseListener listener) {
-            mResponse = new StringBuffer();
-            try {
-                //applies the necessary permissions
-                setPolicies();
-
-                setUrl(request.path());
-
-                addRequestParameters(request.method(),request.headers());
-
-                mUrlParameters = request.parameters();
-
-                sendRequest();
-
-                request.response(getResponse());
-
-                int responseCode = mHttpsURLConnection.getResponseCode();
-
-
-
-                listener.success(request);
-
-            } catch (MalformedURLException e1) {
-                e1.printStackTrace();
-
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                ExceptionMensaje = e.getMessage();
-
+    private void trustAllHosts() {
+        // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[] {};
             }
 
+            public void checkClientTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
+            }
+
+            public void checkServerTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
+            }
+        } };
+
+        // Install the all-trusting trust manager
+        try {
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection
+                    .setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    */
+    }
+
+
     @Override
     public void apiToken(String apiToken) {
         // Aca es donde deberia grabarlo en el archivo para poder hacer
@@ -175,92 +183,9 @@ public class ServerConnectorInternet extends ServerConnector {
         super.apiToken(apiToken);
     }
 
-   /*
-
-
-    public void call(IServerRequest req, IResponseListener listener) {
-
-
-        mResponse = new StringBuffer();
-        try {
-            //applies the necessary permissions
-            //setPolicies();
-
-            setUrl(req.path());
-
-            addRequestParameters(req.method(),req.headers());
-
-            mUrlParameters = req.parameters();
-
-            sendRequest();
-
-            int responseCode = mHttpsURLConnection.getResponseCode();
-
-            req.setResponse(  getResponse() );
-
-            listener.notify(req);
-
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-    }
-/**/
     //------------------------------------------------------------------------
-    //methods of connection to the server
-    private void setMethod(HttpURLConnection con, String method) throws ProtocolException {
-        con.setRequestMethod( method );
-    }
-
-    private void setHeaders(HttpURLConnection con, Map<HEADER, String> headers){
-        for (Map.Entry<HEADER, String> mHeader :headers.entrySet() ) {
-            con.setRequestProperty( mHeader.getKey().getKey(), mHeader.getValue());
-        }
-    }
-
-    private void setUrl(String uri) throws IOException {
-        //hosting http
-        mURL = urlBase() + uri;
-        obj = new URL( mURL );
-        //mHttpsURLConnection = (HttpsURLConnection) obj.openConnection();
-
-    }
-
     private void setPolicies() {
         mPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(mPolicy);
     }
-
-    private void sendRequest() throws IOException {
-        mHttpsURLConnection.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(mHttpsURLConnection.getOutputStream());
-        wr.writeBytes(mUrlParameters);
-        wr.flush();
-        wr.close();
-    }
-
-    private String getResponse() throws IOException {
-
-        InputStream inputStream= mHttpsURLConnection.getInputStream();
-        InputStreamReader inputStreamReader =  new InputStreamReader(inputStream);
-        BufferedReader in = new BufferedReader(inputStreamReader);
-        String mInputLine;
-
-
-        while ((mInputLine = in.readLine()) != null) {
-            mResponse.append(mInputLine);
-        }
-        in.close();
-
-        return mResponse.toString();
-    }
-
-
-
 }

@@ -31,6 +31,7 @@ import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.request
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestRegisterUser;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientProfile;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetProfile;
+import pcs.ub.edu.ar.clinicavirtual.data.UserData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -106,7 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void initButtons() {
         findViewById(R.id.btnLogIn).setOnClickListener(this);
         findViewById(R.id.btnSignIn).setOnClickListener(this);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.btnGoogleSignIn).setOnClickListener(this);
     }
 
 
@@ -114,7 +115,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.sign_in_button:
+            case R.id.btnGoogleSignIn:
 
                 //  logIn();
 
@@ -185,10 +186,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
            // connector().call(new ServerRequestRegisterUser(R.id.sign_in_button,idToken),this);
 
-            connector().call( new ServerRequestLoginUser(R.id.sign_in_button,idToken),this);
+            connector().call( new ServerRequestLoginUser(R.id.btnGoogleSignIn,idToken),this);
 
-            
-            // PENDIENTE PENDIENTE
+
+            // PENDIENTE PENDIENTE  
             // ENVIAR ID TOKENN AL SERVER Y VALIDAR
 
             // signed in successfully, show auth. UI.
@@ -247,18 +248,19 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
             ServerRequestUserGetPatientProfile responseGetProfile  = (ServerRequestUserGetPatientProfile) request;
 
             //Esto es un ejemplo
-            //Toast.makeText(this, "GP : " + responseGetProfile.response() , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "GP : " + responseGetProfile.response() , Toast.LENGTH_SHORT).show();
         }
         //PREGUNTAS QUE BOTON FUE PRESIONADO
-        else if(request.requesterId().equals(R.id.sign_in_button)){
+        else if(request.requesterId().equals(R.id.btnGoogleSignIn)){
             ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
             String response = serverRequestLoginUser.getUserData();
 
 
-            //Toast.makeText(this,response, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,response, Toast.LENGTH_SHORT).show();
             //deberia quedar asi
-            // UserData response = serverRequestLoginUser.getUserData();
-            // connector().apiToken( response.apiToken() );
+             //UserData userData = serverRequestLoginUser.getUserData();
+
+            // connector().apiToken( userData.apiToken() );
 
             //Como obtener los datos con un JSON Object
             JSONObject json = null;
@@ -266,10 +268,11 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
                 json = new JSONObject( response );
 
                 // Seteo el api token con el api token que me llega del server
-                connector().apiToken( json.getJSONObject("user").getString("api_token") );
+                String apitoken = json.getJSONObject("user").getString("api_token");
+                connector().apiToken( apitoken );
 
                 // Llamado de prueba para obtener el perfil de usuario
-                //connector().call( new ServerRequestUserGetProfile( null ), this );
+               // connector().call( new ServerRequestUserGetProfile( null ), this );
 
                 connector().call( new ServerRequestUserGetPatientProfile( null ), this );
 
