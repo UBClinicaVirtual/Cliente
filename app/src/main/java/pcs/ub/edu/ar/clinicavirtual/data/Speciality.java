@@ -1,5 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+import pcs.ub.edu.ar.clinicavirtual.data.exception.Speciality.SpecialityIdIsZeroException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.Speciality.SpecialityNullIdException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.Speciality.SpecialityNullNameException;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.ISpeciality;
@@ -30,9 +31,10 @@ public class Speciality implements ISpeciality {
     }
 
     public void setmIdSpeciality(Integer mIdSpeciality) {
-        if (mIdSpeciality == 0)
+        if (mIdSpeciality == null)
             throw new SpecialityNullIdException();
         if (mIdSpeciality == 0 )
+            throw new SpecialityIdIsZeroException();
         this.mIdSpeciality = mIdSpeciality;
     }
 }
