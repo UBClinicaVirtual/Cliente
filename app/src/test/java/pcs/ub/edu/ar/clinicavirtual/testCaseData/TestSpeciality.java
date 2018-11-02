@@ -44,7 +44,9 @@ public class TestSpeciality {
             Integer mIdSpeciality =  1;
 
             Assert.assertNotNull(new Speciality(mIdSpeciality, mName));
-        }catch (SpecialityNullNameException e)
+        }catch (SpecialityNullNameException e){
+
+        }
     }
 
     @Test
@@ -52,6 +54,8 @@ public class TestSpeciality {
         try {
             String mName = "";
             Integer mIdspeciality = 1;
+
+            Assert.assertNotNull(new Speciality(mIdspeciality,mName));
         }catch (SpecialityNullNameException e){
 
         }
@@ -64,6 +68,16 @@ public class TestSpeciality {
 
         Speciality speciality = new Speciality(mIdspeciality,mName);
 
-        assertEquals
+        assertEquals(mName, speciality.getmName());
+    }
+
+    @Test
+    public void testGetIdSpeciality () {
+        String mName = "Fertilidad";
+        Integer mIdSpeciality = 1;
+
+        Speciality speciality = new Speciality(mIdSpeciality, mName);
+
+        assertEquals(mIdSpeciality, speciality.getmIdSpeciality());
     }
 }
