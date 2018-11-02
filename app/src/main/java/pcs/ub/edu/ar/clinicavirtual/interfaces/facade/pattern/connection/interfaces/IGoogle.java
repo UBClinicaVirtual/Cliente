@@ -9,6 +9,7 @@ import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.GoogleSignInActivity;
 
 public interface IGoogle {
+
     public void GoogleConnection(BaseActivity activity, Integer clientId);
 
     public Intent SignInIntent();
