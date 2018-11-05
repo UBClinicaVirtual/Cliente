@@ -9,27 +9,15 @@
 
 
     <Button
-        android:id="@+id/btnLogIn"
-        style="@android:style/Widget.Material.Button.Borderless"
-        android:layout_width="251dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="124dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="INICIAR SESION"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/btnSignIn"
-        style="@android:style/Widget.Holo.Button.Small"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
         android:layout_width="255dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="203dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="REGISTRARSE"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="203dp"
+        android:text="INICIAR CLINICA VIRTUAL"
+        android:textAppearance="@android:style/TextAppearance.Widget"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

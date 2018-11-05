@@ -18,7 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.GoogleSignInActivity" />
         <activity android:name=".activitys.DataRegisterActivity" />
         <activity android:name=".activitys.ProfileActivity" />
         <activity android:name=".activitys.SearchTurnActivity" />

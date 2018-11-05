@@ -6,7 +6,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
-import pcs.ub.edu.ar.clinicavirtual.activitys.GoogleSignInActivity;
 
 public interface IGoogle {
 
