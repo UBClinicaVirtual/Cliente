@@ -101,10 +101,10 @@ public class DataRegisterActivity extends BaseActivity {
                 /*getServerConnector().addPatientProfileToUserAccount(mProfileData);
                 connector().call();*/
 
-                Toast.makeText(DataRegisterActivity.this, mProfileData.toString() , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DataRegisterActivity.this, mProfileData.toString() , Toast.LENGTH_SHORT).show();
 
                 //new ProfileFactory().generate(mSpnProfile,mComponents);
-                Toast.makeText(DataRegisterActivity.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DataRegisterActivity.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -167,10 +167,7 @@ public class DataRegisterActivity extends BaseActivity {
         //</editor-fold>
     }
 
-    @Override
-    public void success(IServerRequest request) {
 
-    }
 
     /**
      * Called when a view has been clicked.

@@ -14,10 +14,7 @@ public class TurnDataActivity extends BaseActivity {
         setContentView(R.layout.activity_turn_data);
     }
 
-    @Override
-    public void success(IServerRequest request) {
 
-    }
 
     /**
      * Called when a view has been clicked.

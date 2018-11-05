@@ -112,10 +112,7 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
     }
 
 
-    @Override
-    public void success(IServerRequest request) {
 
-    }
 
     /**
      * Called when a view has been clicked.

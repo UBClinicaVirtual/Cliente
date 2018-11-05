@@ -1,9 +1,11 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
+import android.os.AsyncTask;
+
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
-public abstract class ServerConnector implements IServerConnector {
+public abstract class ServerConnector extends AsyncTask  implements IServerConnector {
 
 
     private String urlBase;

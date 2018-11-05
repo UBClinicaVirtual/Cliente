@@ -38,10 +38,6 @@ public class ProfileActivity extends BaseActivity {
 
     }
 
-    @Override
-    public void success(IServerRequest request) {
-
-    }
 
     /**
      * Called when a view has been clicked.

@@ -174,9 +174,9 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
                 }
             });
 }
-
+/*
     @Override
-    public void success(IServerRequest request) {
+    public void successAsync(IServerRequest request) {
 
         switch (request.requesterId()){
             case R.id.btnLogIn:
@@ -206,49 +206,5 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
                 break;
         }
 
-        //<editor-fold desc="LO MISMO PERO CON IF">
-        /*if ( request.requesterId() == null )
-        {
-            ServerRequestUserGetPatientProfile responseGetProfile  = (ServerRequestUserGetPatientProfile) request;
-
-            //Esto es un ejemplo
-            Toast.makeText(this, "GP : " + responseGetProfile.response() , Toast.LENGTH_SHORT).show();
-        }
-        //PREGUNTAS QUE BOTON FUE PRESIONADO
-        else if(request.requesterId().equals(R.id.btnGoogleSignIn)){
-            ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
-            String response = serverRequestLoginUser.getUserData();
-
-
-            Toast.makeText(this,response, Toast.LENGTH_SHORT).show();
-            //deberia quedar asi
-             //UserData userData = serverRequestLoginUser.getUserData();
-
-            // connector().apiToken( userData.apiToken() );
-
-            //Como obtener los datos con un JSON Object
-            JSONObject json = null;
-            try {
-                json = new JSONObject( response );
-
-                // Seteo el api token con el api token que me llega del server
-                String apitoken = json.getJSONObject("user").getString("api_token");
-                connector().apiToken( apitoken );
-
-                // Llamado de prueba para obtener el perfil de usuario
-               // connector().call( new ServerRequestUserGetProfile( null ), this );
-
-                connector().call( new ServerRequestUserGetPatientProfile( null ), this );
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }else if(request.requesterId().equals(R.id.btnSignIn)){
-            Intent mMainScreen = new Intent(MainActivity.this, MainScreenActivity.class);
-            startActivity(mMainScreen);
-        }*/
-        //</editor-fold>
-    }
+    }*/
 }

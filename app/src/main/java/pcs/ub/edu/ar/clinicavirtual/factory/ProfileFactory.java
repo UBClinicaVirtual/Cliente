@@ -68,10 +68,6 @@ public class ProfileFactory extends BaseActivity {
 
     }
 
-    @Override
-    public void success(IServerRequest request) {
-
-    }
 
     /**
      * Called when a view has been clicked.

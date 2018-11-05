@@ -3,15 +3,14 @@ package pcs.ub.edu.ar.clinicavirtual.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
 import pcs.ub.edu.ar.clinicavirtual.google.Google;
+import pcs.ub.edu.ar.clinicavirtual.handler.LoginResponseHandler;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IGoogle;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class GoogleSignInActivity extends BaseActivity {
 
@@ -33,20 +32,6 @@ public class GoogleSignInActivity extends BaseActivity {
         findViewById(R.id.btnGoogleSignIn).setOnClickListener(this);
     }
 
-    @Override
-    public void success(IServerRequest request) {
-
-        if(request.requesterId() == R.id.btnGoogleSignIn){
-            ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
-            String response = serverRequestLoginUser.getUserData();
-            Toast.makeText(this,response, Toast.LENGTH_SHORT).show();
-
-            Intent mIntentDataRegister = new Intent(GoogleSignInActivity.this, DataRegisterActivity.class);
-            startActivity(mIntentDataRegister);
-        }
-
-    }
-
 
     @Override
     public void onClick(View view) {
@@ -66,12 +51,14 @@ public class GoogleSignInActivity extends BaseActivity {
 
         mGoogle.handleSignInResult(task);
 
-        connector().call( new ServerRequestLoginUser(R.id.btnGoogleSignIn, mGoogle.account().getIdToken() ),this);
 
+        connector().execute(new ServerRequestLoginUser(R.id.btnGoogleSignIn, mGoogle.account().getIdToken() ),this);
         //deberia ir
         // connector().call(new ServerRequestRegisterUser(R.id.sign_in_button,idToken),this);
     }
 
-
-
+    @Override
+    protected void loadHandlers() {
+        this.getHandlers().put(R.id.btnGoogleSignIn,new LoginResponseHandler());
+    }
 }

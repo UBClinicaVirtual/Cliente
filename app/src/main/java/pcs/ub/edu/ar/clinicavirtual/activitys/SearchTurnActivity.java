@@ -14,10 +14,7 @@ public class SearchTurnActivity extends BaseActivity {
         setContentView(R.layout.activity_search_turn);
     }
 
-    @Override
-    public void success(IServerRequest request) {
 
-    }
 
     /**
      * Called when a view has been clicked.

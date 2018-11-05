@@ -14,10 +14,6 @@ public class MyTurnsActivity extends BaseActivity {
         setContentView(R.layout.activity_my_turns);
     }
 
-    @Override
-    public void success(IServerRequest request) {
-
-    }
 
     /**
      * Called when a view has been clicked.

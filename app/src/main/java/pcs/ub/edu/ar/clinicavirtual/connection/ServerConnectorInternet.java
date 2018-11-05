@@ -27,6 +27,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 
+import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.*;
@@ -64,6 +65,9 @@ public class ServerConnectorInternet extends ServerConnector {
     }
 
     private void callInternal(ServerRequest request, IServerResponseListener listener) {
+
+
+
         try {
 
             setPolicies();
@@ -137,6 +141,8 @@ public class ServerConnectorInternet extends ServerConnector {
             System.out.println(response.toString());
 
             request.response(response.toString());
+
+
             listener.success(request);
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
@@ -187,5 +193,19 @@ public class ServerConnectorInternet extends ServerConnector {
     private void setPolicies() {
         mPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(mPolicy);
+    }
+
+
+    @Override
+    protected Object doInBackground(Object[] objects) {
+
+        if(objects[0] instanceof ServerRequestAuthenticated){
+            ServerRequestAuthenticated serverRequest = (ServerRequestAuthenticated) objects[0];
+            serverRequest.apiToken( this.apiToken() );
+        }
+
+
+        this.callInternal((ServerRequest) objects[0], (IServerResponseListener) objects[1]);
+        return null;
     }
 }

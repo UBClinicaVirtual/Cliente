@@ -85,10 +85,7 @@ public class MainScreenActivity extends BaseActivity
         return true;
     }
 
-    @Override
-    public void success(IServerRequest request) {
 
-    }
 
     /**
      * Called when a view has been clicked.
