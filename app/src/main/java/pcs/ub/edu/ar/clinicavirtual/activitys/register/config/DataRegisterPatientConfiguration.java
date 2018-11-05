@@ -2,6 +2,9 @@ package pcs.ub.edu.ar.clinicavirtual.activitys.register.config;
 
 //<editor-fold desc="IMPORTS">
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.*;
 import org.json.JSONObject;
@@ -21,6 +24,8 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
 
     Spinner mSpnCivilState;
     Spinner mSpnGender;
+    Button btnBirthDate;
+    DatePickerDialog.OnDateSetListener mDateListener;
     ArrayAdapter<CharSequence> mAdapter;
     IJsonFactory mJsonFactory = new JsonFactory();
 
@@ -36,11 +41,35 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
         mSpnGender.setAdapter(mAdapter);
 
         //patient options allergies
-
         mAdapter = ArrayAdapter.createFromResource(mActivity,R.array.arrayAllergies,R.layout.data_register_spinner_text_style);
 
+        btnBirthDate = mActivity.findViewById(R.id.btnPatientBirthPicker);
 
-        //patient allergies choosed
+        btnBirthDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month= cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        mActivity,
+                        R.style.Theme_Design_BottomSheetDialog,
+                        mDateListener,
+                        year,month,day
+                );
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
+                dialog.show();
+            }
+        });
+
+        mDateListener = new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Toast.makeText(mActivity, year +"/"+month+"/"+dayOfMonth, Toast.LENGTH_SHORT).show();
+            }
+        };
 
 
         createOnClickListenerSpinner();

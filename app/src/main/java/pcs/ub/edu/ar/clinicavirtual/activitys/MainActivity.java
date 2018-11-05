@@ -36,6 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     IGoogle mGoogle = new Google(this);
+    Boolean mCloseApplication = false;
 
 
     @Override
@@ -80,6 +81,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void loadHandlers() {
         this.getHandlers().put(R.id.btnSignIn, new LoginResponseHandler());
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(mCloseApplication){
+            super.onBackPressed();
+        }else{
+            Toast.makeText(this, "Esta por salir de la aplicacion", Toast.LENGTH_SHORT).show();
+            mCloseApplication = true;
+        }
     }
 
 /*

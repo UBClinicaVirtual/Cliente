@@ -190,7 +190,7 @@
 
                             <Button
                                 android:id="@+id/btnPatientBirthPicker"
-                                style="@style/Widget.AppCompat.Button.Small"
+                                style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Fecha de Nacimiento" />
@@ -208,8 +208,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:inputType="textPersonName"
-                                android:text="Name" />
+                                android:hint="Telefono"
+                                android:inputType="textPersonName" />
 
                         </LinearLayout>
                     </ScrollView>

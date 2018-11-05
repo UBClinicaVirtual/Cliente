@@ -50,6 +50,7 @@ public class LoginResponseHandler implements IServerResponseHandler {
 
             activity.findViewById(R.id.progress).setVisibility(View.INVISIBLE);
             activity.startActivity(mIntent);
+            activity.finish();
 
         } catch (JSONException e) {
             e.printStackTrace();
