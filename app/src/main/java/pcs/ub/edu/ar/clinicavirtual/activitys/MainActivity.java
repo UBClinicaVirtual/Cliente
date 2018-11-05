@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -57,8 +58,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()) {
 
             case R.id.btnSignIn:
+                view.setClickable(false);
                 //PREGUNTAR QUE ID USER TRAJO
                 startActivityForResult( mGoogle.SignInIntent() , mGoogle.RC() );
+
+                findViewById(R.id.progress).setVisibility(View.VISIBLE);
+
                 break;
 
         }
@@ -66,6 +71,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(this, "Analizando informaciion...", Toast.LENGTH_SHORT).show();
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
         mGoogle.handleSignInResult(task);
         connector().execute(new ServerRequestLoginUser(R.id.btnSignIn, mGoogle.account().getIdToken() ),this);

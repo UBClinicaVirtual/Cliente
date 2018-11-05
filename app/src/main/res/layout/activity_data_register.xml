@@ -121,6 +121,18 @@
                                 android:ems="10"
                                 android:hint="Ingrese Apellido"
                                 android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/txtHcpSpecialities"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:inputType="textMultiLine" />
+
+                            <Spinner
+                                android:id="@+id/spnHcpSpecialities"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
                         </LinearLayout>
                     </ScrollView>
 
@@ -176,61 +188,28 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
 
+                            <Button
+                                android:id="@+id/btnPatientBirthPicker"
+                                style="@style/Widget.AppCompat.Button.Small"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fecha de Nacimiento" />
+
                             <EditText
-                                android:id="@+id/txtPatientAborts"
+                                android:id="@+id/txtPatientAddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:hint="Indicar Abortos"
-                                android:inputType="numberSigned" />
+                                android:hint="Direccion"
+                                android:inputType="textPersonName" />
 
                             <EditText
-                                android:id="@+id/txtPatientPregnants"
+                                android:id="@+id/txtPatientPhone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
-                                android:hint="Indicar Embarazos"
-                                android:inputType="numberSigned" />
-
-                            <EditText
-                                android:id="@+id/txtPatientBirths"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:hint="Indicar Partos"
-                                android:inputType="numberSigned" />
-
-                            <EditText
-                                android:id="@+id/txtPatientsSons"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:hint="Indicar Hijos"
-                                android:inputType="numberSigned" />
-
-                            <View
-                                android:id="@+id/divider"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="?android:attr/listDivider" />
-
-                            <Spinner
-                                android:id="@+id/spnPatientAllergies"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
-                            <EditText
-                                android:id="@+id/txtPatientAllergies"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:inputType="textMultiLine" />
-
-                            <View
-                                android:id="@+id/divider2"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="?android:attr/listDivider" />
+                                android:inputType="textPersonName"
+                                android:text="Name" />
 
                         </LinearLayout>
                     </ScrollView>

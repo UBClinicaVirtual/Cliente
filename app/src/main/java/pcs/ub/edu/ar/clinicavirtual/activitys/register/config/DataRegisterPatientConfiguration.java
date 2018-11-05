@@ -21,9 +21,7 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
 
     Spinner mSpnCivilState;
     Spinner mSpnGender;
-    Spinner mSpnAllergies;
     ArrayAdapter<CharSequence> mAdapter;
-    EditText txtPatientAllergies;
     IJsonFactory mJsonFactory = new JsonFactory();
 
     public DataRegisterPatientConfiguration(DataRegisterActivity activity ){
@@ -38,14 +36,12 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
         mSpnGender.setAdapter(mAdapter);
 
         //patient options allergies
-        mSpnAllergies = (Spinner) mActivity.findViewById(R.id.spnPatientAllergies);
+
         mAdapter = ArrayAdapter.createFromResource(mActivity,R.array.arrayAllergies,R.layout.data_register_spinner_text_style);
-        mSpnAllergies.setAdapter(mAdapter);
+
 
         //patient allergies choosed
-        txtPatientAllergies = (EditText) mActivity.findViewById(R.id.txtPatientAllergies);
-        txtPatientAllergies.setEnabled(false);
-        txtPatientAllergies.setText( "" );
+
 
         createOnClickListenerSpinner();
     }
@@ -80,34 +76,7 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
 
         });
 
-        mSpnAllergies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String mAllergieSelected = ((String)mSpnAllergies.getItemAtPosition(position)).toString();
-                if (ItemSelectedOK( mAllergieSelected )){
-                    String mText = txtPatientAllergies.getText().toString() + "\n" + ((String)mSpnAllergies.getItemAtPosition(position)).toString();
-                    txtPatientAllergies.setText( mText );
-                }
-            }
 
-            private boolean ItemSelectedOK(String allergieSelected) {
-                String[] arrayAllergies = txtPatientAllergies.getText().toString().split("\n");
-                ArrayList<String> arrayListAllergies = new ArrayList<>(Arrays.asList(arrayAllergies));
-                if(allergieSelected.toString().equals("INGRESAR ALERGIAS"))
-                    return false;
-
-                for (String mAllergie : arrayListAllergies)
-                    if(mAllergie.toString().equals(allergieSelected.toString()))
-                        return false;
-                return true;
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                txtPatientAllergies.setText( "" );
-            }
-        });
 
     }
 
