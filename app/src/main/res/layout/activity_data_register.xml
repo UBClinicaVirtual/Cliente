@@ -10,21 +10,20 @@
         android:id="@+id/spn_profile"
         android:layout_width="370dp"
         android:layout_height="54dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
+        android:spinnerMode="dialog"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TabHost
         android:id="@+id/tabHost"
         android:layout_width="363dp"
-        android:layout_height="303dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +37,9 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+            </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -52,21 +53,32 @@
                     android:orientation="vertical"
                     android:visibility="invisible">
 
-                    <EditText
-                        android:id="@+id/txtAdminName"
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Nombre"
-                        android:inputType="textPersonName" />
+                        android:layout_height="match_parent">
 
-                    <EditText
-                        android:id="@+id/txtAdminSName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Apellido"
-                        android:inputType="textPersonName" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/txtAdminName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Nombre"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/txtAdminSName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Apellido"
+                                android:inputType="textPersonName" />
+                        </LinearLayout>
+                    </ScrollView>
 
                 </LinearLayout>
 
@@ -77,29 +89,52 @@
                     android:orientation="vertical"
                     android:visibility="invisible">
 
-                    <EditText
-                        android:id="@+id/txtDoctorName"
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Nombre"
-                        android:inputType="textPersonName" />
+                        android:layout_height="match_parent">
 
-                    <EditText
-                        android:id="@+id/txtDoctorSName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Apellido"
-                        android:inputType="textPersonName" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/numDoctorLicence"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Licencia"
-                        android:inputType="numberSigned" />
+                            <EditText
+                                android:id="@+id/numDoctorLicence"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Licencia"
+                                android:inputType="numberSigned" />
+
+                            <EditText
+                                android:id="@+id/txtDoctorName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Nombre"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/txtDoctorSName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Apellido"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/txtHcpSpecialities"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:inputType="textMultiLine" />
+
+                            <Spinner
+                                android:id="@+id/spnHcpSpecialities"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </ScrollView>
 
                 </LinearLayout>
 
@@ -110,29 +145,75 @@
                     android:orientation="vertical"
                     android:visibility="invisible">
 
-                    <EditText
-                        android:id="@+id/txtPatientName"
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Nombre"
-                        android:inputType="textPersonName" />
+                        android:layout_height="match_parent">
 
-                    <EditText
-                        android:id="@+id/txtPatientSName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Apellido"
-                        android:inputType="textPersonName" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/numPatientDNI"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese DNI"
-                        android:inputType="numberSigned" />
+                            <EditText
+                                android:id="@+id/txtPatientSName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Apellido"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/txtPatientName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Nombre"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/numPatientDNI"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese DNI"
+                                android:inputType="numberSigned" />
+
+                            <Spinner
+                                android:id="@+id/spnPatientGender"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <Spinner
+                                android:id="@+id/spnPatientCivilState"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                            <Button
+                                android:id="@+id/btnPatientBirthPicker"
+                                style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fecha de Nacimiento" />
+
+                            <EditText
+                                android:id="@+id/txtPatientAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Direccion"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/txtPatientPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Telefono"
+                                android:inputType="textPersonName" />
+
+                        </LinearLayout>
+                    </ScrollView>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -142,21 +223,32 @@
                     android:orientation="vertical"
                     android:visibility="invisible">
 
-                    <EditText
-                        android:id="@+id/txtClinicName"
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese Nombre"
-                        android:inputType="textPersonName" />
+                        android:layout_height="match_parent">
 
-                    <EditText
-                        android:id="@+id/numClinicCuit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:hint="Ingrese CUIT"
-                        android:inputType="numberSigned" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/txtClinicName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese Nombre"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/numClinicCuit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese CUIT"
+                                android:inputType="numberSigned" />
+                        </LinearLayout>
+                    </ScrollView>
 
                 </LinearLayout>
             </FrameLayout>
@@ -165,12 +257,12 @@
 
     <Button
         android:id="@+id/btnCancel"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
         android:layout_width="152dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="27dp"
         android:text="Cancelar"
+        android:textColor="@color/colorRed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -179,9 +271,10 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="152dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="4dp"
-        android:text="Finalizar"
+        android:layout_marginEnd="27dp"
+        android:background="@color/colorLighBlue1"
+        android:text="Crear Perfil"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

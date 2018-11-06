@@ -1,5 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.factory;
 
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -7,7 +8,11 @@ import java.util.List;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IAdminProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ProfileFactory extends BaseActivity {
 
@@ -24,7 +29,7 @@ public class ProfileFactory extends BaseActivity {
 
         }else if( spinnerPos == 1){
 
-            getServerConnector().addPatientProfileToUserAccount( createPatientProfile() );
+            //getServerConnector().addPatientProfileToUserAccount( createPatientProfile() );
 
         }else if( spinnerPos == 2){
 
@@ -63,4 +68,14 @@ public class ProfileFactory extends BaseActivity {
 
     }
 
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+
+    }
 }

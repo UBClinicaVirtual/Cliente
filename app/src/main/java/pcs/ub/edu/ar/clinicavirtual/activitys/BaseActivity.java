@@ -1,14 +1,63 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import pcs.ub.edu.ar.clinicavirtual.SuccessRunable;
 import pcs.ub.edu.ar.clinicavirtual.connection.ServerConnector;
+import pcs.ub.edu.ar.clinicavirtual.connection.ServerConnectorInternet;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseHandler;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseListener;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements IServerResponseListener, View.OnClickListener {
 
-    public IServerConnector getServerConnector() {
-        return ServerConnector.getConnector();
+    private ServerConnector connector;
+    private Map<Integer,IServerResponseHandler> mHandlers;
+
+    public BaseActivity()
+    {
+        mHandlers = new HashMap<>();
+
+
+        // Creo un conector con una lista de respuestas que son emuladas
+        // Esto deberia ser un singleton para no tener que salir a buscar el api token cada vez que hay un request
+        // (Pero puede quedar para otro momento)
+        connector( new ServerConnectorInternet( "https://ubclinicavirtual.000webhostapp.com" ) );
+        //https://ubclinicavirtual.000webhostapp.com
+        //http://www.ubclinicavirtual.tk
+
+        loadHandlers();
     }
 
+    protected  void loadHandlers(){
+
+    }
+
+    public Map<Integer,IServerResponseHandler> getHandlers(){
+        return mHandlers;
+    }
+
+    @Override
+    public void error(IServerRequest request) {
+        //ALGO SALIO MAL CON EL REQUEST
+    }
+
+    protected ServerConnector connector() {
+        return connector;
+    }
+
+    private void connector(ServerConnector connector) {
+        this.connector = connector;
+    }
+
+
+    @Override
+    public void success(IServerRequest request) {
+        runOnUiThread(new SuccessRunable(request,this));
+    }
 }

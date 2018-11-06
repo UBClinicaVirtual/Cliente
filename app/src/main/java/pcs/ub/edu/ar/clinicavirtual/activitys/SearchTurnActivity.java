@@ -1,8 +1,10 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.os.Bundle;
+import android.view.View;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class SearchTurnActivity extends BaseActivity {
 
@@ -10,5 +12,17 @@ public class SearchTurnActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_turn);
+    }
+
+
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+
     }
 }

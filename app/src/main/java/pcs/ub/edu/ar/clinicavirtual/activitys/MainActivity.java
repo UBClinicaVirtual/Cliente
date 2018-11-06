@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,171 +21,78 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import org.w3c.dom.Text;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientProfile;
+import pcs.ub.edu.ar.clinicavirtual.google.Google;
+import pcs.ub.edu.ar.clinicavirtual.handler.LoginResponseHandler;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IGoogle;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    Button mBtnLogIn;
-    Button mBtnSignIn;
-    SignInButton mBtnGoogleSignIn;
 
-    private static final int RC_SIGN_IN = 9001;
-    private static final int RC_GET_TOKEN = 9002;
-    private static final String TAG = "MainActivity";
-    private FirebaseAuth mAuth;
-    GoogleSignInAccount account;
-    private GoogleSignInClient mGoogleSignInClient;
-    private TextView mStatusTextView;
-    private TextView mIdTokenTextView;
+    IGoogle mGoogle = new Google(this);
+    Boolean mCloseApplication = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
-
-
-        // Configure sign-in to request the user's ID, email address, and basic
-            // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        // requestEmail method, algo get their email address
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN )
-                //IMPORTANT!
-                // momentaneamente! Resolver el tema del server client id
-                .requestIdToken(getString(R.string.server_client_id))
-                .requestEmail()
-                .build();
-        // Build a GoogleSignInCliente with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-        initButtons();
-
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(account);
-    }
-
-    private void updateUI(GoogleSignInAccount account) {
-
-/*
-                if (account != null) {
-            mStatusTextView.setText(getString(R.string.signed_in_fmt, account.getDisplayName()));
-
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-
-        } else {
-            mStatusTextView.setText(R.string.signed_out);
-
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-
-        }
-*/
+        mGoogle.GoogleConnection(this, R.string.server_client_id);
+        initListeners();
     }
 
     //the buttons are initialized
-    private void initButtons() {
-        findViewById(R.id.btnLogIn).setOnClickListener(this);
+    private void initListeners() {
         findViewById(R.id.btnSignIn).setOnClickListener(this);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
-
 
 
     //depending on the button to make
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.sign_in_button:
+        switch (view.getId()) {
 
-              //  logIn();
-
-                //POR AHORA HASTA QUE SE TERMINE DE HACER LO DE ENVIAR Y RECIBIR ALGO CON EL TOKEN
-                //signIn();
-                getIdToken();
-                break;
-
-            case R.id.btnLogIn:
-                IUserProfileData mUserData =  getServerConnector().login(account.getIdToken());
-                Toast.makeText(this, mUserData.getmName(), Toast.LENGTH_SHORT).show();
-                break;
             case R.id.btnSignIn:
-                signInWithouthGoogle();
+                view.setClickable(false);
+                //PREGUNTAR QUE ID USER TRAJO
+                startActivityForResult( mGoogle.SignInIntent() , mGoogle.RC() );
+
+                findViewById(R.id.progress).setVisibility(View.VISIBLE);
+
                 break;
 
         }
     }
-
-    private void signInWithouthGoogle(){
-        Intent mIntentSignIn = new Intent(MainActivity.this, GoogleSignInActivity.class);
-        startActivity(mIntentSignIn);
-    }
-    private void logIn() {
-        Intent mIntentLogIn = new Intent(MainActivity.this, MainScreenActivity.class);
-        startActivity(mIntentLogIn);
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    // IMPORTANTE ACA!!   pd:  se que esta en español, es momentaneo, para ti didier ^^
-    private void getIdToken(){
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_GET_TOKEN);
-    }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
-        if (requestCode == RC_GET_TOKEN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
+        Toast.makeText(this, "Analizando informaciion...", Toast.LENGTH_SHORT).show();
+        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        mGoogle.handleSignInResult(task);
+        connector().execute(new ServerRequestLoginUser(R.id.btnSignIn, mGoogle.account().getIdToken() ),this);
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedtask) {
-        try{
-            account = completedtask.getResult(ApiException.class);
-            //GET ID TOKEN
-            String idToken = account.getIdToken();
-            firebaseAuthWithGoogle(account);
-            Toast.makeText(this, account.getIdToken(), Toast.LENGTH_SHORT).show();
-            // PENDIENTE PENDIENTE
-            // ENVIAR ID TOKENN AL SERVER Y VALIDAR
+    @Override
+    protected void loadHandlers() {
+        this.getHandlers().put(R.id.btnSignIn, new LoginResponseHandler());
+    }
 
-            // signed in successfully, show auth. UI.
-            //updateUI(account);
-    }catch (ApiException e){
-            //The ApiException status code indicates the detailed failure reason
-            Log.w(TAG, "signInResult:failed code= " + e.getStatusCode());
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            updateUI(null);
+    @Override
+    public void onBackPressed() {
+
+        if(mCloseApplication){
+            super.onBackPressed();
+        }else{
+            Toast.makeText(this, "Esta por salir de la aplicacion", Toast.LENGTH_SHORT).show();
+            mCloseApplication = true;
         }
-
-}
+    }
 
 /*
 // A TENER EN CUENTA ( momentaneamente español)
@@ -200,28 +106,4 @@ GoogleSignIn.silentSignIn()
             }
         });
  */
-private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-    Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
-    AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-    mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    // ...
-                }
-            });
-}
 }

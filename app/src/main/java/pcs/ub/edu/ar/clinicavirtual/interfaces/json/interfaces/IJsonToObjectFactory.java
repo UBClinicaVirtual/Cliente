@@ -1,14 +1,19 @@
-package pcs.ub.edu.ar.clinicavirtual.interfaces;
+package pcs.ub.edu.ar.clinicavirtual.interfaces.json.interfaces;
 
 import org.json.JSONObject;
 
 import java.util.List;
 
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.ISpeciality;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.interfaces.IClinicAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.interfaces.IHCPAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.interfaces.IPatientAppointment;
 
-public interface IJsonFactory {
+public interface IJsonToObjectFactory {
 
     public IUserProfileData getUserProfileData(JSONObject jsonObject);
 

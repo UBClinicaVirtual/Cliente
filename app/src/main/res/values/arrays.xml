@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arrayProfiles">
+        <item>Doctor</item>
+        <item>Paciente</item>
+        <item>Clinica</item>
+        <item>Administrador</item>
+    </string-array>
+
+    <string-array name="arrayGender">
+        <item>Hombre</item>
+        <item>Mujer</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="arrayMaleCivilState">
+        <item>Soltero</item>
+        <item>Comprometido</item>
+        <item>Casado</item>
+        <item>Divorciado</item>
+        <item>Viudo</item>
+    </string-array>
+
+    <string-array name="arrayFemaleCivilState">
+        <item>Soltera</item>
+        <item>Comprometida</item>
+        <item>Casada</item>
+        <item>Divorciada</item>
+        <item>Viuda</item>
+    </string-array>
+
+
+    <string-array name="arrayAllergies">
+        <item>INGRESAR ALERGIAS</item>
+        <item>Alergia Estacional</item>
+        <item>Alergias de Interior</item>
+        <item>Alergias a las Mascotas</item>
+        <item>Alergias Cutáneas</item>
+        <item>Alergias Alimentarias</item>
+        <item>Alergia al Polen</item>
+        <item>Alergia al Sol</item>
+        <item>Conjuntivitis Alérgica</item>
+        <item>Otras</item>
+    </string-array>
+
+
+</resources>

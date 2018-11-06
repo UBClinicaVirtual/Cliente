@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual.interfaces;
+package pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces;
 
 import java.util.List;
 

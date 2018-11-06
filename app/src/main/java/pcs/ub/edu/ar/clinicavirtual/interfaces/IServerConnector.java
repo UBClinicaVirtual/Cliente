@@ -1,28 +1,18 @@
 package pcs.ub.edu.ar.clinicavirtual.interfaces;
 
-import android.widget.EditText;
+import org.json.JSONObject;
+
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public interface IServerConnector{
-
-
-    //Register with gmail
-    public IUserProfileData register(String tokenGmail);
-
-    //Login with gmail
-    public IUserProfileData login (String tokenGmail);
-
-    //Logout
-    public void logout ();
-
-    //Add the patient profile to the user's account
-    public IPatientProfileData addPatientProfileToUserAccount( IPatientProfileData patientData );
-
-    //Add the clinic profile to the user's account
-    public IClinicProfileData addClinicProfileToUserAccount( IClinicProfileData clinicData );
-
-    //Add the HCP profile to the user's account
-    public IHCPProfileData addHCPProfileToUserAccount( IHCPProfileData hcpData );
-
-    //return IPatientProfileData profile
-    public IPatientProfileData getUserPatientProfile();
+    public void call(ServerRequestAuthenticated request, IServerResponseListener listener );
+    public void call(ServerRequest request, IServerResponseListener listener );
+    public void apiToken(String apiToken);
 }

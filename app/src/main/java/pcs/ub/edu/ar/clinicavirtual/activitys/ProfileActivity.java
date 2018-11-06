@@ -1,11 +1,12 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -23,10 +24,10 @@ public class ProfileActivity extends BaseActivity {
 
     private void loadProfile() {
 
-        IPatientProfileData mPatientProfileData =  getServerConnector().getUserPatientProfile();
+       /* IPatientProfileData mPatientProfileData =  getServerConnector().getUserPatientProfile();
 
         txtMyProfileName.setText(mPatientProfileData.getmName());
-        txtMyProfileDNI.setText(Long.toString(mPatientProfileData.getDNI()));
+        txtMyProfileDNI.setText(Long.toString(mPatientProfileData.getDNI()));*/
 
     }
 
@@ -34,6 +35,17 @@ public class ProfileActivity extends BaseActivity {
 
         txtMyProfileDNI = (EditText) findViewById(R.id.txtMyProfileDNI);
         txtMyProfileName= (EditText) findViewById(R.id.txtMyProfileName);
+
+    }
+
+
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
 
     }
 }

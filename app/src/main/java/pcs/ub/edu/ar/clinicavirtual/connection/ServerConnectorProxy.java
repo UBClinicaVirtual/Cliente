@@ -1,14 +1,15 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseListener;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ServerConnectorProxy implements IServerConnector {
 
-    private  IServerConnector mLocalConnector = new ServerConnectorDevelopment();
+    /*private  IServerConnector mLocalConnector = new ServerConnectorDevelopment();
     private  IServerConnector mInternetConnector = new ServerConnectorInternet();
 
     private IServerConnector getConnector(){
@@ -18,6 +19,28 @@ public class ServerConnectorProxy implements IServerConnector {
     }
 
     @Override
+    public void call(IServerRequest req, IResponseListener listener) {
+        mInternetConnector.call(req, listener);
+    }*/
+
+    @Override
+    public void call(ServerRequestAuthenticated request, IServerResponseListener listener) {
+
+    }
+
+    @Override
+    public void call(ServerRequest request, IServerResponseListener response) {
+
+    }
+
+    @Override
+    public void apiToken(String apiToken) {
+
+    }
+
+
+
+    /*@Override
     public IUserProfileData register(String tokenGmail) {
         return mInternetConnector.register(tokenGmail);
     }
@@ -34,7 +57,7 @@ public class ServerConnectorProxy implements IServerConnector {
     }
 
     @Override
-    public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
+    public IPatientProfileData addPatientProfileToUserAccount(JSONObject patientData) {
         return getConnector().addPatientProfileToUserAccount(patientData);
     }
 
@@ -51,5 +74,5 @@ public class ServerConnectorProxy implements IServerConnector {
     @Override
     public IPatientProfileData getUserPatientProfile() {
         return getConnector().getUserPatientProfile();
-    }
+    }*/
 }

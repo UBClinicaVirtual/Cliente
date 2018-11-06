@@ -6,6 +6,8 @@ import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.P
 import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataNullSurnameException;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
 
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+
 public class PatientProfileData implements IPatientProfileData {
 
     private String mName;
