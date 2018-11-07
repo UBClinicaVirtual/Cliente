@@ -105,6 +105,13 @@
                                 android:ems="10"
                                 android:hint="Ingrese Licencia"
                                 android:inputType="numberSigned" />
+                            <EditText
+                                android:id="@+id/numDoctorDNI"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Ingrese DNI"
+                                android:inputType="numberSigned" />
 
                             <EditText
                                 android:id="@+id/txtDoctorName"
@@ -123,11 +130,38 @@
                                 android:inputType="textPersonName" />
 
                             <EditText
+                                android:id="@+id/txtDoctorAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Direccion"
+                                android:inputType="textPersonName" />
+
+                            <EditText
+                                android:id="@+id/txtDoctorPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:hint="Telefono"
+                                android:inputType="textPersonName" />
+                            <Button
+                                android:id="@+id/btnDoctorBirthPicker"
+                                style="@android:style/Widget.DeviceDefault.Light.Button.Toggle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fecha de Nacimiento" />
+
+                            <EditText
                                 android:id="@+id/txtHcpSpecialities"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:inputType="textMultiLine" />
+
+                            <Spinner
+                                android:id="@+id/spnDoctorGender"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
 
                             <Spinner
                                 android:id="@+id/spnHcpSpecialities"
