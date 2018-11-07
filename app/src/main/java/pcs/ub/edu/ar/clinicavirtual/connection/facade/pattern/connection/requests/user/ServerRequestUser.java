@@ -3,6 +3,7 @@ package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.reques
 import android.view.View;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
+import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.URI;
 
 public abstract class ServerRequestUser extends ServerRequestAuthenticated {
     public ServerRequestUser(Integer requesterId) {
@@ -10,6 +11,6 @@ public abstract class ServerRequestUser extends ServerRequestAuthenticated {
     }
     @Override
     public String path() {
-        return super.path() + "/user";
+        return super.path() + URI.USER;
     }
 }

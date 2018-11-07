@@ -4,82 +4,82 @@ public enum URI {
 
     REGISTER{
         public String toString(){
-            return "register";
+            return "/register";
         }
     },
     LOGIN{
         public String toString(){
-            return "login";
+            return "/login";
         }
     },
     USER{
         public String toString(){
-            return "user";
+            return "/user";
         }
     },
     LOGOUT{
         public String toString(){
-            return "logout";
+            return "/logout";
         }
     },
     DEACTIVATE{
         public String toString(){
-            return "deactivate";
+            return "/deactivate";
         }
     },
     CLINIC{
         public String toString(){
-            return "clinic";
+            return "/clinic";
         }
     },
     SEARCH{
         public String toString(){
-            return "search";
+            return "/search";
         }
     },
     HCP{
         public String toString(){
-            return "hcp";
+            return "/hcp";
         }
     },
     PATIENT{
         public String toString(){
-            return "patient";
+            return "/patient";
         }
     },
     SPECIALITY{
         public String toString(){
-            return "speciality";
+            return "/speciality";
         }
     },
     SPECIALITY_BY_ID {
         public String toString(){
-            return "speciality/";
+            return "/speciality/";
         }
     },
     SPECIALITIES{
         public String toString(){
-            return "specialities";
+            return "/specialities";
         }
     },
     APPOINTMENTS{
         public String toString(){
-            return "appointments";
+            return "/appointments";
         }
     },
     HCPSPECIALITIES{
         public String toString(){
-            return "hcpspecialities";
+            return "/hcpspecialities";
         }
     },
     SCHEDULE{
         public String toString(){
-            return "schedule";
+            return "/schedule";
         }
     },
     LOGIN_9{
         public String toString(){
-            return "login9";
+            return "/login9";
         }
     }
 

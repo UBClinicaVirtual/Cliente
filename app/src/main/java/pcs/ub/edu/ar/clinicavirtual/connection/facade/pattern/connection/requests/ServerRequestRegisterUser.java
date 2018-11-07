@@ -1,16 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests;
 
-import android.view.View;
-
-import java.util.ArrayList;
-import java.util.Map;
-
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestLogout;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestRegister;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestUser;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.URI;
 import pcs.ub.edu.ar.clinicavirtual.data.UserData;
 
 public class ServerRequestRegisterUser extends ServerRequestRegister {

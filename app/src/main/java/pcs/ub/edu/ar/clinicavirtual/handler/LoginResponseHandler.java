@@ -1,8 +1,8 @@
 package pcs.ub.edu.ar.clinicavirtual.handler;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,9 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
-import pcs.ub.edu.ar.clinicavirtual.activitys.DataRegisterActivity;
-import pcs.ub.edu.ar.clinicavirtual.activitys.MainScreenActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.register.config.DataRegisterActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.patient.MainScreenActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseHandler;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
@@ -59,13 +59,16 @@ public class LoginResponseHandler implements IServerResponseHandler {
 
     private void saveApiToken(String apitoken, BaseActivity activity) {
 
-        SharedPreferences file = activity.getPreferences(activity.MODE_PRIVATE);
+        activity.apitoken(apitoken);
+
+        SharedPreferences file = PreferenceManager.getDefaultSharedPreferences(activity);//activity.getPreferences(activity.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = file.edit();
 
         editor.putString("api_token",apitoken);
 
         editor.apply();
+
 
     }
 

@@ -5,9 +5,9 @@ import android.view.View;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.URI;
 
-public abstract class ServerRequestUser extends ServerRequest {
+public abstract class ServerRequestUserWithoutAuthorization extends ServerRequest {
 
-    public ServerRequestUser(Integer requesterId) {
+    public ServerRequestUserWithoutAuthorization(Integer requesterId) {
         super(requesterId);
     }
 

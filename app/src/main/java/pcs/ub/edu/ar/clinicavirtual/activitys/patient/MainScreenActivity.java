@@ -1,5 +1,6 @@
-package pcs.ub.edu.ar.clinicavirtual.activitys;
+package pcs.ub.edu.ar.clinicavirtual.activitys.patient;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -10,9 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.main.MainActivity;
 
 public class MainScreenActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,7 +27,19 @@ public class MainScreenActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main_screen);
+        initNavigationBar();
+
+
+        String desc = getString(R.string.nav_header_subtitle);
+        Toast.makeText(this, desc , Toast.LENGTH_SHORT).show();
+
+
+
+    }
+
+
+    private void initNavigationBar() {
+        setContentView(R.layout.patient_activity_main_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -33,9 +51,10 @@ public class MainScreenActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.navMenu);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
-    @Override //Metodo ingresado automaticamente por el activity
+    @Override //Close Navigation Bar
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -59,26 +78,25 @@ public class MainScreenActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_searchturn) {
-            //DIRIGE AL ACTIVITY SEARCH TURN
-            Intent mIntentSearchTurn = new Intent(MainScreenActivity.this, SearchTurnActivity.class);
-            startActivity(mIntentSearchTurn);
+        Intent intent = null;
 
-        } else if (id == R.id.nav_myturns) {
-            //DIRIGE AL ACTIVITY MY TURNS
-            Intent mIntentMyTurns = new Intent(MainScreenActivity.this, MyTurnsActivity.class);
-            startActivity(mIntentMyTurns);
-
-        } else if (id == R.id.nav_myprofile) {
-            //DIRIGE AL ACTIVITY MY PROFILE
-            Intent mIntentMyProfile = new Intent(MainScreenActivity.this, ProfileActivity.class);
-            startActivity(mIntentMyProfile);
-
-        } else if (id == R.id.nav_logout) {
-            //DIRIGE AL ACTIVITY SIGN-IN
-            Intent mIntentLogOut = new Intent(MainScreenActivity.this, MainActivity.class);
-            startActivity(mIntentLogOut);
+        switch (id){
+            case R.id.nav_searchturn:
+                intent = new Intent(MainScreenActivity.this, SearchTurnActivity.class);
+                break;
+            case R.id.nav_myturns:
+                intent = new Intent(MainScreenActivity.this, MyTurnsActivity.class);
+                break;
+            case R.id.nav_myprofile:
+                intent = new Intent(MainScreenActivity.this, ProfileActivity.class);
+                break;
+            case R.id.nav_logout:
+                intent = new Intent(MainScreenActivity.this, MainActivity.class);
+                break;
         }
+
+        startActivity(intent);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
