@@ -9,8 +9,10 @@ import java.io.DataOutputStream;
 
 import java.io.IOException;
 
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
@@ -27,7 +29,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 
-import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.*;
@@ -55,7 +56,7 @@ public class ServerConnectorInternet extends ServerConnector {
 
     @Override
     public void call(ServerRequestAuthenticated request, IServerResponseListener listener) {
-        request.apiToken( this.apiToken() );
+        //request.apiToken(  apiToken() );
         this.callInternal( request, listener );
     }
 
@@ -83,7 +84,8 @@ public class ServerConnectorInternet extends ServerConnector {
             URL obj = new URL(url);
             //Hosting en https
             //trustAllHosts();
-			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+//			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             //con.setHostnameVerifier(DO_NOT_VERIFY);
 
 
@@ -125,7 +127,7 @@ public class ServerConnectorInternet extends ServerConnector {
             System.out.println("Post parameters : " + urlParameters);
             System.out.println("Response Code : " + responseCode);
 
-            BufferedReader in = new BufferedReader( new InputStreamReader(con.getInputStream()));
+            BufferedReader in = new BufferedReader( new InputStreamReader(getInputStream(responseCode, con)));
             String inputLine;
             StringBuffer response = new StringBuffer();
 
@@ -142,8 +144,11 @@ public class ServerConnectorInternet extends ServerConnector {
 
             request.response(response.toString());
 
+            if( isErrorCode( responseCode ) )
+                listener.error(request);
+            else
+                listener.success(request);
 
-            listener.success(request);
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
         } catch (ProtocolException e) {
@@ -151,6 +156,17 @@ public class ServerConnectorInternet extends ServerConnector {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private InputStream getInputStream(int responseCode, HttpURLConnection con) throws IOException {
+        // If its a valid response, returns the data stream to process
+        if(isErrorCode(responseCode))
+            return con.getErrorStream();
+        return con.getInputStream();
+    }
+
+    private boolean isErrorCode(int responseCode) {
+        return responseCode < 200 || responseCode >= 300;
     }
 
     private void trustAllHosts() {
@@ -199,10 +215,10 @@ public class ServerConnectorInternet extends ServerConnector {
     @Override
     protected Object doInBackground(Object[] objects) {
 
-        if(objects[0] instanceof ServerRequestAuthenticated){
+       /* if(objects[0] instanceof ServerRequestAuthenticated){
             ServerRequestAuthenticated serverRequest = (ServerRequestAuthenticated) objects[0];
             serverRequest.apiToken( this.apiToken() );
-        }
+        }*/
 
 
         this.callInternal((ServerRequest) objects[0], (IServerResponseListener) objects[1]);

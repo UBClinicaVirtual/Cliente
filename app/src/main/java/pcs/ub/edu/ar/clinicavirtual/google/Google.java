@@ -16,7 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IGoogle;
 //</editor-fold>
 

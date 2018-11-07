@@ -1,10 +1,11 @@
 //<editor-fold desc="PACKAGE">
-package pcs.ub.edu.ar.clinicavirtual.activitys;
+package pcs.ub.edu.ar.clinicavirtual.activitys.register.config;
 //</editor-fold>
 
 //<editor-fold desc="IMPORTS">
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.activitys.register.config.*;
-import pcs.ub.edu.ar.clinicavirtual.factory.ProfileFactory;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserAddPatientProfile;
+import pcs.ub.edu.ar.clinicavirtual.handler.AddPatientProfileHandler;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IElementsConfiguration;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 //</editor-fold>
 
 
@@ -56,7 +57,16 @@ public class DataRegisterActivity extends BaseActivity {
         initElements();
         createClickListeners();
         initElementsConfigurations();
+        setApiToken();
 
+    }
+
+    private void setApiToken() {
+        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+
+        String apitoken = mSharedPreferences.getString("api_token","no hay apitoken");
+        connector().apiToken(apitoken);
     }
 
     private void initElementsConfigurations() {
@@ -88,10 +98,14 @@ public class DataRegisterActivity extends BaseActivity {
         mBtnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DataRegisterActivity.this, "Boton Finalizar", Toast.LENGTH_SHORT).show();
+
+                sendParametersToServer();
+
+
+                /*Toast.makeText(DataRegisterActivity.this, "Boton Finalizar", Toast.LENGTH_SHORT).show();
                 initProfile();
                 Intent mIntentMainScreen = new Intent(DataRegisterActivity.this, MainScreenActivity.class);
-                startActivity(mIntentMainScreen);
+                startActivity(mIntentMainScreen);*/
 
             }
 
@@ -117,6 +131,25 @@ public class DataRegisterActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void sendParametersToServer() {
+
+
+
+        JSONObject mProfile = new JSONObject();
+        switch (mSpnProfileSelected){
+            case 0:
+                break;
+            case 1:
+                mProfile = mPatientConfiguration.getInformationJsonFormat();
+                ServerRequestUserAddPatientProfile addPatientProfile = new ServerRequestUserAddPatientProfile(R.id.btnNext, mProfile.toString());
+                addPatientProfile.apiToken( apitoken() );
+                connector().execute(addPatientProfile,this);
+                break;
+            case 2:
+                break;
+        }
     }
 
     private void createOnClickListenerSpinner() {
@@ -177,5 +210,10 @@ public class DataRegisterActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    protected void loadHandlers() {
+        this.getHandlers().put(R.id.btnNext, new AddPatientProfileHandler());
     }
 }

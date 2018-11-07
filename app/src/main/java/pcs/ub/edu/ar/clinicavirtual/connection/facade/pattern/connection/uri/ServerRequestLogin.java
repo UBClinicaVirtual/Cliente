@@ -17,6 +17,6 @@ public abstract class ServerRequestLogin extends ServerRequest {
 
     @Override
     public String path() {
-        return super.path() + "/" + URI.LOGIN;
+        return super.path()+ URI.LOGIN;
     }
 }

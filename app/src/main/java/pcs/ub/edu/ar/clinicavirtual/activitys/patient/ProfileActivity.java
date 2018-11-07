@@ -1,12 +1,11 @@
-package pcs.ub.edu.ar.clinicavirtual.activitys;
+package pcs.ub.edu.ar.clinicavirtual.activitys.patient;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -16,7 +15,7 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.patient_activity_profile);
 
         initElements();
         loadProfile();

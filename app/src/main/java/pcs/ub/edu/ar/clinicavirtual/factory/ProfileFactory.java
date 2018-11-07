@@ -6,13 +6,12 @@ import android.widget.Spinner;
 
 import java.util.List;
 
-import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IAdminProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ProfileFactory extends BaseActivity {
 

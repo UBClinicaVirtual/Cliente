@@ -1,6 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.interfaces;
 
-import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public interface IServerResponseHandler {

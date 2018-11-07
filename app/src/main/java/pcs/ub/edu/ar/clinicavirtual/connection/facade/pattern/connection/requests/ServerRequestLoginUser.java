@@ -1,21 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests;
 
-import android.view.View;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestLogin;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestLogout;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestUser;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
 import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
-import pcs.ub.edu.ar.clinicavirtual.data.UserData;
-import pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory.JsonFactory;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ServerRequestLoginUser extends ServerRequestLogin {
 

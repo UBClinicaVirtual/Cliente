@@ -1,8 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual;
 
-import pcs.ub.edu.ar.clinicavirtual.activitys.BaseActivity;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseListener;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class SuccessRunable implements Runnable {
@@ -18,8 +16,6 @@ public class SuccessRunable implements Runnable {
 
     @Override
     public void run() {
-
         listener.getHandlers().get(request.requesterId()).handle(request,listener);
-
     }
 }

@@ -2,7 +2,6 @@ package pcs.ub.edu.ar.clinicavirtual.activitys.register.config;
 
 import org.json.JSONObject;
 
-import pcs.ub.edu.ar.clinicavirtual.activitys.DataRegisterActivity;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IElementsConfiguration;
 
 public class DataRegisterAdminConfiguration implements IElementsConfiguration {

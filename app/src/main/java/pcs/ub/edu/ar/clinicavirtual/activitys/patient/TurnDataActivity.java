@@ -1,17 +1,17 @@
-package pcs.ub.edu.ar.clinicavirtual.activitys;
+package pcs.ub.edu.ar.clinicavirtual.activitys.patient;
 
 import android.os.Bundle;
 import android.view.View;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 
-public class SearchTurnActivity extends BaseActivity {
+public class TurnDataActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_turn);
+        setContentView(R.layout.patient_activity_turn_data);
     }
 
 

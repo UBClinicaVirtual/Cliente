@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activitys.MyTurnsActivity">
+    tools:context=".activitys.patient.TurnDataActivity">
 
 </android.support.constraint.ConstraintLayout>

@@ -13,7 +13,7 @@ public abstract class ServerConnector extends AsyncTask  implements IServerConne
 
     public ServerConnector(String urlBase ) {
         this.urlBase(urlBase);
-        this.apiToken("");
+        //this.apiToken("");
     }
 
     public String urlBase() {
@@ -30,6 +30,10 @@ public abstract class ServerConnector extends AsyncTask  implements IServerConne
 
     public String apiToken() {
         return this.apiToken;
+    }
+
+    public void apitoken(String apiToken){
+        this.apiToken = apiToken;
     }
 
     protected String urlRequest( IServerRequest request) {
