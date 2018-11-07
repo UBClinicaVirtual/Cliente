@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('C:/Users/gabye/.android/debug.keystore')
+            storeFile file('.\\src\\main\\res\\sha1-credentials\\debug.keystore')
             storePassword 'android'
         }
     }

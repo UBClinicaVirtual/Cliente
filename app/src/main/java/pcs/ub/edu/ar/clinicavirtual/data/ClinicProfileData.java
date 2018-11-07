@@ -2,7 +2,15 @@ package pcs.ub.edu.ar.clinicavirtual.data;
 
 import java.util.List;
 
+
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+
+import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataIdIsZeroException;
+import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullBusinessNameException;
+import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullIdException;
+import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullSpecialitiesException;
+
+
 
 public class ClinicProfileData implements IClinicProfileData {
 
@@ -18,12 +26,12 @@ public class ClinicProfileData implements IClinicProfileData {
 
     @Override
     public Integer getmID() {
-        return null;
+        return mId;
     }
 
     @Override
     public String getmName() {
-        return null;
+        return mBusinessName;
     }
 
     @Override
@@ -42,14 +50,23 @@ public class ClinicProfileData implements IClinicProfileData {
     }
 
     private void setSpecialties(List <Speciality> Specialties){
+        if ((Specialties == null) || Specialties.isEmpty())
+            throw new ClinicProfileDataNullSpecialitiesException();
         this.mSpecialties = Specialties;
     }
 
     private void setmId(Integer Id){
+        if (Id == null)
+            throw new ClinicProfileDataNullIdException();
+        if (Id == 0)
+            throw new ClinicProfileDataIdIsZeroException();
         this.mId = Id;
     }
 
     private void setmBusinessName (String businessName){
+        //if ((mName == null) || mName.trim().isEmpty())
+        if ((businessName == null) || businessName.trim().isEmpty())
+           throw new ClinicProfileDataNullBusinessNameException();
         this.mBusinessName = businessName;
     }
 }
