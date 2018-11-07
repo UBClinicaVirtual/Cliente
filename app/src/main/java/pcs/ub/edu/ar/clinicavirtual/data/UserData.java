@@ -1,5 +1,8 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,9 +11,8 @@ import pcs.ub.edu.ar.clinicavirtual.data.exception.UserData.UserDataInvalidEmail
 import pcs.ub.edu.ar.clinicavirtual.data.exception.UserData.UserDataNullEmailException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.UserData.UserDataNullIdException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.UserData.UserDataNullNameException;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IUserProfileData;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
+
 
 public class UserData /*implements IUserProfileData*/ {
 
@@ -91,7 +93,6 @@ public class UserData /*implements IUserProfileData*/ {
 
         this.mEmail = mEmail;
     }
-<<<<<<< HEAD
 
     private boolean validarmail(String mEmail) {
 
@@ -108,6 +109,6 @@ public class UserData /*implements IUserProfileData*/ {
         }
     }
 
-=======
 */
+
 }
