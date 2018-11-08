@@ -135,14 +135,21 @@ public class DataRegisterActivity extends BaseActivity {
         JSONObject mProfile = new JSONObject();
         switch (mSpnProfileSelected){
             case 0:
+                //DOCTOR
+                mProfile = mHCPConfiguration.getInformationJsonFormat();
+                Toast.makeText(this, mProfile.toString() , Toast.LENGTH_SHORT).show();
                 break;
             case 1:
+                //PATIENT
                 mProfile = mPatientConfiguration.getInformationJsonFormat();
                 ServerRequestUserAddPatientProfile addPatientProfile = new ServerRequestUserAddPatientProfile(R.id.btnNext, mProfile.toString());
                 addPatientProfile.apiToken( apitoken() );
                 connector().execute(addPatientProfile,this);
                 break;
             case 2:
+                //CLINIC
+                mProfile = mClinicConfiguration.getInformationJsonFormat();
+                Toast.makeText(this, mProfile.toString() , Toast.LENGTH_SHORT).show();
                 break;
         }
     }

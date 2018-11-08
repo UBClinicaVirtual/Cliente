@@ -6,4 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".activitys.patient.MyTurnsActivity">
 
+    <Button
+        android:id="@+id/btnPatientMyTurns"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="231dp"
+        android:text="Mis Turnos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txtMyTurns"
+        android:layout_width="wrap_content"
+        android:layout_height="340dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="125dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnPatientMyTurns" />
 </android.support.constraint.ConstraintLayout>

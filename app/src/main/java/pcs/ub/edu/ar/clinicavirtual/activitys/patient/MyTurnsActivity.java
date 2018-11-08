@@ -2,16 +2,37 @@ package pcs.ub.edu.ar.clinicavirtual.activitys.patient;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientAppointments;
+import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientAppointmentsHandler;
 
 public class MyTurnsActivity extends BaseActivity {
+
+    Button mSearchMyTurns;
+    TextView mMyTurns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_activity_my_turns);
+
+        initElements();
+        initListeners();
+    }
+
+    private void initListeners() {
+        findViewById(R.id.btnPatientMyTurns).setOnClickListener(this);
+    }
+
+    private void initElements() {
+        mSearchMyTurns = (Button) findViewById(R.id.btnPatientMyTurns);
+        mMyTurns = (TextView) findViewById(R.id.txtMyTurns);
+
+
     }
 
 
@@ -22,6 +43,16 @@ public class MyTurnsActivity extends BaseActivity {
      */
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnPatientMyTurns:
+                ServerRequestUserGetPatientAppointments getPatientAppointments = new ServerRequestUserGetPatientAppointments(R.id.btnPatientMyTurns);
+                getPatientAppointments.apiToken( apitoken() );
+                connector().execute(getPatientAppointments,this);
+        }
+    }
 
+    @Override
+    protected void loadHandlers() {
+        this.getHandlers().put(R.id.btnPatientMyTurns, new GetPatientAppointmentsHandler());
     }
 }

@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IServerR
     }
 
     protected ServerConnector connector() {
-        return new ServerConnectorInternet( "http://www.ubclinicavirtual.tk" );
+        return new ServerConnectorInternet( "https://ubclinicavirtual.000webhostapp.com" );
     }
 
     private void connector(ServerConnector connector) {
