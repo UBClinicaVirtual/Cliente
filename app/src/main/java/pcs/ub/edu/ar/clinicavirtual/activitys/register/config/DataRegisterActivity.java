@@ -43,7 +43,6 @@ public class DataRegisterActivity extends BaseActivity {
     IElementsConfiguration mPatientConfiguration;
     IElementsConfiguration mHCPConfiguration;
     IElementsConfiguration mClinicConfiguration;
-    IElementsConfiguration mAdminConfiguration;
 
     ArrayList <IElementsConfiguration> mElementsConfigurations;
 
@@ -76,12 +75,10 @@ public class DataRegisterActivity extends BaseActivity {
         mPatientConfiguration = new DataRegisterPatientConfiguration(this);
         mHCPConfiguration     = new DataRegisterHCPConfiguration (this);
         mClinicConfiguration  = new DataRegisterClinicConfiguration(this);
-        mAdminConfiguration   = new DataRegisterAdminConfiguration(this);
 
         mElementsConfigurations.add(mHCPConfiguration);
         mElementsConfigurations.add(mPatientConfiguration);
         mElementsConfigurations.add(mClinicConfiguration);
-        mElementsConfigurations.add(mAdminConfiguration);
 
 
         mPatientConfiguration.initElements();
@@ -134,8 +131,6 @@ public class DataRegisterActivity extends BaseActivity {
     }
 
     private void sendParametersToServer() {
-
-
 
         JSONObject mProfile = new JSONObject();
         switch (mSpnProfileSelected){

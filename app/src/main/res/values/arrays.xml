@@ -4,7 +4,6 @@
         <item>Doctor</item>
         <item>Paciente</item>
         <item>Clinica</item>
-        <item>Administrador</item>
     </string-array>
 
     <string-array name="arrayGender">
