@@ -1,5 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys.patient;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,9 +13,14 @@ public class SearchTurnActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initScreen();
         setContentView(R.layout.patient_activity_search_turn);
     }
 
+    private void initScreen() {
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.RED));
+    }
 
 
     /**

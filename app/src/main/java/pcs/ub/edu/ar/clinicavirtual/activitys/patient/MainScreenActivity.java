@@ -2,6 +2,8 @@ package pcs.ub.edu.ar.clinicavirtual.activitys.patient;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +37,11 @@ public class MainScreenActivity extends BaseActivity
 
 
 
+    }
+
+    private void initScreen() {
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.RED));
     }
 
 

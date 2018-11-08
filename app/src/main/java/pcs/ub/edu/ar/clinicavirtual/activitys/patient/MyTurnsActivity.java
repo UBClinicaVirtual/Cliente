@@ -1,5 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys.patient;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +21,14 @@ public class MyTurnsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_activity_my_turns);
-
+        initScreen();
         initElements();
         initListeners();
+    }
+
+    private void initScreen() {
+        android.support.v7.app.ActionBar bar = getSupportActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(Color.RED));
     }
 
     private void initListeners() {

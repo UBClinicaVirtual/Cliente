@@ -7,11 +7,11 @@
     tools:context=".activitys.patient.ProfileActivity">
 
     <EditText
-        android:id="@+id/txtMyProfileName"
+        android:id="@+id/txtPatientProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="13dp"
         android:ems="10"
         android:hint="Nombre"
         android:inputType="textPersonName"
@@ -19,25 +19,99 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtMyProfileDNI"
+        android:id="@+id/txtPatientProfileSName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="Apellido"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPatientProfileName" />
+
+    <EditText
+        android:id="@+id/txtPatientProfileDNI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
         android:ems="10"
         android:hint="DNI"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMyProfileName" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPatientProfileSName" />
 
-    <Button
-        android:id="@+id/button"
+    <EditText
+        android:id="@+id/txtPatientProfileBirthDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="DNI"
+        android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMyProfileDNI" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPatientProfileDNI" />
+
+    <EditText
+        android:id="@+id/txtPatientProfileGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="Genero"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPatientProfileBirthDate" />
+
+    <EditText
+        android:id="@+id/txtPatientProfileAddreess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="Direccion"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPatientProfileGender" />
+
+    <EditText
+        android:id="@+id/txtPatientProfilePhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:hint="Telefono"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPatientProfileAddreess" />
+
+    <Button
+        android:id="@+id/btnPatientProfileEdit"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        android:layout_width="142dp"
+        android:layout_height="71dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Guardar"
+        android:textAppearance="@android:style/TextAppearance.Material.Widget.DropDownHint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnPatientProfileLoad"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        android:layout_width="142dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Cargar"
+        android:textAppearance="@android:style/TextAppearance.Material.Widget.DropDownHint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
