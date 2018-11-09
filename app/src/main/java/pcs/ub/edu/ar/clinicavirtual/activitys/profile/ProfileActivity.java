@@ -13,10 +13,12 @@ import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.profile.button.load.profile.ProfileActivityButtonLoadProfile;
 import pcs.ub.edu.ar.clinicavirtual.activitys.profile.button.save.profile.ProfileActivityButtonSaveProfile;
+import pcs.ub.edu.ar.clinicavirtual.enums.USER_TYPE;
 import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientProfileHandler;
 
 public class ProfileActivity extends BaseActivity {
 
+    public static final int ON_ACTIVITY_LOAD = -1;
     EditText txtName;
     EditText txtSName;
     EditText txtDNI;
@@ -42,11 +44,12 @@ public class ProfileActivity extends BaseActivity {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        nextActivityHandlers().get(1).nextActivity(userTypeId(),this);
+    public void onStart(){
+        super.onStart();
+        nextActivityHandlers().get(ON_ACTIVITY_LOAD).nextActivity(userTypeId(),this);
 
     }
+
 
     private void initScreen() {
         android.support.v7.app.ActionBar bar = getSupportActionBar();
@@ -114,12 +117,12 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void loadNextActivityHandler() {
-        nextActivityHandlers().put( 1 ,new ProfileActivityButtonLoadProfile());
+        nextActivityHandlers().put(ON_ACTIVITY_LOAD,new ProfileActivityButtonLoadProfile());
         nextActivityHandlers().put( R.id.btnPatientProfileEdit ,new ProfileActivityButtonSaveProfile());
     }
 
     @Override
     protected void loadHandlers() {
-        this.handlers().put( 2131296300 , new GetPatientProfileHandler());
+        this.handlers().put( USER_TYPE.PATIENT.getValue() , new GetPatientProfileHandler());
     }
 }
