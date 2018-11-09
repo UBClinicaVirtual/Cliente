@@ -2,7 +2,7 @@ package pcs.ub.edu.ar.clinicavirtual.connection;
 
 import java.util.ArrayList;
 
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
+import pcs.ub.edu.ar.clinicavirtual.enums.HEADER;
 
 public class Headers {
 

@@ -1,7 +1,5 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
-
 public class UserData /*implements IUserProfileData*/ {
 
     private static final String CAMPO_API_TOKEN = "\"api_token\": \"";

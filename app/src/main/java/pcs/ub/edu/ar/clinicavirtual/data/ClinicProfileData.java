@@ -2,7 +2,7 @@ package pcs.ub.edu.ar.clinicavirtual.data;
 
 import java.util.List;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IClinicProfileData;
 
 public class ClinicProfileData implements IClinicProfileData {
 

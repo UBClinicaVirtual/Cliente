@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IGoogle;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IGoogle;
 //</editor-fold>
 
 public class Google implements IGoogle {

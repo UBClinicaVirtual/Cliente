@@ -4,8 +4,6 @@ import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerR
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseListener;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ServerConnectorProxy implements IServerConnector {
 

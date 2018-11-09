@@ -1,12 +1,10 @@
 package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection;
 
-import android.view.View;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.enums.HEADER;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 
 public  abstract class ServerRequest implements IServerRequest {
 

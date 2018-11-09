@@ -11,11 +11,11 @@ import org.json.JSONObject;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
-import pcs.ub.edu.ar.clinicavirtual.activitys.register.config.DataRegisterActivity;
-import pcs.ub.edu.ar.clinicavirtual.activitys.patient.MainScreenActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.register.DataRegisterActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.main.MainScreenActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseHandler;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IServerResponseHandler;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 
 public class LoginResponseHandler implements IServerResponseHandler {
     @Override
@@ -32,6 +32,10 @@ public class LoginResponseHandler implements IServerResponseHandler {
 
 
             jsonObject = jsonObject.getJSONObject("user");
+
+            //Guardo el json del usuario que se acaba de loggear
+            //(poner en un metodo estatico para no acceder directamente a la variable
+            BaseActivity.jsonUser = jsonObject;
 
             saveApiToken( jsonObject.getString("api_token") , activity);
 

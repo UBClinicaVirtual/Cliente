@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/logofinal"
     android:layout_height="match_parent"
-    tools:context=".activitys.main.MainActivity">
+    tools:context=".activitys.start.MainActivity">
 
 
     <Button

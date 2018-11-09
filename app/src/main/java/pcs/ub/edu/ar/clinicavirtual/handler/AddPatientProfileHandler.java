@@ -5,8 +5,8 @@ import android.widget.Toast;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserAddPatientProfile;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseHandler;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IServerResponseHandler;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 
 public class AddPatientProfileHandler implements IServerResponseHandler {
     @Override

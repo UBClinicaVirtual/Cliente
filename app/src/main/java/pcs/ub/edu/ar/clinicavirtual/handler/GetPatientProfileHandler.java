@@ -5,11 +5,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
-import pcs.ub.edu.ar.clinicavirtual.activitys.patient.ProfileActivity;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientAppointments;
+import pcs.ub.edu.ar.clinicavirtual.activitys.profile.ProfileActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientProfile;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseHandler;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IServerResponseHandler;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 
 public class GetPatientProfileHandler  implements IServerResponseHandler {
     @Override
@@ -18,8 +17,6 @@ public class GetPatientProfileHandler  implements IServerResponseHandler {
         String response = requestPatientProfile.response();
 
         ProfileActivity profileActivity = (ProfileActivity) activity;
-
-        Toast.makeText(profileActivity, response, Toast.LENGTH_SHORT).show();
 
         try {
             profileActivity.loadProfile(response);

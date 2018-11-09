@@ -1,8 +1,8 @@
 package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user;
 
 
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.URI;
+import pcs.ub.edu.ar.clinicavirtual.enums.METHOD;
+import pcs.ub.edu.ar.clinicavirtual.enums.URI;
 
 public class ServerRequestUserGetPatientAppointments extends ServerRequestUser {
     public ServerRequestUserGetPatientAppointments(Integer requesterId) {

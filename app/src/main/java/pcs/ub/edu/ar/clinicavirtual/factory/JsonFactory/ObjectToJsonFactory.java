@@ -4,15 +4,15 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.interfaces.IClinicAppointment;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.interfaces.IHCPAppointment;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.interfaces.IPatientAppointment;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.ISpeciality;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.json.interfaces.IObjectToJsonFactory;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IClinicAppointment;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IHCPAppointment;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IPatientAppointment;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.ISpeciality;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IUserProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.json.IObjectToJsonFactory;
 
 public class ObjectToJsonFactory implements IObjectToJsonFactory {
     @Override

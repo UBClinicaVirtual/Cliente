@@ -1,6 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IPatientProfileData;
 
 public class PatientProfileData implements IPatientProfileData {
 

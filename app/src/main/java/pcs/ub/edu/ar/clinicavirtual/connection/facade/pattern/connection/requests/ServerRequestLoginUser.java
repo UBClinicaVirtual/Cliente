@@ -1,7 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestLogin;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
+import pcs.ub.edu.ar.clinicavirtual.enums.METHOD;
 
 public class ServerRequestLoginUser extends ServerRequestLogin {
 

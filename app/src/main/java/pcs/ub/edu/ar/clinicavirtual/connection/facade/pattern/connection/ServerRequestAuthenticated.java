@@ -1,9 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection;
 
-import android.content.SharedPreferences;
-import android.view.View;
-
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
+import pcs.ub.edu.ar.clinicavirtual.enums.HEADER;
 
 public abstract class ServerRequestAuthenticated extends ServerRequest {
     public ServerRequestAuthenticated(Integer requesterId) {

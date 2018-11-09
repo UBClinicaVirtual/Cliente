@@ -1,6 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.ISpeciality;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.ISpeciality;
 
 public class Speciality implements ISpeciality {
     private String mName;

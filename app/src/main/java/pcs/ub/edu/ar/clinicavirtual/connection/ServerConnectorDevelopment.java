@@ -1,25 +1,13 @@
 package pcs.ub.edu.ar.clinicavirtual.connection;
 
-import org.json.JSONObject;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.HEADER;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.METHOD;
-import pcs.ub.edu.ar.clinicavirtual.data.ClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.enums.HEADER;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseListener;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerConnector;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IUserProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IResponseListener;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
 
 public class ServerConnectorDevelopment extends ServerConnector {
 

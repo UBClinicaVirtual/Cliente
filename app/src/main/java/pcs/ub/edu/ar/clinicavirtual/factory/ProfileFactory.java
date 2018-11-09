@@ -8,10 +8,10 @@ import java.util.List;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.data.PatientProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IAdminProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IClinicProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.data.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IAdminProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IPatientProfileData;
 
 public class ProfileFactory extends BaseActivity {
 
@@ -75,6 +75,11 @@ public class ProfileFactory extends BaseActivity {
      */
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    protected void loadNextActivityHandler() {
 
     }
 }

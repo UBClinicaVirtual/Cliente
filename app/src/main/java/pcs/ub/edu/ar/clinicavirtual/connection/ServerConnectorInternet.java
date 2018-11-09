@@ -31,7 +31,7 @@ import javax.net.ssl.X509TrustManager;
 
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.*;
+import pcs.ub.edu.ar.clinicavirtual.enums.HEADER;
 import pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory.JsonToObjectFactory;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
 
@@ -220,8 +220,10 @@ public class ServerConnectorInternet extends ServerConnector {
             serverRequest.apiToken( this.apiToken() );
         }*/
 
+       ServerRequest  serverRequest= (ServerRequest) objects[0];
+        IServerResponseListener iServerResponseListener = (IServerResponseListener) objects[1];
 
-        this.callInternal((ServerRequest) objects[0], (IServerResponseListener) objects[1]);
+        this.callInternal(serverRequest , iServerResponseListener );
         return null;
     }
 }

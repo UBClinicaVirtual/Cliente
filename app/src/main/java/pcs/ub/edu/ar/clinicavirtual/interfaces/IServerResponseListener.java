@@ -1,6 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.interfaces;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 
 public interface IServerResponseListener {
 

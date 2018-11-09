@@ -8,8 +8,8 @@ import org.json.JSONObject;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientAppointments;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IServerResponseHandler;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.interfaces.IServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IServerResponseHandler;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 
 public class GetPatientAppointmentsHandler implements IServerResponseHandler {
     @Override
