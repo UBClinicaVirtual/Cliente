@@ -1,8 +1,10 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.interfaces.*;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IClinicAppointment;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IHCPAppointment;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IPatientAppointment;
 
-public class Appointment implements IClinicAppointment , IPatientAppointment, IHCPAppointment {
+public class Appointment implements IClinicAppointment, IPatientAppointment, IHCPAppointment {
 
     Integer mID;
     Integer mClinicID;

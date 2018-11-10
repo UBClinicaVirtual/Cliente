@@ -3,7 +3,6 @@ package pcs.ub.edu.ar.clinicavirtual.data;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.Speciality.SpecialityIdIsZeroException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.Speciality.SpecialityNullIdException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.Speciality.SpecialityNullNameException;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.ISpeciality;
 
 public class Speciality implements ISpeciality {
     private String mName;

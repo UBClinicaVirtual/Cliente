@@ -1,10 +1,11 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+
 import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataDniIsZeroException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataNullDniException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataNullNameException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataNullSurnameException;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IPatientProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IPatientProfileData;
 
 public class PatientProfileData implements IPatientProfileData {
 

@@ -2,8 +2,8 @@ package pcs.ub.edu.ar.clinicavirtual.data;
 
 import java.util.List;
 
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IHCPProfileData;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.ISpeciality;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IHCPProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.ISpeciality;
 
 public class HCPProfileData implements IHCPProfileData {
 

@@ -2,219 +2,228 @@ package pcs.ub.edu.ar.clinicavirtual.connection;
 
 import android.os.StrictMode;
 
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+
+
 import java.io.IOException;
+
+import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import pcs.ub.edu.ar.clinicavirtual.connection.request.parameters.enums.*;
-import pcs.ub.edu.ar.clinicavirtual.data.UserData;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequest;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.ServerRequestAuthenticated;
+import pcs.ub.edu.ar.clinicavirtual.enums.HEADER;
+import pcs.ub.edu.ar.clinicavirtual.factory.JsonFactory.JsonToObjectFactory;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.*;
 
-public class ServerConnectorInternet implements IServerConnector {
-
-
+public class ServerConnectorInternet extends ServerConnector {
     private StrictMode.ThreadPolicy mPolicy;
-    private String mURL;
-    private URL obj;
-    private HttpURLConnection mHttpURLConnection;
-    private String mUrlParameters;
-    private String mHeaderURL = "http://www.ubclinicavirtual.tk/api/v1";
-    private StringBuffer mResponse;
+    private JsonToObjectFactory mJsonToObjectFactory = new JsonToObjectFactory();
 
+    // always verify the host - dont check for certificate
+    final static HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    };
+
+    public ServerConnectorInternet(String urlBase) {
+        super(urlBase);
+
+        // En este constructor podria verificar si existe el archivo con el api_token logeado
+        // para emular el login automatico
+        // (Pero puede quedar pendiente para después)
+    }
 
     @Override
-    public IUserProfileData register(String tokenGmail) {
-        mResponse = new StringBuffer();
-        try {
-            //applies the necessary permissions
-            setPolicies();
-            
-            //set the connection to the server
-            setConnection(URI.REGISTER);
+    public void call(ServerRequestAuthenticated request, IServerResponseListener listener) {
+        //request.apiToken(  apiToken() );
+        this.callInternal( request, listener );
+    }
 
+    @Override
+    public void call(ServerRequest request, IServerResponseListener listener) {
+        this.callInternal( request, listener );
+    }
+
+    private void callInternal(ServerRequest request, IServerResponseListener listener) {
+
+
+
+        try {
+
+            setPolicies();
             ///////////////////////////////////////////////////////////////////
             //Preparo el requerimiento
 
             //hosting real en https
 //			String url = "https://ubclinicavirtual.000webhostapp.com/api/v1/login";
 
+            //hosting http
+           // String url = "http://www.ubclinicavirtual.tk/api/v1/login";
+            String url = urlBase() + request.path();
+            URL obj = new URL(url);
             //Hosting en https
-//			HttpsURLConnection mHttpURLConnection = (HttpsURLConnection) obj.openConnection();
+            //trustAllHosts();
+//			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            //con.setHostnameVerifier(DO_NOT_VERIFY);
 
-            ///////////////////////////////////////////////////////////////////
-            //add request parameters
-            addRequestParameters(METHOD.POST ,HEADER.ACCEPT, HEADER.CONTENT_TYPE);
+
+            //Hosting redireccionado en http
+            //HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+
+
+            //SET METHOD
+            con.setRequestMethod(request.method());
+
+            //SET HEADERS
+            for (Map.Entry<HEADER, String> mHeader :request.headers().entrySet() ) {
+                con.setRequestProperty( mHeader.getKey().getKey(), mHeader.getValue());
+            }
 
             ///////////////////////////////////////////////////////////////////
             //Envio un access_token(el access token varia según el tiempo, deben generar uno propio en cada intento de login)
             //TODO buscar como refactorizar la generacion del json para enviar como parametro
-            mUrlParameters ="{\"access_token\": \" "+ tokenGmail +"\"}";
-
+            //String urlParameterss ="{\"access_token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjcyOGY0MDE2NjUyMDc5YjllZDk5ODYxYmIwOWJhZmM1YTQ1YmFhODYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI0MzQwNDQ1Nzk5MDgtOGk1ZmtkYnJkdmhzaTVlbGVxa3JzamUyOHFjOW91c3EuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI0MzQwNDQ1Nzk5MDgtZWhxMTdmYnIxdXR0MDhub2U4dTRrYjJmNjZpc2RmNGUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDM0OTE2NDg0NjQyNzExMzMyNzQiLCJlbWFpbCI6ImdhYnllc3BpbmEuZ2VAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJHYWJyaWVsIEVzcGluYSIsInBpY3R1cmUiOiJodHRwczovL2xoNi5nb29nbGV1c2VyY29udGVudC5jb20vLUhub1c5TEstSGFnL0FBQUFBQUFBQUFJL0FBQUFBQUFBRVo4LzN1QXFEWUpsYi1VL3M5Ni1jL3Bob3RvLmpwZyIsImdpdmVuX25hbWUiOiJHYWJyaWVsIiwiZmFtaWx5X25hbWUiOiJFc3BpbmEiLCJsb2NhbGUiOiJlcy00MTkiLCJpYXQiOjE1NDA0OTg5MjUsImV4cCI6MTU0MDUwMjUyNX0.rogwVfZYS0gNGKV2AOoIGjjrTTKvSStsRbCkPj0ZZ57kUZQ5Gr0NffPU8CFR59uXWzcUOjjDgyCrKfEZcEB6GBxPuWI2tWGX22C7GaL4oNEqHDUWuI0MkMenmtNGvagi-sCib5YRQU-KeZVf9VO2l33LsMCzFaWFX7HE_zxDXcR3d_BLhWWYphf7EPP93GWC0eKKkgaKrDWG2BU9-e8TCKlnDlANwlhj6BlZzbo4Xp4HcqT5RQ3TXehUfR-_tQXvWXzH-TcSBlXpB_vtFo9vQvDPVn_EFJdjjhxbgkEDHRhV6RWinj71i6oOMKAaKLA_hLROS4IyMtwYp-VYYWPFVQ\"}";
+            String urlParameters = request.parameters();
             ///////////////////////////////////////////////////////////////////
             // Send post request
-            sendRequest();
 
+            if( !urlParameters.isEmpty() ) {
+                con.setDoOutput(true);
+                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                wr.writeBytes(urlParameters);
+                wr.flush();
+                wr.close();
+            }
 
-            int responseCode = mHttpURLConnection.getResponseCode();
+            int responseCode = con.getResponseCode();
 
             ///////////////////////////////////////////////////////////////////
             //Analizo la respuesta
 
-            /*System.out.println("\nSending 'POST' request to URL : " + mURL);
-            System.out.println("Post parameters : " + mUrlParameters);
-            System.out.println("Response Code : " + responseCode);*/
+            System.out.println("\nSending 'POST' request to URL : " + url);
+            System.out.println("Post parameters : " + urlParameters);
+            System.out.println("Response Code : " + responseCode);
 
-            getResponse();
+            BufferedReader in = new BufferedReader( new InputStreamReader(getInputStream(responseCode, con)));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
 
-            return new UserData(0,mResponse.toString(),"ASD");
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            in.close();
+
+            ///////////////////////////////////////////////////////////////////
+            //print result
+
+            System.out.println(response.toString());
+
+            request.response(response.toString());
+
+            if( isErrorCode( responseCode ) )
+                listener.error(request);
+            else
+                listener.success(request);
+
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
-            return new UserData(1,"ERROR 2","ASD");
         } catch (ProtocolException e) {
             e.printStackTrace();
-            return new UserData(2,"ERROR 3","ASD");
         } catch (IOException e) {
             e.printStackTrace();
-            return new UserData(3,"ERROR 4","ASD");
         }
-
-
     }
 
-    @Override
-    public IUserProfileData login(String tokenGmail) {
+    private InputStream getInputStream(int responseCode, HttpURLConnection con) throws IOException {
+        // If its a valid response, returns the data stream to process
+        if(isErrorCode(responseCode))
+            return con.getErrorStream();
+        return con.getInputStream();
+    }
 
-        mResponse = new StringBuffer();
+    private boolean isErrorCode(int responseCode) {
+        return responseCode < 200 || responseCode >= 300;
+    }
+
+    private void trustAllHosts() {
+        // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[] {};
+            }
+
+            public void checkClientTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
+            }
+
+            public void checkServerTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
+            }
+        } };
+
+        // Install the all-trusting trust manager
         try {
-            //applies the necessary permissions
-            setPolicies();
-
-            //set the connection to the server
-            setConnection(URI.LOGIN);
-
-            ///////////////////////////////////////////////////////////////////
-            //Preparo el requerimiento
-
-            //hosting real en https
-//			String url = "https://ubclinicavirtual.000webhostapp.com/api/v1/login";
-
-            //Hosting en https
-//			HttpsURLConnection mHttpURLConnection = (HttpsURLConnection) obj.openConnection();
-
-            ///////////////////////////////////////////////////////////////////
-            //add request parameters
-            addRequestParameters(METHOD.POST ,HEADER.ACCEPT, HEADER.CONTENT_TYPE);
-
-            ///////////////////////////////////////////////////////////////////
-            //Envio un access_token(el access token varia según el tiempo, deben generar uno propio en cada intento de login)
-            //TODO buscar como refactorizar la generacion del json para enviar como parametro
-            mUrlParameters ="{\"access_token\": \" "+ tokenGmail +"\"}";
-
-            ///////////////////////////////////////////////////////////////////
-            // Send post request
-            sendRequest();
-
-
-            int responseCode = mHttpURLConnection.getResponseCode();
-
-            ///////////////////////////////////////////////////////////////////
-            //Analizo la respuesta
-
-            /*System.out.println("\nSending 'POST' request to URL : " + mURL);
-            System.out.println("Post parameters : " + mUrlParameters);
-            System.out.println("Response Code : " + responseCode);*/
-
-            getResponse();
-
-            return new UserData(0,mResponse.toString(),"ASD");
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-            return new UserData(1,"ERROR 2","ASD");
-        } catch (ProtocolException e) {
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection
+                    .setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (Exception e) {
             e.printStackTrace();
-            return new UserData(2,"ERROR 3","ASD");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new UserData(3,"ERROR 4","ASD");
         }
     }
 
-    @Override
-    public void logout() {
-
-    }
 
     @Override
-    public IPatientProfileData addPatientProfileToUserAccount(IPatientProfileData patientData) {
-        return null;
+    public void apiToken(String apiToken) {
+        // Aca es donde deberia grabarlo en el archivo para poder hacer
+        // el login automatico al iniciar la app
+        // (Pero puede quedar pendiente para después)
+        super.apiToken(apiToken);
     }
 
-    @Override
-    public IClinicProfileData addClinicProfileToUserAccount(IClinicProfileData clinicData) {
-        return null;
-    }
-
-    @Override
-    public IHCPProfileData addHCPProfileToUserAccount(IHCPProfileData hcpData) {
-        return null;
-    }
-
-    @Override
-    public IPatientProfileData getUserPatientProfile() {
-        return null;
-    }
-
-
-
-
-
-    
     //------------------------------------------------------------------------
-    //methods of connection to the server
-    private void addRequestParameters(METHOD method, HEADER header) throws ProtocolException {
-        mHttpURLConnection.setRequestMethod( method.getKey() );
-        mHttpURLConnection.setRequestProperty( header.getKey(), header.getValue());
-    }
-
-    private void addRequestParameters(METHOD method, HEADER header, HEADER header2) throws ProtocolException {
-        addRequestParameters(method,header);
-        mHttpURLConnection.setRequestProperty(header2.getKey(), header2.getValue());
-    }
-
-    private void setConnection(URI uri) throws IOException {
-        //hosting http
-        mURL = mHeaderURL + uri;
-        obj = new URL( mURL );
-        mHttpURLConnection = (HttpURLConnection) obj.openConnection();
-
-    }
-
     private void setPolicies() {
         mPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(mPolicy);
     }
 
-    private void sendRequest() throws IOException {
-        mHttpURLConnection.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(mHttpURLConnection.getOutputStream());
-        wr.writeBytes(mUrlParameters);
-        wr.flush();
-        wr.close();
-    }
 
-    private void getResponse() throws IOException {
-        BufferedReader in = new BufferedReader( new InputStreamReader(mHttpURLConnection.getInputStream()));
-        String mInputLine;
+    @Override
+    protected Object doInBackground(Object[] objects) {
 
+       /* if(objects[0] instanceof ServerRequestAuthenticated){
+            ServerRequestAuthenticated serverRequest = (ServerRequestAuthenticated) objects[0];
+            serverRequest.apiToken( this.apiToken() );
+        }*/
 
-        while ((mInputLine = in.readLine()) != null) {
-            mResponse.append(mInputLine);
-        }
-        in.close();
+       ServerRequest  serverRequest= (ServerRequest) objects[0];
+        IServerResponseListener iServerResponseListener = (IServerResponseListener) objects[1];
+
+        this.callInternal(serverRequest , iServerResponseListener );
+        return null;
     }
 }

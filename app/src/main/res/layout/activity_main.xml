@@ -5,47 +5,34 @@
     android:layout_width="match_parent"
     android:background="@drawable/logofinal"
     android:layout_height="match_parent"
-    tools:context=".activitys.MainActivity">
+    tools:context=".activitys.start.MainActivity">
 
-
-    <Button
-        android:id="@+id/btnLogIn"
-        style="@android:style/Widget.Material.Button.Borderless"
-        android:layout_width="251dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="124dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="INICIAR SESION"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnSignIn"
-        style="@android:style/Widget.Holo.Button.Small"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
         android:layout_width="255dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="203dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="REGISTRARSE"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="203dp"
+        android:text="INICIAR CLINICA VIRTUAL"
+        android:textAppearance="@android:style/TextAppearance.Widget"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@android:style/Widget.Holo.ProgressBar.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="168dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogIn"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 
 </android.support.constraint.ConstraintLayout>

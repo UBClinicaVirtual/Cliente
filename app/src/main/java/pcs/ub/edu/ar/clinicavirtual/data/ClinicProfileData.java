@@ -1,13 +1,14 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
-import java.util.LinkedList;
 import java.util.List;
+
 
 import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataIdIsZeroException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullBusinessNameException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullIdException;
 import pcs.ub.edu.ar.clinicavirtual.data.exception.ClinicProfileDataException.ClinicProfileDataNullSpecialitiesException;
-import pcs.ub.edu.ar.clinicavirtual.interfaces.IClinicProfileData;
+import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IClinicProfileData;
+
 
 public class ClinicProfileData implements IClinicProfileData {
 
