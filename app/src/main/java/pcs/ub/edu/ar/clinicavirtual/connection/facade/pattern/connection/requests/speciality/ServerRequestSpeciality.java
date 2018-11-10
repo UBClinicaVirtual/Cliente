@@ -10,6 +10,6 @@ public abstract class ServerRequestSpeciality extends ServerRequestAuthenticated
 
     @Override
     public String path() {
-        return super.path() + URI.SPECIALITY;
+        return super.path() + URI.SPECIALITIES;
     }
 }
