@@ -1,5 +1,10 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+
+import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataDniIsZeroException;
+import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataNullDniException;
+import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataNullNameException;
+import pcs.ub.edu.ar.clinicavirtual.data.exception.PatientProfileDataException.PatientProfileDataNullSurnameException;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.data.IPatientProfileData;
 
 public class PatientProfileData implements IPatientProfileData {
@@ -11,11 +16,31 @@ public class PatientProfileData implements IPatientProfileData {
     private Integer mID;
 
     public PatientProfileData(String mName,String mSName,String mEmail, Long mDNI) {
-        this.mName = mName;
-        this.mEmail= mEmail;
+        this.setmName(mName);
+        this.setmSName(mSName);
         this.mDNI  = mDNI;
     }
 
+
+    private void setmName(String mName) {
+        if ((mName == null) || mName.trim().isEmpty())
+            throw new PatientProfileDataNullNameException();
+        this.mName = mName;
+    }
+
+    private void setmSName (String mSName){
+        if ((mSName == null) || mSName.trim().isEmpty() )
+            throw new PatientProfileDataNullSurnameException();
+        this.mSName = mSName;
+    }
+
+    private void setmDNI (Long mDNI){
+        if (mDNI == null)
+            throw new PatientProfileDataNullDniException();
+        if (mDNI == 0)
+            throw new PatientProfileDataDniIsZeroException();
+        this.mDNI = mDNI;
+    }
 
     @Override
     public Integer getmID() {
