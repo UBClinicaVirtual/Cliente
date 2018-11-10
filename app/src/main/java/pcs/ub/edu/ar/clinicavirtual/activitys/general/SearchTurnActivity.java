@@ -14,7 +14,7 @@ public class SearchTurnActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initScreen();
-        setContentView(R.layout.patient_activity_search_turn);
+        setContentView(R.layout.activity_search_turn);
     }
 
     private void initScreen() {

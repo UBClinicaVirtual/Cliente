@@ -16,7 +16,7 @@ public class TurnDataActivity extends BaseActivity {
 
         initScreen();
 
-        setContentView(R.layout.patient_activity_turn_data);
+        setContentView(R.layout.activity_turn_data);
     }
 
     private void initScreen() {

@@ -87,7 +87,7 @@ public class MainScreenActivity extends BaseActivity
 
 
     private void initNavigationBar() {
-        setContentView(R.layout.patient_activity_main_screen);
+        setContentView(R.layout.activity_main_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
