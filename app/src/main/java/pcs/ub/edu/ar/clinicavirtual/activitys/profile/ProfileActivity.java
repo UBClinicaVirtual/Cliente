@@ -34,7 +34,7 @@ public class ProfileActivity extends BaseActivity {
 
         initScreen();
 
-        setContentView(R.layout.patient_activity_profile);
+        setContentView(R.layout.activity_profile);
 
         initElements();
 

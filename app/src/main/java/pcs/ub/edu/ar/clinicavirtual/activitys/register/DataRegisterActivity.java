@@ -22,13 +22,17 @@ import java.util.LinkedList;
 import java.util.List;
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSpecialityGetSpecialities;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserAddPatientProfile;
 import pcs.ub.edu.ar.clinicavirtual.handler.AddPatientProfileHandler;
+import pcs.ub.edu.ar.clinicavirtual.handler.GetSpecialitiesHandler;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IElementsConfiguration;
 //</editor-fold>
 
 
 public class DataRegisterActivity extends BaseActivity {
+
+    public static final int ON_ACTIVITY_LOAD = -1;
 
     Spinner mSpnProfile;
     ArrayAdapter<CharSequence> mAdapter;
@@ -45,20 +49,28 @@ public class DataRegisterActivity extends BaseActivity {
     IElementsConfiguration mClinicConfiguration;
 
     ArrayList <IElementsConfiguration> mElementsConfigurations;
+    ArrayList<String> mSpecialities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_register);
-
-
         //The elements are initialized
         initElements();
         createClickListeners();
         initElementsConfigurations();
         setApiToken();
+        loadSpecialities();
+
 
     }
+
+    private void loadSpecialities() {
+        ServerRequestSpecialityGetSpecialities requestSpecialities = new ServerRequestSpecialityGetSpecialities(ON_ACTIVITY_LOAD);
+        requestSpecialities.apiToken( apitoken() );
+        connector().execute(requestSpecialities,this);
+    }
+
 
     private void setApiToken() {
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -203,7 +215,13 @@ public class DataRegisterActivity extends BaseActivity {
     }
 
 
+    public void specialities( ArrayList<String>  specialities ){
+        mSpecialities = specialities;
+    }
 
+    public ArrayList<String> specialities(){
+        return mSpecialities;
+    }
     /**
      * Called when a view has been clicked.
      *
@@ -222,5 +240,6 @@ public class DataRegisterActivity extends BaseActivity {
     @Override
     protected void loadHandlers() {
         this.handlers().put(R.id.btnNext, new AddPatientProfileHandler());
+        this.handlers().put(ON_ACTIVITY_LOAD, new GetSpecialitiesHandler());
     }
 }
