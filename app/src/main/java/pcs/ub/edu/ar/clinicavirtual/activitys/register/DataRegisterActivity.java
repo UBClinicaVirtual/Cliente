@@ -49,24 +49,28 @@ public class DataRegisterActivity extends BaseActivity {
     IElementsConfiguration mClinicConfiguration;
 
     ArrayList <IElementsConfiguration> mElementsConfigurations;
+    ArrayList<String> mSpecialities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_register);
-
-
         //The elements are initialized
         initElements();
         createClickListeners();
         initElementsConfigurations();
         setApiToken();
+        loadSpecialities();
 
+
+    }
+
+    private void loadSpecialities() {
         ServerRequestSpecialityGetSpecialities requestSpecialities = new ServerRequestSpecialityGetSpecialities(ON_ACTIVITY_LOAD);
         requestSpecialities.apiToken( apitoken() );
         connector().execute(requestSpecialities,this);
-
     }
+
 
     private void setApiToken() {
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -211,7 +215,13 @@ public class DataRegisterActivity extends BaseActivity {
     }
 
 
+    public void specialities( ArrayList<String>  specialities ){
+        mSpecialities = specialities;
+    }
 
+    public ArrayList<String> specialities(){
+        return mSpecialities;
+    }
     /**
      * Called when a view has been clicked.
      *
