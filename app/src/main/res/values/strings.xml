@@ -14,4 +14,8 @@
     <string name="signed_in_fmt">Register as %s</string>
     <string name="server_client_id">434044579908-ehq17fbr1utt08noe8u4kb2f66isdf4e.apps.googleusercontent.com</string>
     <string name="textview">TextView</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_turns_message">No hay ningun turno</string>
 </resources>
