@@ -3,6 +3,8 @@ package pcs.ub.edu.ar.clinicavirtual.activitys.general;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +18,9 @@ public class MyTurnsActivity extends BaseActivity {
 
     Button mSearchMyTurns;
     TextView mMyTurns;
+
+    private Toolbar mToolbar;
+    private Fragment mTurnsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +43,27 @@ public class MyTurnsActivity extends BaseActivity {
     private void initElements() {
         mSearchMyTurns = (Button) findViewById(R.id.btnPatientMyTurns);
         mMyTurns = (TextView) findViewById(R.id.txtMyTurns);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mTurnsFragment = getSupportFragmentManager().findFragmentById(R.id.turns_container);
+        
+        setUpToolbar();
+        setUpTurnsFragment();
 
 
+    }
+
+    private void setUpTurnsFragment() {
+        if(mTurnsFragment == null){
+            mTurnsFragment = TurnsFragment.newInstance();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.turns_container, mTurnsFragment)
+                    .commit();
+        }
+    }
+
+    private void setUpToolbar() {
+        setSupportActionBar(mToolbar);
     }
 
 
