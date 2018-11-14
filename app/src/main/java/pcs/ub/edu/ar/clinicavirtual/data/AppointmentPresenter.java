@@ -1,5 +1,7 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+import java.util.List;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class AppointmentPresenter implements AppointmentMvp.Presenter {
@@ -30,7 +32,43 @@ public class AppointmentPresenter implements AppointmentMvp.Presenter {
             mAppointmentsView.showLoadMoreIndicator(true);
             mCurrentPage++;
         }
-        mAppointmentsRepository.getAppointments(..);
+        mAppointmentsRepository.getAppointments(
+                new AppointmentRepository.GetAppointmentsCallback(){
+
+                    @Override
+                    public void onAppointmentsLoaded(List<Appointment> appointments) {
+                        mAppointmentsView.showLoadingState(false);
+                        processAppointments (appointments, reallyReload);
+
+                        isFirstLoad = false;
+                    }
+
+                    @Override
+                    public void onDataNotAvailable(String error) {
+                        mAppointmentsView.showLoadingState(false);
+                        mAppointmentsView.showLoadMoreIndicator(false);
+                        mAppointmentsView.showAppointmentsError(error);
+                    }
+                });
+        }
+
+        private void processAppointments(List<Appointment> appointments, boolean reload){
+        if(appointments.isEmpty()){
+            if(reload){
+                mAppointmentsView.showEmptyState();
+            }else{
+                mAppointmentsView.showLoadMoreIndicator(false);
+            }
+            mAppointmentsView.allowMoreData(false);
+        }else{
+            if(reload){
+                mAppointmentsView.showAppointments(appointments);
+            }else{
+                mAppointmentsView.showLoadMoreIndicator(false);
+                mAppointmentsView.showAppointmentPage(appointments);
+            }
+            mAppointmentsView.allowMoreData(true);
+        }
         }
     }
 
