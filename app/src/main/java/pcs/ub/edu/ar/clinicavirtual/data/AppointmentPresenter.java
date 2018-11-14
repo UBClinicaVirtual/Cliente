@@ -9,7 +9,7 @@ public class AppointmentPresenter implements AppointmentMvp.Presenter {
     private final AppointmentRepository mAppointmentsRepository;
     private final AppointmentMvp.View mAppointmentsView;
 
-    public static final int PRODUCTS_LIMIT = 20;
+    public static final int PRODUCTS_LIMIT = 10;
 
     private boolean isFirstLoad = true;
     private int mCurrentPage = 1;
@@ -32,6 +32,8 @@ public class AppointmentPresenter implements AppointmentMvp.Presenter {
             mAppointmentsView.showLoadMoreIndicator(true);
             mCurrentPage++;
         }
+
+        IAppointmentCriteria criteria = new PagingAppointmentCriteria(mCurrentPage, PRODUCTS_LIMIT);
         mAppointmentsRepository.getAppointments(
                 new AppointmentRepository.GetAppointmentsCallback(){
 
@@ -49,7 +51,7 @@ public class AppointmentPresenter implements AppointmentMvp.Presenter {
                         mAppointmentsView.showLoadMoreIndicator(false);
                         mAppointmentsView.showAppointmentsError(error);
                     }
-                });
+                },criteria);
         }
 
         private void processAppointments(List<Appointment> appointments, boolean reload){
