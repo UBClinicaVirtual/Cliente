@@ -7,6 +7,6 @@ public interface IAppointmentsRepository {
         void onAppointmentsLoaded(List<Appointment> appointments);
         void onDataNotAvailable (String error);
     }
-    void getAppointments(GetAppointmentsCallback callback);
+    void getAppointments(GetAppointmentsCallback callback, IAppointmentCriteria criteria);
     void refreshAppointments();
 }
