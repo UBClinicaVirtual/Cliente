@@ -14,21 +14,21 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/products_list"
+        android:id="@+id/appointment_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F0F0F0"
         android:scrollbars="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     <LinearLayout
-        android:id="@+id/noProducts"
+        android:id="@+id/noAppointment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/noTurnIcon"
+        android:id="@+id/noAppointmentIcon"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_gravity="center"
@@ -37,7 +37,7 @@
         app:srcCompat="@drawable/ic_package_variant_closed" />
 
     <TextView
-        android:id="@+id/noProductsText"
+        android:id="@+id/noAppointmentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
