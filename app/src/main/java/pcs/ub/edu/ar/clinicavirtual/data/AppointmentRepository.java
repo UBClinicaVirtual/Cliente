@@ -27,29 +27,30 @@ class AppointmentRepository implements IAppointmentsRepository{
 
 
     @Override
-    public void getAppointments(GetAppointmentsCallback callback) {
+    public void getAppointments(GetAppointmentsCallback callback, final IAppointmentCriteria criteria) {
+
         if(!mMemoryAppointmentsDataSource.mapIsNull() && !mReload){
-                getAppointmentsFromMemory(callback);
+                getAppointmentsFromMemory(callback,criteria);
                 return;
         }
 
         if(mReload){
             getAppointmentsFromServer(callback, criteria);
         }else{
-            List<Appointment> appointments = mMemoryAppointmentsDataSource.find();
+            List<Appointment> appointments = mMemoryAppointmentsDataSource.find(criteria);
             if(appointments.size() > 0){
                 callback.onAppointmentsLoaded(appointments);
             }else{
-                getAppointmentsFromServer(callback);
+                getAppointmentsFromServer(callback,criteria);
             }
         }
     }
 
-    private void getAppointmentsFromMemory(GetAppointmentsCallback callback){
-        callback.onAppointmentsLoaded(mMemoryAppointmentsDataSource.find());
+    private void getAppointmentsFromMemory(GetAppointmentsCallback callback, IAppointmentCriteria criteria){
+        callback.onAppointmentsLoaded(mMemoryAppointmentsDataSource.find(criteria));
     }
 
-    private void getAppointmentsFromServer(final GetAppointmentsCallback callback){
+    private void getAppointmentsFromServer(final GetAppointmentsCallback callback, final IAppointmentCriteria criteria){
         if(!isOnline()){
             callback.onDataNotAvailable("No hay conexion de red");
             return;
@@ -60,7 +61,7 @@ class AppointmentRepository implements IAppointmentsRepository{
                     @Override
                     public void onLoaded(List<Appointment> appointments) {
                         refreshMemoryDatasource(appointments);
-                        getAppointmentsFromMemory(callback);
+                        getAppointmentsFromMemory(callback,criteria);
                     }
 
                     @Override
