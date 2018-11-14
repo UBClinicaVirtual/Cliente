@@ -14,7 +14,7 @@ public class MemoryAppointmentsDataSource implements IMemoryAppointmentsDataSour
     @Override
     public List<Appointment> find(IAppointmentCriteria criteria) {
         ArrayList<Appointment> appointments = Lists.newArrayList(mCachedAppointments.values());
-        return appointments;
+        return criteria.match(appointments);
     }
 
     @Override
