@@ -9,19 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
 import pcs.ub.edu.ar.clinicavirtual.data.AppointmentAdapter;
+import pcs.ub.edu.ar.clinicavirtual.data.AppointmentMvp;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TurnsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class TurnsFragment extends Fragment {
+
+public class TurnsFragment extends Fragment implements AppointmentMvp.View {
 
     private RecyclerView mAppointmentList;
     private AppointmentAdapter mAppointmentAdapter;
@@ -90,5 +89,56 @@ public class TurnsFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void showAppointments(List<Appointment> appointments) {
+        mAppointmentAdapter.replaceData(appointments);
+
+        mAppointmentList.setVisibility(View.VISIBLE);
+        mEmptyView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showLoadingState(final boolean show) {
+        if(getView() == null){
+            return;
+        }
+
+        // evitar que se sobrepongan los mesj
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(show);
+            }
+        });
+    }
+
+    @Override
+    public void showEmptyState() {
+        mAppointmentList.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showAppointmentsError(String msg) {
+        Toast.makeText(getActivity(),msg, Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void showAppointmentPage(List<Appointment> appointments) {
+        //ampliar los turnos de la pagina
+        mAppointmentAdapter.addData(appointments);
+    }
+
+    @Override
+    public void showLoadMoreIndicator(boolean show) {
+        //pendient
+    }
+
+    @Override
+    public void allowMoreData(boolean show) {
+            //pendiente
     }
 }
