@@ -20,46 +20,56 @@
         android:paddingTop="8dp">
 
         <ImageView
-            android:id="@+id/product_featured_image"
+            android:id="@+id/appointment_featured_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="8dp" />
 
         <TextView
-            android:id="@+id/product_name"
+            android:id="@+id/clinic_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/product_featured_image"
+            android:layout_toRightOf="@+id/appointment_featured_image"
             android:maxLength="65"
             android:maxLines="1"
             android:text="New Text"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="16sp"
-            tools:text="Turno" />
+            tools:text="Hospital de clinicas" />
 
         <TextView
-            android:id="@+id/product_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="Small Text"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?colorPrimary"
-            tools:text="prueba prueba" />
-
-        <TextView
-            android:id="@+id/units_in_stock"
+            android:id="@+id/appointment_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/product_name"
-            android:layout_toRightOf="@+id/product_featured_image"
+            android:layout_below="@+id/clinic_name"
+            android:layout_toRightOf="@+id/appointment_featured_image"
             android:text="New Text"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            tools:text="20 u." />
+            tools:text="14/11/2018  09:25 am" />
+
+        <TextView
+            android:id="@+id/hcp_name"
+            android:layout_width="257dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/appointment_date"
+            android:text="New Text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="Dr.Duartes, Walter" />
+
+        <TextView
+            android:id="@+id/appointment_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/hcp_name"
+            android:layout_toRightOf="@+id/appointment_featured_image"
+            android:text="New Text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="Pendiente" />
 
 
     </RelativeLayout>
