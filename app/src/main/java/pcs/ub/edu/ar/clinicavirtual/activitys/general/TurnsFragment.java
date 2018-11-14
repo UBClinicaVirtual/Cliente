@@ -163,11 +163,15 @@ public class TurnsFragment extends Fragment implements AppointmentMvp.View {
 
     @Override
     public void showLoadMoreIndicator(boolean show) {
-        //pendient
+        if(!show){
+            mAppointmentAdapter.dataFinishedLoading();
+        }else{
+            mAppointmentAdapter.dataStartedLoading();
+        }
     }
 
     @Override
-    public void allowMoreData(boolean show) {
-            //pendiente
+    public void allowMoreData(boolean allow) {
+           mAppointmentAdapter.setmMoreData(allow);
     }
 }
