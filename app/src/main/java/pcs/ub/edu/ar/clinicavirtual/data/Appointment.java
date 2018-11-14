@@ -18,6 +18,10 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
     String  mStateLebel;
     String  mHCPName;
     Integer mHCPID;
+    String  mImageUrl;
+
+
+
 
 
     public Appointment(Integer id, Integer clinicID, String clinicName, Integer specialityID,
@@ -99,4 +103,13 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
     public String getHCPName() {
         return mHCPName;
     }
+
+    public String getmImageUrl() {
+        return mImageUrl;
+    }
+
+    public void setmImageUrl(String mImageUrl) {
+        this.mImageUrl = mImageUrl;
+    }
+
 }
