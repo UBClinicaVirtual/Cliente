@@ -18,11 +18,14 @@ import pcs.ub.edu.ar.clinicavirtual.R;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements DataLoading {
 
 
     private List<Appointment> mAppointment;
     private AppointmentItemListener mItemListener;
+
+    private boolean mLoading = false;
+    private boolean mMoreData = false;
 
     public AppointmentAdapter(List<Appointment> appointments, AppointmentItemListener itemListener){
         setList(appointments);
@@ -77,9 +80,18 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return mAppointment.size();
     }
 
+    @Override
+    public boolean isLoadingData() {
+        return mLoading;
+    }
+
+    @Override
+    public boolean isThereMoreData() {
+        return mMoreData;
+    }
 
 
-class AppointmentHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class AppointmentHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public TextView mclinic_name;
     public TextView mdate;
