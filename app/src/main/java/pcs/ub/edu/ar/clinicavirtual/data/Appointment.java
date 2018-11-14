@@ -44,13 +44,13 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
         mHCPName = hCPName;
     }
 
-    public Appointment(String clinic, String date, String doctor, String status, String imageUrl) {
+    public Appointment(String clinic, String date, String doctor, String status) {
         mID = UUID.randomUUID().toString();
         mClinicName = clinic;
         mDate = date;
         mHCPName = doctor;
         mStateLebel = status;
-        mImageUrl = imageUrl;
+       // mImageUrl = imageUrl;
     }
 
 
