@@ -34,7 +34,7 @@
         android:layout_gravity="center"
 
         android:tint="@android:color/darker_gray"
-        app:srcCompat="@drawable/ic_package_variant_closed" />
+        app:srcCompat="@drawable/sad" />
 
     <TextView
         android:id="@+id/noAppointmentText"

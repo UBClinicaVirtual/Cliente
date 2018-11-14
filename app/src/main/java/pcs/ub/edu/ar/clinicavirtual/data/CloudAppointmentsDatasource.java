@@ -15,7 +15,7 @@ public class CloudAppointmentsDatasource implements ICloudAppointmentsDataSource
 
     static {
         API_DATA = new LinkedHashMap<>();
-        for (int i = 0; i<15; i++){
+        for (int i = 0; i<5; i++){
             addAppointment("Hospital de clinicas" , "14/11/2018 12:27 pm", "Dr. Duartes Walter", "Pendiente");
         }
     }
