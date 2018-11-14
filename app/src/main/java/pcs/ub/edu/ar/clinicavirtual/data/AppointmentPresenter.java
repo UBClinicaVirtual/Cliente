@@ -9,7 +9,7 @@ public class AppointmentPresenter implements AppointmentMvp.Presenter {
     private final AppointmentRepository mAppointmentsRepository;
     private final AppointmentMvp.View mAppointmentsView;
 
-    public static final int PRODUCTS_LIMIT = 1;
+    public static final int PRODUCTS_LIMIT = 5;
 
     private boolean isFirstLoad = true;
     private int mCurrentPage = 1;
