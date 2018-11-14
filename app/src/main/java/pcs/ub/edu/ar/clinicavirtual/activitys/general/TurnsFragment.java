@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import pcs.ub.edu.ar.clinicavirtual.InfiniteScrollListener;
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
 import pcs.ub.edu.ar.clinicavirtual.data.AppointmentAdapter;
@@ -85,10 +87,16 @@ public class TurnsFragment extends Fragment implements AppointmentMvp.View {
 
     private void setUpAppointmentList() {
         mAppointmentList.setAdapter(mAppointmentAdapter);
-        mAppointmentList.setHasFixedSize(true);
+        final LinearLayoutManager layoutManager = (LinearLayoutManager) mAppointmentList.getLayoutManager();
+        mAppointmentList.addOnScrollListener(new InfiniteScrollListener(mAppointmentAdapter, layoutManager) {
+            @Override
+            public void onLoadMore() {
+                mAppointmentPresenter.loadAppointment(false);
+            }
+        });
     }
 
-    //cambiar el esquema de colores del indicador
+
     private void setUpRefreshLayout(){
         mSwipeRefreshLayout.setColorSchemeColors(
                 ContextCompat.getColor(getActivity(),R.color.colorPrimary),
