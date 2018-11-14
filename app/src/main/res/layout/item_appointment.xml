@@ -52,10 +52,11 @@
 
         <TextView
             android:id="@+id/hcp_name"
-            android:layout_width="257dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/appointment_date"
+            android:layout_toRightOf="@+id/appointment_featured_image"
             android:text="New Text"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             tools:text="Dr.Duartes, Walter" />
