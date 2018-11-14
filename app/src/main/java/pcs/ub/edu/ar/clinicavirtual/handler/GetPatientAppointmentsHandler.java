@@ -23,6 +23,7 @@ public class GetPatientAppointmentsHandler implements IServerResponseHandler {
             JSONObject jsonObject = new JSONObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray("appointments");
             jsonObject= jsonArray.getJSONObject(0);
+            //HACER FOREACH A JSON ARRAY, AGREGAR
             Toast.makeText(activity,jsonObject.toString() , Toast.LENGTH_SHORT).show();
 
         } catch (JSONException e) {

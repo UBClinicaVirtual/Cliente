@@ -23,6 +23,7 @@ public class MyTurnsActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private Fragment mTurnsFragment;
+    private static Integer ON_LOAD = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,29 +37,39 @@ public class MyTurnsActivity extends BaseActivity {
 
        // setUpToolbar();
         setUpTurnsFragment();
-    }
-/*
-    private void initScreen() {
-        android.support.v7.app.ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(Color.RED));
-    }
 
-    private void initListeners() {
-        findViewById(R.id.btnPatientMyTurns).setOnClickListener(this);
-    }
-
-    private void initElements() {
-       // mSearchMyTurns = (Button) findViewById(R.id.btnPatientMyTurns);
-       // mMyTurns = (TextView) findViewById(R.id.txtMyTurns);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mTurnsFragment = getSupportFragmentManager().findFragmentById(R.id.turns_container);
-        
-        setUpToolbar();
-        setUpTurnsFragment();
-
+        getAppointments();
 
     }
-*/
+
+    private void getAppointments() {
+        ServerRequestUserGetPatientAppointments getPatientAppointments = new ServerRequestUserGetPatientAppointments(ON_LOAD);
+        getPatientAppointments.apiToken( apitoken() );
+        connector().execute(getPatientAppointments,this);
+    }
+
+    /*
+        private void initScreen() {
+            android.support.v7.app.ActionBar bar = getSupportActionBar();
+            bar.setBackgroundDrawable(new ColorDrawable(Color.RED));
+        }
+
+        private void initListeners() {
+            findViewById(R.id.btnPatientMyTurns).setOnClickListener(this);
+        }
+
+        private void initElements() {
+           // mSearchMyTurns = (Button) findViewById(R.id.btnPatientMyTurns);
+           // mMyTurns = (TextView) findViewById(R.id.txtMyTurns);
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            mTurnsFragment = getSupportFragmentManager().findFragmentById(R.id.turns_container);
+
+            setUpToolbar();
+            setUpTurnsFragment();
+
+
+        }
+    */
     private void setUpTurnsFragment() {
         if(mTurnsFragment == null){
             mTurnsFragment = TurnsFragment.newInstance();
@@ -117,10 +128,10 @@ public class MyTurnsActivity extends BaseActivity {
     protected void loadNextActivityHandler() {
 
     }
-/*
+
     @Override
     protected void loadHandlers() {
-        this.handlers().put(R.id.btnPatientMyTurns, new GetPatientAppointmentsHandler());
+        this.handlers().put(ON_LOAD, new GetPatientAppointmentsHandler());
     }
-    */
+
 }
