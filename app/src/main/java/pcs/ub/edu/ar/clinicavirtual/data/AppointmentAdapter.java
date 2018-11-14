@@ -45,7 +45,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(viewHolder instanceof AppointmentHolder){
             Appointment appointment = mAppointment.get(position);
             AppointmentHolder appointmentHolder = (AppointmentHolder) viewHolder;
-           
+
         }
     }
 
