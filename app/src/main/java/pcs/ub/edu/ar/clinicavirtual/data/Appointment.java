@@ -1,12 +1,14 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+import java.util.UUID;
+
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IClinicAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IHCPAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IPatientAppointment;
 
 public class Appointment implements IClinicAppointment, IPatientAppointment, IHCPAppointment {
 
-    Integer mID;
+    String mID;
     Integer mClinicID;
     String  mClinicName;
     Integer mSpecialityID;
@@ -24,7 +26,7 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
 
 
 
-    public Appointment(Integer id, Integer clinicID, String clinicName, Integer specialityID,
+    public Appointment(String id, Integer clinicID, String clinicName, Integer specialityID,
                        String specialityName, Integer patiendID, String patientName, String date, Integer state, String stateLebel,
                        Integer hCPID, String hCPName){
 
@@ -42,10 +44,18 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
         mHCPName = hCPName;
     }
 
+    public Appointment(String clinic, String date, String doctor, String status, String imageUrl) {
+        mID = UUID.randomUUID().toString();
+        mClinicName = clinic;
+        mDate = date;
+        mHCPName = doctor;
+        mStateLebel = status;
+        mImageUrl = imageUrl;
+    }
 
 
     @Override
-    public Integer getID() {
+    public String getID() {
         return mID;
     }
 
