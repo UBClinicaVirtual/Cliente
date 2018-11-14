@@ -2,6 +2,7 @@ package pcs.ub.edu.ar.clinicavirtual.activitys.general;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,8 @@ import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
 import pcs.ub.edu.ar.clinicavirtual.data.AppointmentAdapter;
 import pcs.ub.edu.ar.clinicavirtual.data.AppointmentMvp;
+import pcs.ub.edu.ar.clinicavirtual.data.AppointmentPresenter;
+import pcs.ub.edu.ar.clinicavirtual.data.DependencyProvider;
 
 
 public class TurnsFragment extends Fragment implements AppointmentMvp.View {
@@ -26,6 +29,8 @@ public class TurnsFragment extends Fragment implements AppointmentMvp.View {
     private AppointmentAdapter mAppointmentAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private View mEmptyView;
+    private AppointmentPresenter mAppointmentPresenter;
+
     private AppointmentAdapter.AppointmentItemListener mItemListener = new AppointmentAdapter.AppointmentItemListener() {
         @Override
         public void onAppointmentClick(Appointment clickedNote) {
@@ -47,8 +52,16 @@ public class TurnsFragment extends Fragment implements AppointmentMvp.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAppointmentAdapter = new AppointmentAdapter(new ArrayList<Appointment>(0), mItemListener);
+        mAppointmentPresenter = new AppointmentPresenter(
+                // con el dependencyprovide le quito la responsibilidad del pres.
+                // de saber como crear el repositorio
+                DependencyProvider.provideAppointmentsRepository(getActivity()),
+                this);
 
-    }
+        setRetainInstance(true);
+        }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +102,14 @@ public class TurnsFragment extends Fragment implements AppointmentMvp.View {
             }
         });
 
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState == null) {
+            mAppointmentPresenter.loadAppointment(false);
+        }
     }
 
     @Override
