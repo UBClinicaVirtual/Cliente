@@ -12,7 +12,7 @@ public class MemoryAppointmentsDataSource implements IMemoryAppointmentsDataSour
     private static HashMap<String, Appointment> mCachedAppointments;
 
     @Override
-    public List<Appointment> find(AppointmentCriteria criteria) {
+    public List<Appointment> find(IAppointmentCriteria criteria) {
         ArrayList<Appointment> appointments = Lists.newArrayList(mCachedAppointments.values());
         return appointments;
     }
