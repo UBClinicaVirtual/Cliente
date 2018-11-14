@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,6 +28,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private boolean mLoading = false;
     private boolean mMoreData = false;
 
+    private final static int TYPE_APPOINTMENT = 1;
+    private final static int TYPE_LOADING_MORE_APPOINTMENT = 2;
+
     public AppointmentAdapter(List<Appointment> appointments, AppointmentItemListener itemListener){
         setList(appointments);
         mItemListener = itemListener;
@@ -39,21 +43,41 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         LayoutInflater inflater = LayoutInflater.from(context);
         View view;
 
+        if (viewType == TYPE_LOADING_MORE_APPOINTMENT){
+            view = inflater.inflate(R.layout.item_loading_footer,parent,false);
+            return new LoadingMoreHolder(view);
+        }
         view = inflater.inflate(R.layout.item_appointment, parent,false);
         return new AppointmentHolder(view, mItemListener);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        if(viewHolder instanceof AppointmentHolder){
-            Appointment appointment = mAppointment.get(position);
-            AppointmentHolder appointmentHolder = (AppointmentHolder) viewHolder;
-            appointmentHolder.mclinic_name.setText(appointment.getClinicName());
-            appointmentHolder.mdate.setText(appointment.getDate());
-            appointmentHolder.mhcp.setText(appointment.getHCPName());
-            appointmentHolder.mstatusAppointment.setText(appointment.getStateLebel());
-
+    public int getItemViewType(int position) {
+        if (position < getDataItemCount() && getDataItemCount() > 0) {
+            return TYPE_APPOINTMENT;
         }
+        return TYPE_LOADING_MORE_APPOINTMENT;
+    }
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+        switch (getItemViewType(position)){
+            case TYPE_APPOINTMENT:
+                    Appointment appointment = mAppointment.get(position);
+                    AppointmentHolder appointmentHolder = (AppointmentHolder) viewHolder;
+                    appointmentHolder.mclinic_name.setText(appointment.getClinicName());
+                    appointmentHolder.mdate.setText(appointment.getDate());
+                    appointmentHolder.mhcp.setText(appointment.getHCPName());
+                    appointmentHolder.mstatusAppointment.setText(appointment.getStateLebel());
+                    // Pendiente lo de cargar imagen con glide o buscar otra forma
+                    break;
+            case TYPE_LOADING_MORE_APPOINTMENT:
+                    bindLoadingViewHolder((LoadingMoreHolder) viewHolder, position);
+                    break;
+        }
+    }
+
+    private void bindLoadingViewHolder(LoadingMoreHolder viewHolder, int position){
+        viewHolder.progress.setVisibility((position>0 && mLoading && mMoreData) ? View.VISIBLE : View.INVISIBLE);
     }
     public void replaceData(List<Appointment> notes) {
         setList(notes);
@@ -74,6 +98,25 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public Appointment getItem(int position){
         return mAppointment.get(position);
+    }
+
+    public void dataStartedLoading(){
+        if (mLoading) return;
+        mLoading = true;
+        notifyItemInserted(getLoadingMoreItemPosition());
+    }
+
+    public void dataFinishedLoading(){
+        if(!mLoading)return;
+        mLoading = false;
+        notifyItemRemoved(getLoadingMoreItemPosition());
+    }
+    public void setmMoreData(boolean more){
+        mMoreData = more;
+    }
+
+    private int getLoadingMoreItemPosition() {
+        return mLoading ? getItemCount() - 1 : RecyclerView.NO_POSITION;
     }
 
     public int getDataItemCount(){
@@ -117,6 +160,15 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Appointment appointment = getItem(position);
         mItemListener.onAppointmentClick(appointment);
     }
+}
+
+private class LoadingMoreHolder extends RecyclerView.ViewHolder{
+        public ProgressBar progress;
+
+        public LoadingMoreHolder(View view){
+            super(view);
+            progress = (ProgressBar) view.findViewById(R.id.progressBar);
+        }
 }
 
  public interface AppointmentItemListener {
