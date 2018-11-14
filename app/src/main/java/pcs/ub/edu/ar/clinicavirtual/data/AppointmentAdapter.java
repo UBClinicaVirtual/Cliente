@@ -6,6 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -24,11 +29,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         mItemListener = itemListener;
     }
 
-    private void setList(List<Appointment> notes) {
-        mAppointment = checkNotNull(notes);
-    }
-
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,12 +45,69 @@ public class AppointmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(viewHolder instanceof AppointmentHolder){
             Appointment appointment = mAppointment.get(position);
             AppointmentHolder appointmentHolder = (AppointmentHolder) viewHolder;
+            appointmentHolder.mclinic_name.setText(appointment.getClinicName());
+            appointmentHolder.mdate.setText(appointment.getDate());
+            appointmentHolder.mhcp.setText(appointment.getHCPName());
+            appointmentHolder.mstatusAppointment.setText(appointment.getStateLebel());
 
         }
     }
+    public void replaceData(List<Appointment> notes) {
+        setList(notes);
+        notifyDataSetChanged();
+    }
 
+    private void setList(List<Appointment> notes) {
+        mAppointment = checkNotNull(notes);
+    }
+
+    public void addData(List<Appointment> appointments){
+        mAppointment.addAll(appointments);
+    }
     @Override
     public int getItemCount() {
-        return 0;
+        return getDataItemCount();
     }
+
+    public Appointment getItem(int position){
+        return mAppointment.get(position);
+    }
+
+    public int getDataItemCount(){
+        return mAppointment.size();
+    }
+
+
+
+class AppointmentHolder  extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+    public TextView mclinic_name;
+    public TextView mdate;
+    public TextView mhcp;
+    public TextView mstatusAppointment;
+    public ImageView featuredImage;
+
+    private AppointmentItemListener mAppointmentItemListener;
+
+    public AppointmentHolder(View itemView, AppointmentItemListener listener) {
+        super(itemView);
+        mAppointmentItemListener = listener;
+        mclinic_name = (TextView) itemView.findViewById(R.id.clinic_name);
+        mdate = (TextView) itemView.findViewById(R.id.appointment_date);
+        mhcp = (TextView) itemView.findViewById(R.id.hcp_name);
+        mstatusAppointment = itemView.findViewById(R.id.appointment_status);
+        featuredImage = (ImageView) itemView.findViewById(R.id.appointment_featured_image);
+    }
+
+    @Override
+    public void onClick(View view) {
+        int position = getAdapterPosition();
+        Appointment appointment = getItem(position);
+        mItemListener.onAppointmentClick(appointment);
+    }
+}
+
+ public interface AppointmentItemListener {
+        void onAppointmentClick(Appointment clickedNote);
+ }
 }
