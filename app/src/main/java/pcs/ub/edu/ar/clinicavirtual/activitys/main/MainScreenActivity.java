@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.activitys.main.button.logout.MainScreenActivityButtonLogout;
 import pcs.ub.edu.ar.clinicavirtual.activitys.profile.button.load.profile.ProfileActivityButtonLoadProfile;
 import pcs.ub.edu.ar.clinicavirtual.activitys.profile.button.save.profile.ProfileActivityButtonSaveProfile;
 import pcs.ub.edu.ar.clinicavirtual.enums.USER_TYPE;
@@ -25,6 +26,7 @@ import pcs.ub.edu.ar.clinicavirtual.activitys.general.SearchTurnActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.start.MainActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.profile.ProfileActivity;
 import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientProfileHandler;
+import pcs.ub.edu.ar.clinicavirtual.handler.LogoutHandler;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IActivityVisibilityHandler;
 
 public class MainScreenActivity extends BaseActivity
@@ -130,20 +132,20 @@ public class MainScreenActivity extends BaseActivity
 
         switch (id){
             case R.id.nav_searchturn:
-                intent = new Intent(MainScreenActivity.this, SearchTurnActivity.class);
+                intent = new Intent(MainScreenActivity.this, SearchTurnActivity.class);startActivity(intent);
                 break;
             case R.id.nav_myturns:
-                intent = new Intent(MainScreenActivity.this, MyTurnsActivity.class);
+                intent = new Intent(MainScreenActivity.this, MyTurnsActivity.class);startActivity(intent);
                 break;
             case R.id.nav_myprofile:
-                intent = new Intent(MainScreenActivity.this, ProfileActivity.class);
+                intent = new Intent(MainScreenActivity.this, ProfileActivity.class);startActivity(intent);
                 break;
             case R.id.nav_logout:
-                intent = new Intent(MainScreenActivity.this, MainActivity.class);
+                nextActivityHandlers().get( id ).nextActivity(userTypeId(),this);
                 break;
         }
 
-        startActivity(intent);
+
 
 
 
@@ -152,7 +154,7 @@ public class MainScreenActivity extends BaseActivity
 
     @Override
     protected void loadNextActivityHandler() {
-        nextActivityHandlers().put( R.id.nav_logout ,new ProfileActivityButtonSaveProfile());
+        nextActivityHandlers().put( R.id.nav_logout ,new MainScreenActivityButtonLogout());
     }
 
     public void closeDrawer(){
@@ -174,6 +176,6 @@ public class MainScreenActivity extends BaseActivity
 
     @Override
     protected void loadHandlers() {
-        this.handlers().put( USER_TYPE.PATIENT.getValue() , new GetPatientProfileHandler());
+        this.handlers().put( USER_TYPE.PATIENT.getValue() , new LogoutHandler() );
     }
 }

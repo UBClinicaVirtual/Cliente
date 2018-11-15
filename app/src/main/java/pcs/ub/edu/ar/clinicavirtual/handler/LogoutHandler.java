@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.main.MainScreenActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.start.MainActivity;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.uri.ServerRequestLogout;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLogout;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IServerResponseHandler;
 
