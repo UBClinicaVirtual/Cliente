@@ -23,7 +23,7 @@ public class MyTurnsActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private Fragment mTurnsFragment;
-    private static Integer ON_LOAD = -1;
+   // private static Integer ON_LOAD = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +38,16 @@ public class MyTurnsActivity extends BaseActivity {
        // setUpToolbar();
         setUpTurnsFragment();
 
-        getAppointments();
+        //getAppointments();
 
     }
-
+/*
     private void getAppointments() {
         ServerRequestUserGetPatientAppointments getPatientAppointments = new ServerRequestUserGetPatientAppointments(ON_LOAD);
         getPatientAppointments.apiToken( apitoken() );
         connector().execute(getPatientAppointments,this);
     }
+    */
 
     /*
         private void initScreen() {
@@ -128,10 +129,10 @@ public class MyTurnsActivity extends BaseActivity {
     protected void loadNextActivityHandler() {
 
     }
-
+/*
     @Override
     protected void loadHandlers() {
         this.handlers().put(ON_LOAD, new GetPatientAppointmentsHandler());
     }
-
+*/
 }
