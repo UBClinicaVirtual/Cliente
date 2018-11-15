@@ -16,12 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
+import pcs.ub.edu.ar.clinicavirtual.activitys.profile.button.load.profile.ProfileActivityButtonLoadProfile;
+import pcs.ub.edu.ar.clinicavirtual.activitys.profile.button.save.profile.ProfileActivityButtonSaveProfile;
 import pcs.ub.edu.ar.clinicavirtual.enums.USER_TYPE;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.general.MyTurnsActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.general.SearchTurnActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.start.MainActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.profile.ProfileActivity;
+import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientProfileHandler;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IActivityVisibilityHandler;
 
 public class MainScreenActivity extends BaseActivity
@@ -42,10 +45,7 @@ public class MainScreenActivity extends BaseActivity
         this.visibilityHandlers().get( BaseActivity.userTypeId() ).accept(this);
     }
 
-    @Override
-    protected void loadNextActivityHandler() {
-        //nextActivityHandlers().put()
-    }
+
 
     @Override
     public void loadVisibilityHandlers(){
@@ -150,6 +150,11 @@ public class MainScreenActivity extends BaseActivity
         return true;
     }
 
+    @Override
+    protected void loadNextActivityHandler() {
+        nextActivityHandlers().put( R.id.nav_logout ,new ProfileActivityButtonSaveProfile());
+    }
+
     public void closeDrawer(){
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -163,5 +168,12 @@ public class MainScreenActivity extends BaseActivity
     @Override
     public void onClick(View v) {
 
+    }
+
+
+
+    @Override
+    protected void loadHandlers() {
+        this.handlers().put( USER_TYPE.PATIENT.getValue() , new GetPatientProfileHandler());
     }
 }
