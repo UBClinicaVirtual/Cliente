@@ -1,7 +1,11 @@
-package pcs.ub.edu.ar.clinicavirtual.data;
+package pcs.ub.edu.ar.clinicavirtual.data.appointment;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.datasource.CloudAppointmentsDatasource;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.datasource.MemoryAppointmentsDataSource;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class DependencyProvider {

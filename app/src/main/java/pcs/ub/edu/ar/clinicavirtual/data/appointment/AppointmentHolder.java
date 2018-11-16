@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual.data;
+package pcs.ub.edu.ar.clinicavirtual.data.appointment;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

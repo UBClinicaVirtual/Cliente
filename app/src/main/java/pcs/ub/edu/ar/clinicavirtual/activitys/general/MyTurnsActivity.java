@@ -1,17 +1,11 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys.general;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -25,7 +19,7 @@ import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientAppointments;
 import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
-import pcs.ub.edu.ar.clinicavirtual.data.AppointmentAdapter2;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.AppointmentAdapter2;
 import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientAppointmentsHandler;
 
 public class MyTurnsActivity extends BaseActivity {

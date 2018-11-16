@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual.data;
+package pcs.ub.edu.ar.clinicavirtual.data.appointment;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -8,7 +8,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.List;
 
-class AppointmentRepository implements IAppointmentsRepository{
+import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.IAppointmentCriteria;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.IAppointmentsRepository;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.ICloudAppointmentsDataSource;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.IMemoryAppointmentsDataSource;
+
+class AppointmentRepository implements IAppointmentsRepository {
 
     private final IMemoryAppointmentsDataSource mMemoryAppointmentsDataSource;
     private final ICloudAppointmentsDataSource mCloudAppointmentsDatasource;

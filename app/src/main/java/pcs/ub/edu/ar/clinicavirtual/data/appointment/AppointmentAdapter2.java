@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual.data;
+package pcs.ub.edu.ar.clinicavirtual.data.appointment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Random;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.general.DetailsAppointmentActivity;
+import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
 
 public class AppointmentAdapter2 extends RecyclerView.Adapter<AppointmentAdapter2.AppointmentViewHolder> {
     private List<Appointment> mitems;

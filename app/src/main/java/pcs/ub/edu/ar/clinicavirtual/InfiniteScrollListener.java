@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
 
-import pcs.ub.edu.ar.clinicavirtual.data.DataLoading;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.DataLoading;
 
 import static com.google.android.gms.internal.firebase_auth.zzv.checkNotNull;
 

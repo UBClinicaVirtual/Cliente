@@ -19,10 +19,10 @@ import java.util.List;
 import pcs.ub.edu.ar.clinicavirtual.InfiniteScrollListener;
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
-import pcs.ub.edu.ar.clinicavirtual.data.AppointmentAdapter;
-import pcs.ub.edu.ar.clinicavirtual.data.AppointmentMvp;
-import pcs.ub.edu.ar.clinicavirtual.data.AppointmentPresenter;
-import pcs.ub.edu.ar.clinicavirtual.data.DependencyProvider;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.AppointmentAdapter;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.AppointmentMvp;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.AppointmentPresenter;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.DependencyProvider;
 
 
 public class TurnsFragment extends Fragment implements AppointmentMvp.View {

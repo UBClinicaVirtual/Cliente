@@ -1,8 +1,7 @@
-package pcs.ub.edu.ar.clinicavirtual.data;
+package pcs.ub.edu.ar.clinicavirtual.data.appointment.datasource;
 
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.api.client.util.Lists;
 
@@ -15,6 +14,8 @@ import java.util.LinkedHashMap;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientAppointments;
+import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.ICloudAppointmentsDataSource;
 import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientAppointmentsHandler;
 
 

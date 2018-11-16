@@ -1,6 +1,10 @@
-package pcs.ub.edu.ar.clinicavirtual.data;
+package pcs.ub.edu.ar.clinicavirtual.data.appointment;
 
 import java.util.List;
+
+import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.AppointmentMvp;
+import pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces.IAppointmentCriteria;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

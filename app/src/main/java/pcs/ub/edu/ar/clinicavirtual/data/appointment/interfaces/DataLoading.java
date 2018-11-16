@@ -1,4 +1,4 @@
-package pcs.ub.edu.ar.clinicavirtual.data;
+package pcs.ub.edu.ar.clinicavirtual.data.appointment.interfaces;
 
 public interface DataLoading {
     boolean isLoadingData();
