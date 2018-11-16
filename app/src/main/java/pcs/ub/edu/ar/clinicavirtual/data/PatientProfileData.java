@@ -48,7 +48,7 @@ public class PatientProfileData implements IPatientProfileData {
     }
 
     @Override
-    public String getmName() {
+    public String getmFirstName() {
         return mName;
     }
 
