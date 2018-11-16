@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
 import pcs.ub.edu.ar.clinicavirtual.data.appointment.AppointmentAdapter2;
 import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientAppointmentsHandler;
 
-public class MyTurnsActivity extends BaseActivity {
+public class MyTurnsActivity extends BaseActivity implements Serializable {
 
     //Button mSearchMyTurns;
     //TextView mMyTurns;
@@ -45,7 +46,20 @@ public class MyTurnsActivity extends BaseActivity {
 
         Toast.makeText(this, "Cargando turnos...", Toast.LENGTH_SHORT).show();
 
-        getAppointments();
+        Bundle mBundle = getIntent().getExtras();
+        if (mBundle != null) {
+            String response;
+            response = String.valueOf((mBundle.getSerializable("lista")));
+            try {
+                loadAvailableAppointment(response);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            getAppointments();
+        }
+
 
 
         //List<Appointment> items = new ArrayList<>();
@@ -81,6 +95,27 @@ public class MyTurnsActivity extends BaseActivity {
                     json.getString("hcp_first_name"),json.getString("hcp_last_name"),
                     json.getString("appointment_date"),json.getInt("appointment_status_id"),
                     json.getString("appointment_status_name")));
+        }
+
+
+        showAppointments();
+
+    }
+    public void loadAvailableAppointment(String response)throws JSONException {
+
+        items.clear();
+
+        JSONObject json = new JSONObject(response);
+        JSONArray jsonArray = json.getJSONArray("available_appointments");
+
+
+        for(int i = 0; i<jsonArray.length(); i++){
+            json = jsonArray.getJSONObject(i);
+            items.add(new Appointment(json.getInt("id"),json.getInt("clinic_id"),
+                    json.getString("clinic_business_name"),json.getInt("speciality_id"),
+                    json.getString("speciality_name"),json.getInt("hcp_id"),
+                    json.getString("hcp_first_name"),json.getString("hcp_last_name"),
+                    json.getString("appointment_date")));
         }
 
         showAppointments();

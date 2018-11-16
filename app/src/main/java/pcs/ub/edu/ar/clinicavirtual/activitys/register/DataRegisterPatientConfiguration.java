@@ -147,6 +147,7 @@ public class DataRegisterPatientConfiguration extends BaseActivity implements IE
         mDateListener = new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
                 mBirthDate = year + validateDate(month) + validateDate(dayOfMonth);
                 Toast.makeText(mActivity,mBirthDate, Toast.LENGTH_SHORT).show();
             }

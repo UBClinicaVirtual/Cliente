@@ -1,12 +1,13 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IClinicAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IHCPAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IPatientAppointment;
 
-public class Appointment implements IClinicAppointment, IPatientAppointment, IHCPAppointment {
+public class Appointment implements IClinicAppointment, IPatientAppointment, IHCPAppointment{
 
     String  mID;
     Integer mAppointmentID;
@@ -66,7 +67,15 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
 
     }
 
-
+    public Appointment(int id, int clinic_id, String clinic_business_name, int speciality_id, String speciality_name, int hcp_id, String hcp_first_name, String hcp_last_name, String appointment_date) {
+        mAppointmentID = id;
+        mClinic = new ClinicProfileData(clinic_id,clinic_business_name);
+        mSpeciality = new Speciality(speciality_id,speciality_name);
+        mHcp = new HCPProfileData(hcp_id,hcp_last_name,hcp_first_name);
+        mDate = appointment_date;
+        mState = null;
+        mStateLebel = "Disponible";
+    }
 
 
     @Override

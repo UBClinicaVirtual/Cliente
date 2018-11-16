@@ -81,6 +81,12 @@ public enum URI {
         public String toString(){
             return "/login9";
         }
+    },
+    AVAILABLE{
+        public String toString(){ return "/available";}
+    }, APPOINTMENT{
+        public String toString(){ return "/appointment";}
     }
+
 
 }
