@@ -22,15 +22,22 @@ public class ClinicProfileData implements IClinicProfileData {
             setSpecialties(specialities);
     }
 
+    public ClinicProfileData(Integer id, String businessName){
+            mId = id;
+            mBusinessName = businessName;
+    }
+
     @Override
     public Integer getmID() {
         return mId;
     }
 
     @Override
-    public String getmName() {
+    public String getmFirstName() {
         return mBusinessName;
     }
+
+
 
     @Override
     public String getmEmail() {
@@ -62,7 +69,7 @@ public class ClinicProfileData implements IClinicProfileData {
     }
 
     private void setmBusinessName (String businessName){
-        //if ((mName == null) || mName.trim().isEmpty())
+        //if ((mFirstName == null) || mFirstName.trim().isEmpty())
         if ((businessName == null) || businessName.trim().isEmpty())
            throw new ClinicProfileDataNullBusinessNameException();
         this.mBusinessName = businessName;

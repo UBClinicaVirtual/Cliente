@@ -49,7 +49,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="13dp"
         android:ems="10"
-        android:hint="DNI"
+        android:hint="Fecha Nac."
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtPatientProfileDNI" />

@@ -156,7 +156,7 @@ public class TestClinicProfileData {
 
          ClinicProfileData clinicProfileData = new ClinicProfileData(mId, mBusinessName, mSpecialties);
 
-         assertEquals(mBusinessName, clinicProfileData.getmName());
+         assertEquals(mBusinessName, clinicProfileData.getmFirstName());
      }
 
      @Test

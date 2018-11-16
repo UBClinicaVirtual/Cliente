@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".activitys.general.DetailsAppointmentActivity">
+
+    <TextView
+        android:id="@+id/ClinicTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:ems="12"
+        android:text="TextView"
+        android:textSize="30sp" />
+
+
+  <View
+    android:id="@+id/line"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_below="@id/ClinicTitle"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:background="#D3D3D3" />
+
+  <TextView
+    android:id="@+id/calendaricon"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:layout_below="@+id/line"
+    android:layout_marginLeft="12dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/calendar"
+    android:gravity="center"
+    android:text="A"
+    android:textColor="@android:color/white"
+    android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/labelspeciality"
+        android:layout_width="121dp"
+        android:layout_height="46dp"
+        android:layout_below="@+id/calendaricon"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:text="Especialidad:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/SpecialityName"
+        android:layout_width="222dp"
+        android:layout_height="46dp"
+        android:layout_below="@+id/calendaricon"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/labelspeciality"
+        android:layout_toRightOf="@+id/labelspeciality"
+        android:text="TextView"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/labeldate"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_below="@+id/SpecialityName"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:text="Fecha:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/AppointmentDate"
+        android:layout_width="274dp"
+        android:layout_height="53dp"
+        android:layout_below="@+id/SpecialityName"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/labeldate"
+        android:layout_toRightOf="@+id/labeldate"
+        android:text="TextView"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/labeldoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="52dp"
+        android:layout_below="@+id/AppointmentDate"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:text="Profesional:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/doctorName"
+        android:layout_width="227dp"
+        android:layout_height="43dp"
+        android:layout_below="@+id/AppointmentDate"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/labeldoctor"
+        android:layout_toRightOf="@+id/labeldoctor"
+        android:text="TextView"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/labelestado"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/doctorName"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="26dp"
+        android:text="Estado:"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/appointment_status"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/doctorName"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="26dp"
+        android:layout_toEndOf="@+id/labelestado"
+        android:layout_toRightOf="@+id/labelestado"
+        android:text="TextView"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="24dp"
+        android:text="Cancelar" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="24dp"
+        android:text="Agregar" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="262dp"
+        android:layout_marginBottom="24dp"
+        android:text="Pedir" />
+
+</RelativeLayout>

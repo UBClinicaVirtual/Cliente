@@ -1,12 +1,15 @@
 package pcs.ub.edu.ar.clinicavirtual.data;
 
+import java.util.UUID;
+
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IClinicAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IHCPAppointment;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IPatientAppointment;
 
 public class Appointment implements IClinicAppointment, IPatientAppointment, IHCPAppointment {
 
-    Integer mID;
+    String  mID;
+    Integer mAppointmentID;
     Integer mClinicID;
     String  mClinicName;
     Integer mSpecialityID;
@@ -18,9 +21,18 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
     String  mStateLebel;
     String  mHCPName;
     Integer mHCPID;
+    String  mImageUrl;
+    PatientProfileData  mPatient;
+    ClinicProfileData   mClinic;
+    Speciality          mSpeciality;
+    HCPProfileData      mHcp;
 
 
-    public Appointment(Integer id, Integer clinicID, String clinicName, Integer specialityID,
+
+
+
+
+    public Appointment(String id, Integer clinicID, String clinicName, Integer specialityID,
                        String specialityName, Integer patiendID, String patientName, String date, Integer state, String stateLebel,
                        Integer hCPID, String hCPName){
 
@@ -38,10 +50,27 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
         mHCPName = hCPName;
     }
 
+    public Appointment(Integer appointmentId, Integer clinicId, String clinicName, Integer specialityId,
+                       String specialityName, Integer hcpId, String hcpFirstName, String hcpLastName,
+                       String appointmentDate, Integer appointmentStatusId, String appointmentStatusName) {
+
+         mAppointmentID = appointmentId;
+         mClinic = new ClinicProfileData(clinicId,clinicName);
+         mSpeciality = new Speciality(specialityId,specialityName);
+         mHcp = new HCPProfileData(hcpId,hcpLastName,hcpFirstName);
+         mDate = appointmentDate;
+         mState = appointmentStatusId;
+         mStateLebel = appointmentStatusName;
+
+
+
+    }
+
+
 
 
     @Override
-    public Integer getID() {
+    public String getID() {
         return mID;
     }
 
@@ -99,4 +128,55 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
     public String getHCPName() {
         return mHCPName;
     }
+
+    public String getmImageUrl() {
+        return mImageUrl;
+    }
+
+    public void setmImageUrl(String mImageUrl) {
+        this.mImageUrl = mImageUrl;
+    }
+
+
+    public PatientProfileData getmPatient() {
+        return mPatient;
+    }
+
+    public void setmPatient(PatientProfileData mPatient) {
+        this.mPatient = mPatient;
+    }
+
+    public ClinicProfileData getmClinic() {
+        return mClinic;
+    }
+
+    public void setmClinic(ClinicProfileData mClinic) {
+        this.mClinic = mClinic;
+    }
+
+    public Speciality getmSpeciality() {
+        return mSpeciality;
+    }
+
+    public void setmSpeciality(Speciality mSpeciality) {
+        this.mSpeciality = mSpeciality;
+    }
+
+
+    public Integer getmAppointmentID() {
+        return mAppointmentID;
+    }
+
+    public void setmAppointmentID(Integer mAppointmentID) {
+        this.mAppointmentID = mAppointmentID;
+    }
+    public HCPProfileData getmHcp() {
+        return mHcp;
+    }
+
+    public void setmHcp(HCPProfileData mHcp) {
+        this.mHcp = mHcp;
+    }
+
+
 }

@@ -9,7 +9,7 @@ public class AdminProfileData implements IAdminProfileData {
     }
 
     @Override
-    public String getmName() {
+    public String getmFirstName() {
         return null;
     }
 
