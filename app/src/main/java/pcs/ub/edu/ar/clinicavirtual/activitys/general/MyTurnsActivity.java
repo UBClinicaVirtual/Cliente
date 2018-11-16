@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,7 +48,11 @@ public class MyTurnsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_turns);
 
-        //getAppointments();
+
+        Toast.makeText(this, "Cargando turnos...", Toast.LENGTH_SHORT).show();
+
+        getAppointments();
+
 
         List<Appointment> items = new ArrayList<>();
 
@@ -70,6 +75,7 @@ public class MyTurnsActivity extends BaseActivity {
 
         adapter = new AppointmentAdapter2(MyTurnsActivity.this,items);
         recycler.setAdapter(adapter);
+
 
 
 
@@ -97,7 +103,10 @@ public class MyTurnsActivity extends BaseActivity {
 
     }
 
-    public static void loadAppointment(String response)throws JSONException {
+    public void loadAppointment(String response)throws JSONException {
+
+        items.clear();
+
         JSONObject json = new JSONObject(response);
         JSONArray jsonArray = json.getJSONArray("appointments");
         for(int i = 0; i<jsonArray.length(); i++){
@@ -110,7 +119,19 @@ public class MyTurnsActivity extends BaseActivity {
                     json.getString("appointment_status_name")));
         }
 
+        showAppointments();
 
+    }
+
+    private  void showAppointments() {
+        recycler = (RecyclerView) findViewById(R.id.recycler);
+        recycler.setHasFixedSize(true);
+
+        Imanager = new LinearLayoutManager(this);
+        recycler.setLayoutManager(Imanager);
+
+        adapter = new AppointmentAdapter2(items);
+        recycler.setAdapter(adapter);
     }
 
 

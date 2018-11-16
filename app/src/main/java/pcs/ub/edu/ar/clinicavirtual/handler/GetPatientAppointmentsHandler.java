@@ -22,13 +22,13 @@ public class GetPatientAppointmentsHandler implements IServerResponseHandler {
     public void handle(IServerRequest request, BaseActivity activity) {
         ServerRequestUserGetPatientAppointments requestPatientProfile  = (ServerRequestUserGetPatientAppointments) request;
         String response = requestPatientProfile.response();
-
+        MyTurnsActivity myTurnsActivity = (MyTurnsActivity)activity;
        // Toast.makeText(activity, response , Toast.LENGTH_SHORT).show();
    //     CloudAppointmentsDatasource cloudAppointmentsDatasource = (CloudAppointmentsDatasource) activity;
 
         try {
             //CloudAppointmentsDatasource.loadAppointment(response);
-            MyTurnsActivity.loadAppointment(response);
+            myTurnsActivity.loadAppointment(response);
             //JSONObject jsonObject = new JSONObject(response);
             //JSONArray jsonArray = jsonObject.getJSONArray("appointments");
             //jsonObject= jsonArray.getJSONObject(0);
