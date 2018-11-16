@@ -6,103 +6,68 @@
     android:layout_height="match_parent"
     tools:context=".activitys.general.SearchTurnActivity">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:stretchColumns="0,1,2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <TableRow
-            android:layout_width="654dp"
-            android:layout_height="116dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="#000000"
-
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_column="0"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text="ID" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_column="1"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text="Clinica" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_column="2"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text="Doctor" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_column="2"
-                android:layout_margin="1dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
-                android:text="Fecha" />
-        </TableRow>
-
-
-    </TableLayout>
-
-    <pcs.ub.edu.ar.clinicavirtual.TurnTableRow
-        android:id="@+id/turnTableRow4"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-
-        android:background="#730300a9"
-        app:exampleColor="#ffffff"
-        app:exampleDimension="16sp"
-        app:exampleString="T1"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="386dp" />
-
-    <pcs.ub.edu.ar.clinicavirtual.TurnTableRow
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="278dp"
-
-        android:layout_marginEnd="234dp"
-        android:background="#730300a9"
-        app:exampleColor="#ffffff"
-        app:exampleDimension="16sp"
-        app:exampleString="T1"
+    <Spinner
+        android:id="@+id/spnSearchTurnClinic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <pcs.ub.edu.ar.clinicavirtual.TurnTableRow
-        android:id="@+id/turnTableRow13"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
+    <Spinner
+        android:id="@+id/spnSearchTurnSpeciality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnClinic" />
 
-        android:background="#730300a9"
-        app:exampleColor="#ffffff"
-        app:exampleDimension="16sp"
-        app:exampleString="T1"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="334dp" />
+    <Spinner
+        android:id="@+id/spnSearchTurnHCP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnSpeciality" />
+
+    <Button
+        android:id="@+id/btnSearchTurnDateSince"
+        style="@android:style/Widget.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/fecha_desde"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnHCP" />
+
+    <Button
+        android:id="@+id/btnSearchTurnDateUntil"
+        style="@android:style/Widget.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
+        android:text="@string/fecha_hasta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnHCP" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Buscar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchTurnDateSince" />
 
 </android.support.constraint.ConstraintLayout>
