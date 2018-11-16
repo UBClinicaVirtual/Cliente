@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -92,7 +91,7 @@ public class SearchTurnActivity extends BaseActivity  {
     }
 
     private boolean isValidDate(int year, int month) {
-       return  !((year%2000) < (date.getYear()%100) || month < (date.getMonth()+1));
+       return  ((year%2000) < (date.getYear()%100) || month < (date.getMonth()+1));
     }
 
     private String validateDate(int mDate ){
