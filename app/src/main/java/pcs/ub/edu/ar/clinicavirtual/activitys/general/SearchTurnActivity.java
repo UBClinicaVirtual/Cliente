@@ -1,16 +1,19 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys.general;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
@@ -33,6 +36,9 @@ public class SearchTurnActivity extends BaseActivity  {
     public static Integer ON_ACTIVITY_LOAD_SPECIALITIES = -2;
     public static Integer ON_ACTIVITY_LOAD_HCPS = -3;
 
+    public DatePickerDialog.OnDateSetListener mDateSinceSetListener;
+    public DatePickerDialog.OnDateSetListener mDateUntilSetListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +52,33 @@ public class SearchTurnActivity extends BaseActivity  {
         requestSearchClinic.apiToken( apitoken() );
         connector().execute(requestSearchClinic,this);
 
-
+        initListener();
 
     }
+
+    private void initListener() {
+        mDateSinceSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
+                btnSince.setText(year + validateDate(month) + validateDate(dayOfMonth));
+            }
+        };
+
+        mDateUntilSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
+                btnUntil.setText(year + validateDate(month) + validateDate(dayOfMonth));
+            }
+        };
+    }
+
+    private String validateDate(int mDate ){
+        if(mDate < 10)
+            return  "-0" + mDate;
+        return  "-" + mDate;
+    };
 
     public void initClinicSpinner(ArrayList<String> clinics) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,clinics);
@@ -80,6 +110,9 @@ public class SearchTurnActivity extends BaseActivity  {
         spnSpeciality = (Spinner)findViewById(R.id.spnSearchTurnSpeciality);
         btnSince = (Button) findViewById(R.id.btnSearchTurnDateSince);
         btnUntil = (Button) findViewById(R.id.btnSearchTurnDateUntil);
+
+        btnSince.setOnClickListener(this);
+        btnUntil.setOnClickListener(this);
     }
 
     private void initScreen() {
@@ -97,8 +130,34 @@ public class SearchTurnActivity extends BaseActivity  {
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnSearchTurnDateSince:
+                chooseDate(mDateSinceSetListener);
+                break;
+            case R.id.btnSearchTurnDateUntil:
+                chooseDate(mDateUntilSetListener);
+                break;
+            case R.id.btnSearchTurn:
+
+        }
+    }
+
+    private void chooseDate(DatePickerDialog.OnDateSetListener mDateSetListener) {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month= cal.get(Calendar.MONTH);
+        int date = cal.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                mDateSetListener,
+                year,month,date);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
 
     }
+
 
     @Override
     protected void loadNextActivityHandler() {
