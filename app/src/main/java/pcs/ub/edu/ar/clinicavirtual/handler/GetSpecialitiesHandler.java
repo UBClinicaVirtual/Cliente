@@ -1,7 +1,5 @@
 package pcs.ub.edu.ar.clinicavirtual.handler;
 
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,14 +8,14 @@ import java.util.ArrayList;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.register.DataRegisterActivity;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSpecialityGetSpecialities;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.facade.pattern.connection.IServerRequest;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IServerResponseHandler;
 
 public class GetSpecialitiesHandler implements IServerResponseHandler {
     @Override
     public void handle(IServerRequest request, BaseActivity activity) {
-        ServerRequestSpecialityGetSpecialities requestSpecialities = (ServerRequestSpecialityGetSpecialities) request;
+        ServerRequestSearchSpecialities requestSpecialities = (ServerRequestSearchSpecialities) request;
         String response = requestSpecialities.response();
 
         DataRegisterActivity drActivity = (DataRegisterActivity) activity;

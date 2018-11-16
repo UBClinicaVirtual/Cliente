@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.clinic.ServerRequestSearchClinic;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchClinicHandler;
 
 public class SearchTurnActivity extends BaseActivity  {
@@ -25,7 +25,9 @@ public class SearchTurnActivity extends BaseActivity  {
     Button  btnSince;
     Button  btnUntil;
 
-    public static Integer ON_ACTIVITY_LOAD = -1;
+    public static Integer ON_ACTIVITY_LOAD_CLINICS = -1;
+    public static Integer ON_ACTIVITY_LOAD_SPECIALITIES = -2;
+    public static Integer ON_ACTIVITY_LOAD_HCPS = -3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +37,25 @@ public class SearchTurnActivity extends BaseActivity  {
         initElements();
 
 
-        ServerRequestSearchClinic requestSearchClinic = new ServerRequestSearchClinic(ON_ACTIVITY_LOAD);
+        ServerRequestSearchClinic requestSearchClinic = new ServerRequestSearchClinic(ON_ACTIVITY_LOAD_CLINICS);
         requestSearchClinic.apiToken( apitoken() );
         connector().execute(requestSearchClinic,this);
+
+        ServerRequestSearchSpecialities requestSearchSpecialities = new ServerRequestSearchSpecialities(ON_ACTIVITY_LOAD_SPECIALITIES);
+        requestSearchSpecialities.apiToken( apitoken() );
+        connector().execute(requestSearchSpecialities,this);
+
     }
 
     public void initClinicSpinner(ArrayList<String> clinics) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,clinics);
         spnClinic.setAdapter(adapter);
         //Toast.makeText(this, clinics.get(0), Toast.LENGTH_SHORT).show();
+    }
+
+    public void initSpecialitiesSpinner(ArrayList<String> specialities){
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,specialities);
+        spnSpeciality.setAdapter(adapter);
     }
 
     private void initElements() {
@@ -61,7 +73,8 @@ public class SearchTurnActivity extends BaseActivity  {
 
     @Override
     public void loadHandlers(){
-        handlers().put(ON_ACTIVITY_LOAD,new SearchClinicHandler());
+        handlers().put(ON_ACTIVITY_LOAD_CLINICS,new SearchClinicHandler());
+        handlers().put(ON_ACTIVITY_LOAD_SPECIALITIES,new SearchClinicHandler());
     }
 
     @Override
