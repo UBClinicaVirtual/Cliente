@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,10 +18,13 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.clinic.ServerRequestSearchClinic;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.IElementsConfiguration;
 
 public class DataRegisterHCPConfiguration extends BaseActivity implements IElementsConfiguration {
@@ -40,13 +45,31 @@ public class DataRegisterHCPConfiguration extends BaseActivity implements IEleme
     Integer     mGenderID;
     TextView    mAddress;
     TextView    mPhone;
-    //missing specialities
+    Spinner     mSpnSpeciality;
+
+    public static Integer ON_ACTIVITY_LOAD_CLINICS = -1;
+    public static Integer ON_ACTIVITY_LOAD_SPECIALITIES = -2;
 
 
     public DataRegisterHCPConfiguration(DataRegisterActivity dataRegisterActivity) {
         mActivity = dataRegisterActivity;
     }
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        initElements();
+
+        Toast.makeText(this, "Cargando filtros...", Toast.LENGTH_SHORT).show();
+
+        ServerRequestSearchClinic requestSearchClinic = new ServerRequestSearchClinic(ON_ACTIVITY_LOAD_CLINICS);
+        requestSearchClinic.apiToken( apitoken() );
+        connector().execute(requestSearchClinic,this);
+
+
+    }
 
     @Override
     public void initElements() {
@@ -68,6 +91,9 @@ public class DataRegisterHCPConfiguration extends BaseActivity implements IEleme
 
         btnBirthDate = mActivity.findViewById(R.id.btnDoctorBirthPicker);
 
+        mSpnSpeciality = (Spinner) mActivity.findViewById(R.id.spnHcpSpecialities);
+        mSpnSpeciality.setAdapter(mAdapter);
+
 
 
 
@@ -76,6 +102,15 @@ public class DataRegisterHCPConfiguration extends BaseActivity implements IEleme
         initListeners();
 
 
+    }
+
+    public void initSpecialitiesSpinner(ArrayList<String> specialities){
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,specialities);
+        mSpnSpeciality.setAdapter(adapter);
+
+        ServerRequestSearchSpecialities requestSearchSpecialities = new ServerRequestSearchSpecialities(ON_ACTIVITY_LOAD_SPECIALITIES);
+        requestSearchSpecialities.apiToken(apitoken());
+        connector().execute(requestSearchSpecialities,this);
     }
 
     private void initListeners() {
