@@ -47,22 +47,28 @@ public class MyTurnsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_turns);
 
-        getAppointments();
+        //getAppointments();
 
-     //   List<Appointment> items2 = items;
+        List<Appointment> items = new ArrayList<>();
 
-     //   items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
-       // items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
-       // items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
+        items.add(new Appointment(8820,123,"Clinica de la trinidad",124,"Traumatologo",9988,
+                "Bernabe","Marquez","2018/04/01 16:50",1,"Pending"));
+        items.add(new Appointment(8822,124,"Hospital Italiano",125,"Pediatria",9989,
+                "Fernando","Romero","2018/04/01 16:52",1,"Pending"));
+        items.add(new Appointment(8825,125,"Clinica de la trinidad",126,"Salud mental",9991,
+                "Gabriel","Espina","2018/04/01 16:53",1,"Pending"));
 
 
         recycler = (RecyclerView) findViewById(R.id.recycler);
+       // LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(MyTurnsActivity.this,
+              //  LinearLayoutManager.VERTICAL,false);
+        //recycler.setLayoutManager(mLinearLayoutManager);
         recycler.setHasFixedSize(true);
 
         Imanager = new LinearLayoutManager(this);
         recycler.setLayoutManager(Imanager);
 
-        adapter = new AppointmentAdapter2(items);
+        adapter = new AppointmentAdapter2(MyTurnsActivity.this,items);
         recycler.setAdapter(adapter);
 
 
@@ -96,7 +102,12 @@ public class MyTurnsActivity extends BaseActivity {
         JSONArray jsonArray = json.getJSONArray("appointments");
         for(int i = 0; i<jsonArray.length(); i++){
             json = jsonArray.getJSONObject(i);
-            items.add(new Appointment(json.getString("clinic_business_name"),json.getString("appointment_date"),json.getString("hcp_last_name"),json.getString("appointment_status_name")));
+            items.add(new Appointment(json.getInt("id"),json.getInt("clinic_id"),
+                    json.getString("clinic_business_name"),json.getInt("speciality_id"),
+                    json.getString("speciality_name"),json.getInt("hcp_id"),
+                    json.getString("hcp_first_name"),json.getString("hcp_last_name"),
+                    json.getString("appointment_date"),json.getInt("appointment_status_id"),
+                    json.getString("appointment_status_name")));
         }
 
 
