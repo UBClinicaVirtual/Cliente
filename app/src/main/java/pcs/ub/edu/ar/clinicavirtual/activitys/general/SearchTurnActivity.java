@@ -1,8 +1,6 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys.general;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
@@ -29,7 +27,6 @@ import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.request
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.clinic.ServerRequestSearchClinic;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.hcp.ServerRequestSearchHCP;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
-import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchAvailableAppointmentsHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchClinicHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchHCPsHandler;
@@ -52,6 +49,8 @@ public class SearchTurnActivity extends BaseActivity  implements Serializable{
     public DatePickerDialog.OnDateSetListener mDateUntilSetListener;
 
     public static Date date = new Date();
+
+    Spinner spnAppointments;
 
 
     @Override
@@ -142,11 +141,12 @@ public class SearchTurnActivity extends BaseActivity  implements Serializable{
         spnSpeciality = (Spinner)findViewById(R.id.spnSearchTurnSpeciality);
         btnSince = (Button) findViewById(R.id.btnSearchTurnDateSince);
         btnUntil = (Button) findViewById(R.id.btnSearchTurnDateUntil);
-
         btnSince.setOnClickListener(this);
         btnUntil.setOnClickListener(this);
         findViewById(R.id.btnSearchTurn).setOnClickListener(this);
     }
+
+
 
     private void initScreen() {
         android.support.v7.app.ActionBar bar = getSupportActionBar();
@@ -173,28 +173,17 @@ public class SearchTurnActivity extends BaseActivity  implements Serializable{
                 chooseDate(mDateUntilSetListener);
                 break;
             case R.id.btnSearchTurn:
-                Toast.makeText(this, "boton buscar", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(this, "Buscando turnos...", Toast.LENGTH_SHORT).show();
                 ServerRequestSearchAvailableAppointments searchAvailableAppointments = new ServerRequestSearchAvailableAppointments(R.id.btnSearchTurn,parameters());
                 searchAvailableAppointments.apiToken( apitoken() );
                 connector().execute(searchAvailableAppointments,this);
 
-                String response2 = "{\"appointments_available\":[{\"id\":\"78\",\"hcp_id\":\"1\",\"hcp_first_name\":\"Juan Jose\",\"hcp_last_name\": \"Ingenieros\",\"clinic_id\":\" 1\",\"clinic_name\": \"Clinica de la trinidad\",\t\"speciality_id\": 1,\"speciality_name\": \"Guardia de ginecologia\",\t\"appointment_hour\": \"18:30\",\"day_of_the_week\": \"4\",\"appointment_date\": \"2018-09-20\"}]}";
-
-
-                Intent mIntent = new Intent(SearchTurnActivity.this, MyTurnsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("lista", (Serializable) response2);
-                mIntent.putExtras(bundle);
-                startActivity(mIntent);
         }
     }
 
-    private String parameters() {
 
-        Toast.makeText(this, "CLINICA " + spnClinic.getSelectedItemId(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "DOCTOR " + spnHCP.getSelectedItemId(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "SPECIALITY  " + spnSpeciality.getSelectedItemId(), Toast.LENGTH_SHORT).show();
+
+    private String parameters() {
 
         JSONObject jsonObject = new JSONObject();
 

@@ -106,11 +106,13 @@ public class MyTurnsActivity extends BaseActivity implements Serializable {
         items.clear();
 
         JSONObject json = new JSONObject(response);
-        JSONArray jsonArray = json.getJSONArray("appointments_available");
+        JSONArray jsonArray = json.getJSONArray("available_appointments");
+
+
         for(int i = 0; i<jsonArray.length(); i++){
             json = jsonArray.getJSONObject(i);
             items.add(new Appointment(json.getInt("id"),json.getInt("clinic_id"),
-                    json.getString("clinic_name"),json.getInt("speciality_id"),
+                    json.getString("clinic_business_name"),json.getInt("speciality_id"),
                     json.getString("speciality_name"),json.getInt("hcp_id"),
                     json.getString("hcp_first_name"),json.getString("hcp_last_name"),
                     json.getString("appointment_date")));

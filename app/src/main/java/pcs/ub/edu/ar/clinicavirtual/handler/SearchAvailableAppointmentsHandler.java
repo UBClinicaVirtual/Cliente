@@ -1,8 +1,10 @@
 package pcs.ub.edu.ar.clinicavirtual.handler;
 
-import android.widget.Toast;
-
+import android.content.Intent;
+import android.os.Bundle;
 import org.json.JSONException;
+
+import java.io.Serializable;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.activitys.general.MyTurnsActivity;
@@ -18,14 +20,19 @@ public class SearchAvailableAppointmentsHandler implements IServerResponseHandle
         ServerRequestSearchAvailableAppointments requestSeachAppointments = (ServerRequestSearchAvailableAppointments) request;
         String response = requestSeachAppointments.response();
         SearchTurnActivity searchTurnActivity = (SearchTurnActivity) activity;
-
         try {
+
             searchTurnActivity.loadAppointment(response);
+
+            Intent mIntent = new Intent(searchTurnActivity, MyTurnsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("lista", (Serializable) response);
+            mIntent.putExtras(bundle);
+            searchTurnActivity.startActivity(mIntent);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        //Toast.makeText(searchTurnActivity, requestSeachAppointments.response() , Toast.LENGTH_SHORT).show();
 
     }
 }
