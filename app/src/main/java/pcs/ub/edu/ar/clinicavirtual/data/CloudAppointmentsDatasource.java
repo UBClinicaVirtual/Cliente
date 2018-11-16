@@ -28,9 +28,9 @@ public class CloudAppointmentsDatasource extends BaseActivity implements ICloudA
 
 
     private static void addAppointment(String clinic, String date, String doctor, String status){
-        Appointment newAppointment = new Appointment(clinic, date, doctor,status);
+       // Appointment newAppointment = new Appointment(clinic, date, doctor,status);
         //API_DATA.put(newAppointment.getID(),newAppointment);
-        mAppointments.put(newAppointment.getID(),newAppointment);
+      //  mAppointments.put(newAppointment.getID(),newAppointment);
     }
 
     @Override
