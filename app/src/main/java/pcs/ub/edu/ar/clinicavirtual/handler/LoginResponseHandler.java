@@ -23,7 +23,7 @@ public class LoginResponseHandler implements IServerResponseHandler {
         ServerRequestLoginUser serverRequestLoginUser  = (ServerRequestLoginUser) request;
         String response = serverRequestLoginUser.getUserData();
 
-        Toast.makeText(activity,response, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(activity,response, Toast.LENGTH_SHORT).show();
 
         try {
 
