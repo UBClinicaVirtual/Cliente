@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -14,8 +15,10 @@ import java.util.ArrayList;
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.clinic.ServerRequestSearchClinic;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.hcp.ServerRequestSearchHCP;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchClinicHandler;
+import pcs.ub.edu.ar.clinicavirtual.handler.SearchHCPsHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchSpecialitiesHandler;
 
 public class SearchTurnActivity extends BaseActivity  {
@@ -37,6 +40,7 @@ public class SearchTurnActivity extends BaseActivity  {
         setContentView(R.layout.activity_search_turn);
         initElements();
 
+        Toast.makeText(this, "Cargando filtros...", Toast.LENGTH_SHORT).show();
 
         ServerRequestSearchClinic requestSearchClinic = new ServerRequestSearchClinic(ON_ACTIVITY_LOAD_CLINICS);
         requestSearchClinic.apiToken( apitoken() );
@@ -58,6 +62,16 @@ public class SearchTurnActivity extends BaseActivity  {
     public void initSpecialitiesSpinner(ArrayList<String> specialities){
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,specialities);
         spnSpeciality.setAdapter(adapter);
+
+
+        ServerRequestSearchHCP serverRequestSearchHCP = new ServerRequestSearchHCP(ON_ACTIVITY_LOAD_HCPS);
+        serverRequestSearchHCP.apiToken( apitoken() );
+        connector().execute(serverRequestSearchHCP,this);
+    }
+
+    public void initHCPSpinner(ArrayList<String> hcps){
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,hcps);
+        spnHCP.setAdapter(adapter);
     }
 
     private void initElements() {
@@ -77,6 +91,8 @@ public class SearchTurnActivity extends BaseActivity  {
     public void loadHandlers(){
         handlers().put(ON_ACTIVITY_LOAD_CLINICS,new SearchClinicHandler());
         handlers().put(ON_ACTIVITY_LOAD_SPECIALITIES,new SearchSpecialitiesHandler());
+        handlers().put(ON_ACTIVITY_LOAD_HCPS,new SearchHCPsHandler());
+
     }
 
     @Override
