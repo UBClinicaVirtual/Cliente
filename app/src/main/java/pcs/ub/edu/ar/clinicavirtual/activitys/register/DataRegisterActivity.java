@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
-import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSpecialityGetSpecialities;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserAddPatientProfile;
 import pcs.ub.edu.ar.clinicavirtual.handler.AddPatientProfileHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.GetSpecialitiesHandler;
@@ -66,7 +66,7 @@ public class DataRegisterActivity extends BaseActivity {
     }
 
     private void loadSpecialities() {
-        ServerRequestSpecialityGetSpecialities requestSpecialities = new ServerRequestSpecialityGetSpecialities(ON_ACTIVITY_LOAD);
+        ServerRequestSearchSpecialities requestSpecialities = new ServerRequestSearchSpecialities(ON_ACTIVITY_LOAD);
         requestSpecialities.apiToken( apitoken() );
         connector().execute(requestSpecialities,this);
     }

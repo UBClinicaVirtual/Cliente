@@ -4,9 +4,9 @@ import pcs.ub.edu.ar.clinicavirtual.enums.METHOD;
 import pcs.ub.edu.ar.clinicavirtual.enums.URI;
 
 
-public class ServerRequestSpecialityGetSpecialities extends ServerRequestSpeciality {
+public class ServerRequestSearchSpecialities extends ServerRequestSpeciality {
 
-    public ServerRequestSpecialityGetSpecialities(Integer requesterId) {
+    public ServerRequestSearchSpecialities(Integer requesterId) {
         super(requesterId);
     }
 
