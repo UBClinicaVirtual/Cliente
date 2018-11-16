@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,8 +13,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
@@ -39,8 +42,13 @@ public class SearchTurnActivity extends BaseActivity  {
     public DatePickerDialog.OnDateSetListener mDateSinceSetListener;
     public DatePickerDialog.OnDateSetListener mDateUntilSetListener;
 
+    public static Date date = new Date();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         initScreen();
         setContentView(R.layout.activity_search_turn);
@@ -54,14 +62,20 @@ public class SearchTurnActivity extends BaseActivity  {
 
         initListener();
 
+
+
     }
 
     private void initListener() {
         mDateSinceSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
                 month = month +1;
-                btnSince.setText(year + validateDate(month) + validateDate(dayOfMonth));
+                if( isValidDate(year,month) )
+                    Toast.makeText(SearchTurnActivity.this, "Error en fecha...", Toast.LENGTH_SHORT).show();
+                else
+                    btnSince.setText(year + validateDate(month) + validateDate(dayOfMonth));
             }
         };
 
@@ -69,9 +83,16 @@ public class SearchTurnActivity extends BaseActivity  {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month +1;
-                btnUntil.setText(year + validateDate(month) + validateDate(dayOfMonth));
+                if( isValidDate(year,month) )
+                    btnUntil.setText(year + validateDate(month) + validateDate(dayOfMonth));
+                else
+                    Toast.makeText(SearchTurnActivity.this, "Error en fecha...", Toast.LENGTH_SHORT).show();
             }
         };
+    }
+
+    private boolean isValidDate(int year, int month) {
+       return  !((year%2000) < (date.getYear()%100) || month < (date.getMonth()+1));
     }
 
     private String validateDate(int mDate ){
