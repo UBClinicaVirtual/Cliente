@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,9 +13,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientAppointments;
+import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
+import pcs.ub.edu.ar.clinicavirtual.data.AppointmentAdapter2;
 import pcs.ub.edu.ar.clinicavirtual.handler.GetPatientAppointmentsHandler;
 
 public class MyTurnsActivity extends BaseActivity {
@@ -21,12 +28,38 @@ public class MyTurnsActivity extends BaseActivity {
     //Button mSearchMyTurns;
     //TextView mMyTurns;
 
-    private Toolbar mToolbar;
-    private Fragment mTurnsFragment;
+   // private Toolbar mToolbar;
+    //private Fragment mTurnsFragment;
    // private static Integer ON_LOAD = -1;
+
+    private RecyclerView recycler;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager Imanager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_turns);
+
+        List<Appointment> items = new ArrayList<>();
+
+        items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
+        items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
+        items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
+
+
+        recycler = (RecyclerView) findViewById(R.id.recycler);
+        recycler.setHasFixedSize(true);
+
+        Imanager = new LinearLayoutManager(this);
+        recycler.setLayoutManager(Imanager);
+
+        adapter = new AppointmentAdapter2(items);
+        recycler.setAdapter(adapter);
+
+        /*
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_turns);
         //initScreen();
@@ -39,7 +72,7 @@ public class MyTurnsActivity extends BaseActivity {
         setUpTurnsFragment();
 
         //getAppointments();
-
+*/
     }
 /*
     private void getAppointments() {
@@ -71,6 +104,7 @@ public class MyTurnsActivity extends BaseActivity {
 
         }
     */
+    /*
     private void setUpTurnsFragment() {
         if(mTurnsFragment == null){
             mTurnsFragment = TurnsFragment.newInstance();
@@ -80,6 +114,7 @@ public class MyTurnsActivity extends BaseActivity {
                     .commit();
         }
     }
+    */
 /*
     private void setUpToolbar() {
         setSupportActionBar(mToolbar);
@@ -87,7 +122,7 @@ public class MyTurnsActivity extends BaseActivity {
 */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_turns, menu);
+       // getMenuInflater().inflate(R.menu.menu_turns, menu);
         return true;
     }
 
