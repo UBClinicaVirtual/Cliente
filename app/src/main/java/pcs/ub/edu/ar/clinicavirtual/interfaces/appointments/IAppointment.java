@@ -2,7 +2,7 @@ package pcs.ub.edu.ar.clinicavirtual.interfaces.appointments;
 
 public interface IAppointment {
 
-    public Integer getID();
+    public String getID();
 
     public Integer getSpecialityID();
 

@@ -106,7 +106,7 @@ public class TestPatientProfileData {
 
         PatientProfileData patient = new PatientProfileData(mName, mSName, mEmail, mDNI);
 
-        assertEquals(mName, patient.getmName());
+        assertEquals(mName, patient.getmFirstName());
     }
 
 
@@ -119,6 +119,6 @@ public class TestPatientProfileData {
 
         PatientProfileData patient = new PatientProfileData(mName, mSName, mEmail, mDNI);
 
-        assertEquals(mName, patient.getmName());
+        assertEquals(mName, patient.getmFirstName());
     }
 }
