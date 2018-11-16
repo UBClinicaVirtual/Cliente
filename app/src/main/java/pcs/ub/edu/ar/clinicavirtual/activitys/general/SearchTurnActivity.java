@@ -16,6 +16,7 @@ import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.clinic.ServerRequestSearchClinic;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchClinicHandler;
+import pcs.ub.edu.ar.clinicavirtual.handler.SearchSpecialitiesHandler;
 
 public class SearchTurnActivity extends BaseActivity  {
 
@@ -41,16 +42,17 @@ public class SearchTurnActivity extends BaseActivity  {
         requestSearchClinic.apiToken( apitoken() );
         connector().execute(requestSearchClinic,this);
 
-        ServerRequestSearchSpecialities requestSearchSpecialities = new ServerRequestSearchSpecialities(ON_ACTIVITY_LOAD_SPECIALITIES);
-        requestSearchSpecialities.apiToken( apitoken() );
-        connector().execute(requestSearchSpecialities,this);
+
 
     }
 
     public void initClinicSpinner(ArrayList<String> clinics) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,clinics);
         spnClinic.setAdapter(adapter);
-        //Toast.makeText(this, clinics.get(0), Toast.LENGTH_SHORT).show();
+
+        ServerRequestSearchSpecialities requestSearchSpecialities = new ServerRequestSearchSpecialities(ON_ACTIVITY_LOAD_SPECIALITIES);
+        requestSearchSpecialities.apiToken( apitoken() );
+        connector().execute(requestSearchSpecialities,this);
     }
 
     public void initSpecialitiesSpinner(ArrayList<String> specialities){
@@ -74,7 +76,7 @@ public class SearchTurnActivity extends BaseActivity  {
     @Override
     public void loadHandlers(){
         handlers().put(ON_ACTIVITY_LOAD_CLINICS,new SearchClinicHandler());
-        handlers().put(ON_ACTIVITY_LOAD_SPECIALITIES,new SearchClinicHandler());
+        handlers().put(ON_ACTIVITY_LOAD_SPECIALITIES,new SearchSpecialitiesHandler());
     }
 
     @Override

@@ -32,7 +32,7 @@ public class SearchSpecialitiesHandler implements IServerResponseHandler {
                 specialities.add(jsonObject.getString("name"));
             }
 
-            turnActivity.initClinicSpinner(specialities);
+            turnActivity.initSpecialitiesSpinner(specialities);
 
         } catch (JSONException e) {
             e.printStackTrace();
