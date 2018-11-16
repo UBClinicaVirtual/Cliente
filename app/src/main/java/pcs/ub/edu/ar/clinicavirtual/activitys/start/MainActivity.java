@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Task;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.connection.check.internet.Internet;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.ServerRequestLoginUser;
 import pcs.ub.edu.ar.clinicavirtual.google.Google;
 import pcs.ub.edu.ar.clinicavirtual.handler.LoginResponseHandler;
@@ -43,15 +44,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()) {
 
             case R.id.btnSignIn:
-                view.setClickable(false);
-                //PREGUNTAR QUE ID USER TRAJO
-                startActivityForResult( mGoogle.SignInIntent() , mGoogle.RC() );
 
-                findViewById(R.id.progress).setVisibility(View.VISIBLE);
+                if(internetAvailable()){
+                    view.setClickable(false);
+                    //PREGUNTAR QUE ID USER TRAJO
+                    startActivityForResult( mGoogle.SignInIntent() , mGoogle.RC() );
 
+                    findViewById(R.id.progress).setVisibility(View.VISIBLE);
+                }else
+                    Toast.makeText(this, "Sin conexion a internet", Toast.LENGTH_SHORT).show();
                 break;
-
         }
+    }
+
+    private boolean internetAvailable() {
+        return Internet.isNetAvailable(this) && Internet.isOnlineNet();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

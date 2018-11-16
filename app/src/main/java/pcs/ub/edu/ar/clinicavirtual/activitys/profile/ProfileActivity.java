@@ -123,6 +123,6 @@ public class ProfileActivity extends BaseActivity {
 
     @Override
     protected void loadHandlers() {
-        this.handlers().put( USER_TYPE.PATIENT.getValue() , new GetPatientProfileHandler());
+        handlers().put( USER_TYPE.PATIENT.getValue() , new GetPatientProfileHandler());
     }
 }
