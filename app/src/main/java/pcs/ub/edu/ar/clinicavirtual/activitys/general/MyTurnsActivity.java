@@ -13,6 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +34,12 @@ public class MyTurnsActivity extends BaseActivity {
 
    // private Toolbar mToolbar;
     //private Fragment mTurnsFragment;
-   // private static Integer ON_LOAD = -1;
+    private static Integer ON_LOAD = -1;
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager Imanager;
-
+    private static List<Appointment> items = new ArrayList<>();
 
 
     @Override
@@ -43,11 +47,13 @@ public class MyTurnsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_turns);
 
-        List<Appointment> items = new ArrayList<>();
+        getAppointments();
 
-        items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
-        items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
-        items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
+     //   List<Appointment> items2 = items;
+
+     //   items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
+       // items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
+       // items.add(new Appointment("Prueba","20180621","prueba doc","dsfnsondfso"));
 
 
         recycler = (RecyclerView) findViewById(R.id.recycler);
@@ -58,6 +64,8 @@ public class MyTurnsActivity extends BaseActivity {
 
         adapter = new AppointmentAdapter2(items);
         recycler.setAdapter(adapter);
+
+
 
         /*
         super.onCreate(savedInstanceState);
@@ -74,13 +82,26 @@ public class MyTurnsActivity extends BaseActivity {
         //getAppointments();
 */
     }
-/*
+
     private void getAppointments() {
         ServerRequestUserGetPatientAppointments getPatientAppointments = new ServerRequestUserGetPatientAppointments(ON_LOAD);
         getPatientAppointments.apiToken( apitoken() );
         connector().execute(getPatientAppointments,this);
+
+
     }
-    */
+
+    public static void loadAppointment(String response)throws JSONException {
+        JSONObject json = new JSONObject(response);
+        JSONArray jsonArray = json.getJSONArray("appointments");
+        for(int i = 0; i<jsonArray.length(); i++){
+            json = jsonArray.getJSONObject(i);
+            items.add(new Appointment(json.getString("clinic_business_name"),json.getString("appointment_date"),json.getString("hcp_last_name"),json.getString("appointment_status_name")));
+        }
+
+
+    }
+
 
     /*
         private void initScreen() {
@@ -164,10 +185,12 @@ public class MyTurnsActivity extends BaseActivity {
     protected void loadNextActivityHandler() {
 
     }
-/*
+
     @Override
     protected void loadHandlers() {
         this.handlers().put(ON_LOAD, new GetPatientAppointmentsHandler());
+
+
     }
-*/
+
 }

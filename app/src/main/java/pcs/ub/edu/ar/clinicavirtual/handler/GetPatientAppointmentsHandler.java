@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.activitys.general.MyTurnsActivity;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.user.ServerRequestUserGetPatientAppointments;
 import pcs.ub.edu.ar.clinicavirtual.data.CloudAppointmentsDatasource;
 import pcs.ub.edu.ar.clinicavirtual.interfaces.handler.IServerResponseHandler;
@@ -26,7 +27,8 @@ public class GetPatientAppointmentsHandler implements IServerResponseHandler {
    //     CloudAppointmentsDatasource cloudAppointmentsDatasource = (CloudAppointmentsDatasource) activity;
 
         try {
-            CloudAppointmentsDatasource.loadAppointment(response);
+            //CloudAppointmentsDatasource.loadAppointment(response);
+            MyTurnsActivity.loadAppointment(response);
             //JSONObject jsonObject = new JSONObject(response);
             //JSONArray jsonArray = jsonObject.getJSONArray("appointments");
             //jsonObject= jsonArray.getJSONObject(0);

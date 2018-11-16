@@ -24,7 +24,7 @@ public class AppointmentAdapter2 extends RecyclerView.Adapter<AppointmentAdapter
 
         public AppointmentViewHolder(View v){
             super(v);
-            
+
             mclinic_name = (TextView) itemView.findViewById(R.id.clinic_name);
             mdate = (TextView) itemView.findViewById(R.id.appointment_date);
             mhcp = (TextView) itemView.findViewById(R.id.hcp_name);
