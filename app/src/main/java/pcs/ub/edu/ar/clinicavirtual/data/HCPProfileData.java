@@ -7,17 +7,24 @@ import pcs.ub.edu.ar.clinicavirtual.interfaces.data.ISpeciality;
 
 public class HCPProfileData implements IHCPProfileData {
 
-    Integer  mID;
-    String   mName;
-    Long     mLicenseID;
+    Integer mID;
+    String  mFirstName;
+    String  mLastName;
+    Long    mLicenseID;
     List<ISpeciality> mSpecialities;
 
 
     public HCPProfileData(Integer id, String name, Long licenseID, List<ISpeciality> specialities){
         mID = id;
-        mName = name;
+        mFirstName = name;
         mLicenseID = licenseID;
         mSpecialities = specialities;
+    }
+
+    public HCPProfileData(Integer id, String lastName, String firstName ){
+        mID = id;
+        mLastName = lastName;
+        mFirstName = firstName;
     }
 
     @Override
@@ -26,8 +33,8 @@ public class HCPProfileData implements IHCPProfileData {
     }
 
     @Override
-    public String getmName() {
-        return mName;
+    public String getmFirstName() {
+        return mFirstName;
     }
 
     @Override
@@ -44,4 +51,14 @@ public class HCPProfileData implements IHCPProfileData {
     public Long getLicenseID() {
         return mLicenseID;
     }
+
+
+    public String getmLastName() {
+        return mLastName;
+    }
+
+    public String completeName(){
+        return (mLastName+", "+mFirstName);
+    }
+
 }
