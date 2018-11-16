@@ -8,7 +8,8 @@ import pcs.ub.edu.ar.clinicavirtual.interfaces.appointments.IPatientAppointment;
 
 public class Appointment implements IClinicAppointment, IPatientAppointment, IHCPAppointment {
 
-    String mID;
+    String  mID;
+    Integer mAppointmentID;
     Integer mClinicID;
     String  mClinicName;
     Integer mSpecialityID;
@@ -21,6 +22,11 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
     String  mHCPName;
     Integer mHCPID;
     String  mImageUrl;
+    PatientProfileData  mPatient;
+    ClinicProfileData   mClinic;
+    Speciality          mSpeciality;
+    HCPProfileData      mHcp;
+
 
 
 
@@ -44,14 +50,23 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
         mHCPName = hCPName;
     }
 
-    public Appointment(String clinic, String date, String doctor, String status) {
-        mID = UUID.randomUUID().toString();
-        mClinicName = clinic;
-        mDate = date;
-        mHCPName = doctor;
-        mStateLebel = status;
-       // mImageUrl = imageUrl;
+    public Appointment(Integer appointmentId, Integer clinicId, String clinicName, Integer specialityId,
+                       String specialityName, Integer hcpId, String hcpFirstName, String hcpLastName,
+                       String appointmentDate, Integer appointmentStatusId, String appointmentStatusName) {
+
+         mAppointmentID = appointmentId;
+         mClinic = new ClinicProfileData(clinicId,clinicName);
+         mSpeciality = new Speciality(specialityId,specialityName);
+         mHcp = new HCPProfileData(hcpId,hcpLastName,hcpFirstName);
+         mDate = appointmentDate;
+         mState = appointmentStatusId;
+         mStateLebel = appointmentStatusName;
+
+
+
     }
+
+
 
 
     @Override
@@ -121,5 +136,47 @@ public class Appointment implements IClinicAppointment, IPatientAppointment, IHC
     public void setmImageUrl(String mImageUrl) {
         this.mImageUrl = mImageUrl;
     }
+
+
+    public PatientProfileData getmPatient() {
+        return mPatient;
+    }
+
+    public void setmPatient(PatientProfileData mPatient) {
+        this.mPatient = mPatient;
+    }
+
+    public ClinicProfileData getmClinic() {
+        return mClinic;
+    }
+
+    public void setmClinic(ClinicProfileData mClinic) {
+        this.mClinic = mClinic;
+    }
+
+    public Speciality getmSpeciality() {
+        return mSpeciality;
+    }
+
+    public void setmSpeciality(Speciality mSpeciality) {
+        this.mSpeciality = mSpeciality;
+    }
+
+
+    public Integer getmAppointmentID() {
+        return mAppointmentID;
+    }
+
+    public void setmAppointmentID(Integer mAppointmentID) {
+        this.mAppointmentID = mAppointmentID;
+    }
+    public HCPProfileData getmHcp() {
+        return mHcp;
+    }
+
+    public void setmHcp(HCPProfileData mHcp) {
+        this.mHcp = mHcp;
+    }
+
 
 }
