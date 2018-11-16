@@ -1,6 +1,8 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys.general;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,9 +17,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
@@ -25,18 +29,20 @@ import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.request
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.clinic.ServerRequestSearchClinic;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.hcp.ServerRequestSearchHCP;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
+import pcs.ub.edu.ar.clinicavirtual.data.Appointment;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchAvailableAppointmentsHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchClinicHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchHCPsHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchSpecialitiesHandler;
 
-public class SearchTurnActivity extends BaseActivity  {
+public class SearchTurnActivity extends BaseActivity  implements Serializable{
 
     Spinner spnClinic;
     Spinner spnHCP;
     Spinner spnSpeciality;
     Button  btnSince;
     Button  btnUntil;
+    private static String response;
 
     public static Integer ON_ACTIVITY_LOAD_CLINICS = -1;
     public static Integer ON_ACTIVITY_LOAD_SPECIALITIES = -2;
@@ -172,6 +178,15 @@ public class SearchTurnActivity extends BaseActivity  {
                 ServerRequestSearchAvailableAppointments searchAvailableAppointments = new ServerRequestSearchAvailableAppointments(R.id.btnSearchTurn,parameters());
                 searchAvailableAppointments.apiToken( apitoken() );
                 connector().execute(searchAvailableAppointments,this);
+
+                String response2 = "{\"appointments_available\":[{\"id\":\"78\",\"hcp_id\":\"1\",\"hcp_first_name\":\"Juan Jose\",\"hcp_last_name\": \"Ingenieros\",\"clinic_id\":\" 1\",\"clinic_name\": \"Clinica de la trinidad\",\t\"speciality_id\": 1,\"speciality_name\": \"Guardia de ginecologia\",\t\"appointment_hour\": \"18:30\",\"day_of_the_week\": \"4\",\"appointment_date\": \"2018-09-20\"}]}";
+
+
+                Intent mIntent = new Intent(SearchTurnActivity.this, MyTurnsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("lista", (Serializable) response2);
+                mIntent.putExtras(bundle);
+                startActivity(mIntent);
         }
     }
 
@@ -220,4 +235,9 @@ public class SearchTurnActivity extends BaseActivity  {
     protected void loadNextActivityHandler() {
 
     }
+
+    public void loadAppointment(String response2) throws JSONException{
+        response = response2;
+    }
+
 }
