@@ -8,30 +8,30 @@
 
     <Spinner
         android:id="@+id/spnSearchTurnClinic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:spinnerMode="dialog"
+        android:dropDownWidth="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spnSearchTurnSpeciality"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
         android:layout_marginTop="8dp"
-        android:spinnerMode="dialog"
+        android:dropDownWidth="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnClinic" />
 
     <Spinner
         android:id="@+id/spnSearchTurnHCP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
         android:layout_marginTop="8dp"
-        android:spinnerMode="dialog"
+        android:dropDownWidth="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnSpeciality" />
@@ -39,10 +39,10 @@
     <Button
         android:id="@+id/btnSearchTurnDateSince"
         style="@android:style/Widget.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="117dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="20dp"
         android:text="@string/fecha_desde"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnHCP" />
@@ -50,10 +50,10 @@
     <Button
         android:id="@+id/btnSearchTurnDateUntil"
         style="@android:style/Widget.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="44dp"
+        android:layout_width="117dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="76dp"
         android:text="@string/fecha_hasta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnSearchTurnHCP" />

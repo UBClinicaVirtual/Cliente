@@ -83,9 +83,10 @@ public class SearchTurnActivity extends BaseActivity  {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month +1;
                 if( isValidDate(year,month) )
-                    btnUntil.setText(year + validateDate(month) + validateDate(dayOfMonth));
-                else
                     Toast.makeText(SearchTurnActivity.this, "Error en fecha...", Toast.LENGTH_SHORT).show();
+                else
+                    btnUntil.setText(year + validateDate(month) + validateDate(dayOfMonth));
+
             }
         };
     }
