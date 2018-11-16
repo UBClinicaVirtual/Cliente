@@ -47,7 +47,7 @@ public class UserData /*implements IUserProfileData*/ {
     }
 
   /*  private Integer mID;
-    private String 	mName;
+    private String 	mFirstName;
     private String 	mEmail;
 
     public UserData(Integer id, String name, String email) {
@@ -68,14 +68,14 @@ public class UserData /*implements IUserProfileData*/ {
         this.mID = mID;
     }
     @Override
-    public String getmName() {
-        return mName;
+    public String getmFirstName() {
+        return mFirstName;
     }
 
-    private void setmName(String mName) {
-        if ((mName == null) || (mName.trim().isEmpty()))
+    private void setmName(String mFirstName) {
+        if ((mFirstName == null) || (mFirstName.trim().isEmpty()))
             throw new UserDataNullNameException();
-        this.mName = mName;
+        this.mFirstName = mFirstName;
     }
     @Override
     public String getmEmail() {
