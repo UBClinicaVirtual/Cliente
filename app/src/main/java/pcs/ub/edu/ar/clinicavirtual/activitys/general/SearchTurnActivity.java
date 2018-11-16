@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,9 +21,11 @@ import java.util.Date;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
+import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.appointment.ServerRequestSearchAvailableAppointments;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.clinic.ServerRequestSearchClinic;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.hcp.ServerRequestSearchHCP;
 import pcs.ub.edu.ar.clinicavirtual.connection.facade.pattern.connection.requests.speciality.ServerRequestSearchSpecialities;
+import pcs.ub.edu.ar.clinicavirtual.handler.SearchAvailableAppointmentsHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchClinicHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchHCPsHandler;
 import pcs.ub.edu.ar.clinicavirtual.handler.SearchSpecialitiesHandler;
@@ -92,7 +96,7 @@ public class SearchTurnActivity extends BaseActivity  {
     }
 
     private boolean isValidDate(int year, int month) {
-       return  ((year%2000) < (date.getYear()%100) || month < (date.getMonth()+1));
+       return  ((year%2000) < (date.getYear()%100) /*|| month < (date.getMonth()+1)*/);
     }
 
     private String validateDate(int mDate ){
@@ -104,6 +108,7 @@ public class SearchTurnActivity extends BaseActivity  {
     public void initClinicSpinner(ArrayList<String> clinics) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,clinics);
         spnClinic.setAdapter(adapter);
+
 
         ServerRequestSearchSpecialities requestSearchSpecialities = new ServerRequestSearchSpecialities(ON_ACTIVITY_LOAD_SPECIALITIES);
         requestSearchSpecialities.apiToken( apitoken() );
@@ -134,6 +139,7 @@ public class SearchTurnActivity extends BaseActivity  {
 
         btnSince.setOnClickListener(this);
         btnUntil.setOnClickListener(this);
+        findViewById(R.id.btnSearchTurn).setOnClickListener(this);
     }
 
     private void initScreen() {
@@ -143,9 +149,11 @@ public class SearchTurnActivity extends BaseActivity  {
 
     @Override
     public void loadHandlers(){
+
         handlers().put(ON_ACTIVITY_LOAD_CLINICS,new SearchClinicHandler());
         handlers().put(ON_ACTIVITY_LOAD_SPECIALITIES,new SearchSpecialitiesHandler());
         handlers().put(ON_ACTIVITY_LOAD_HCPS,new SearchHCPsHandler());
+        handlers().put(R.id.btnSearchTurn,new SearchAvailableAppointmentsHandler());
 
     }
 
@@ -159,8 +167,36 @@ public class SearchTurnActivity extends BaseActivity  {
                 chooseDate(mDateUntilSetListener);
                 break;
             case R.id.btnSearchTurn:
+                Toast.makeText(this, "boton buscar", Toast.LENGTH_SHORT).show();
 
+                ServerRequestSearchAvailableAppointments searchAvailableAppointments = new ServerRequestSearchAvailableAppointments(R.id.btnSearchTurn,parameters());
+                searchAvailableAppointments.apiToken( apitoken() );
+                connector().execute(searchAvailableAppointments,this);
         }
+    }
+
+    private String parameters() {
+
+        Toast.makeText(this, "CLINICA " + spnClinic.getSelectedItemId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "DOCTOR " + spnHCP.getSelectedItemId(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "SPECIALITY  " + spnSpeciality.getSelectedItemId(), Toast.LENGTH_SHORT).show();
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("clinic_id",spnClinic.getSelectedItemId()+1);
+            jsonObject.put("speciality_id",spnSpeciality.getSelectedItemId()+1);
+            jsonObject.put("hcp_id",spnClinic.getSelectedItemId()+1);
+            jsonObject.put("date_from",btnSince.getText());
+            jsonObject.put("date_to",btnUntil.getText());
+
+            return jsonObject.toString();
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private void chooseDate(DatePickerDialog.OnDateSetListener mDateSetListener) {
