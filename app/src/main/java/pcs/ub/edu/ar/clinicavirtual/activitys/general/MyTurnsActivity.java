@@ -54,45 +54,15 @@ public class MyTurnsActivity extends BaseActivity {
         getAppointments();
 
 
-        List<Appointment> items = new ArrayList<>();
+        //List<Appointment> items = new ArrayList<>();
 
-        items.add(new Appointment(8820,123,"Clinica de la trinidad",124,"Traumatologo",9988,
-                "Bernabe","Marquez","2018/04/01 16:50",1,"Pending"));
-        items.add(new Appointment(8822,124,"Hospital Italiano",125,"Pediatria",9989,
-                "Fernando","Romero","2018/04/01 16:52",1,"Pending"));
-        items.add(new Appointment(8825,125,"Clinica de la trinidad",126,"Salud mental",9991,
-                "Gabriel","Espina","2018/04/01 16:53",1,"Pending"));
+        //items.add(new Appointment(8820,123,"Clinica de la trinidad",124,"Traumatologo",9988,
+           //     "Bernabe","Marquez","2018/04/01 16:50",1,"Pending"));
+        //items.add(new Appointment(8822,124,"Hospital Italiano",125,"Pediatria",9989,
+            //    "Fernando","Romero","2018/04/01 16:52",1,"Pending"));
+      //  items.add(new Appointment(8825,125,"Clinica de la trinidad",126,"Salud mental",9991,
+              //  "Gabriel","Espina","2018/04/01 16:53",1,"Pending"));
 
-
-        recycler = (RecyclerView) findViewById(R.id.recycler);
-       // LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(MyTurnsActivity.this,
-              //  LinearLayoutManager.VERTICAL,false);
-        //recycler.setLayoutManager(mLinearLayoutManager);
-        recycler.setHasFixedSize(true);
-
-        Imanager = new LinearLayoutManager(this);
-        recycler.setLayoutManager(Imanager);
-
-        adapter = new AppointmentAdapter2(MyTurnsActivity.this,items);
-        recycler.setAdapter(adapter);
-
-
-
-
-        /*
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_turns);
-        //initScreen();
-       // initElements();
-       // initListeners();
-       // mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mTurnsFragment = getSupportFragmentManager().findFragmentById(R.id.turns_container);
-
-       // setUpToolbar();
-        setUpTurnsFragment();
-
-        //getAppointments();
-*/
     }
 
     private void getAppointments() {
@@ -130,7 +100,7 @@ public class MyTurnsActivity extends BaseActivity {
         Imanager = new LinearLayoutManager(this);
         recycler.setLayoutManager(Imanager);
 
-        adapter = new AppointmentAdapter2(items);
+        adapter = new AppointmentAdapter2(MyTurnsActivity.this,items);
         recycler.setAdapter(adapter);
     }
 
