@@ -1,13 +1,21 @@
 package pcs.ub.edu.ar.clinicavirtual.activitys.start;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.common.api.ResultCallback;
 
 import pcs.ub.edu.ar.clinicavirtual.R;
 import pcs.ub.edu.ar.clinicavirtual.activitys.base.BaseActivity;
@@ -23,6 +31,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     IGoogle mGoogle = new Google(this);
     Boolean mCloseApplication = false;
 
+    private GoogleApiClient apiClient;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +47,56 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void initListeners() {
         findViewById(R.id.btnSignIn).setOnClickListener(this);
     }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        if (mGoogle.account().getIdToken() == null){
+
+        }
+
+        findViewById(R.id.progress).setVisibility(View.VISIBLE);
+        startActivityForResult( mGoogle.SignInIntent() , mGoogle.RC() );
+        //OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(apiClient);
+        /*
+        if (opr.isDone()){
+            // If user cached credentials are valid, will be done the googlesigninresult
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        }else{
+
+            showProgressDialog();
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>()){
+                 @Override
+                 public void onResult(GoogleSignInResult googleSignInResult)    {
+                    hideProgressDialog();
+                    handleSignInResult(googleSignInResult);
+                }
+            };
+
+        }
+        */
+    }
+
+    private void handleSignInResult(GoogleSignInResult result){
+        if(result.isSuccess()){
+            // user logged
+            GoogleSignInAccount acct = result.getSignInAccount();
+            updateUI(true);
+        }else{
+            updateUI(false);
+        }
+    }
+
+    private void updateUI(boolean signedIn){
+        if(signedIn){
+            findViewById(R.id.btnSignIn).setVisibility(View.GONE);
+        }else {
+            findViewById(R.id.btnSignIn).setVisibility(View.VISIBLE);
+        }
+    }
+
 
 
     //depending on the button to make
